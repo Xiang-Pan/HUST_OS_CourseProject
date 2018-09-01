@@ -12,17 +12,38 @@
 #include <unistd.h>
 
 
-class Processes
+//class Processes
+//{
+//public:
+//    Processes();
+
+//};
+
+/*
+us: user cpu time (or) % CPU time spent in user space
+sy: system cpu time (or) % CPU time spent in kernel space
+ni: user nice cpu time (or) % CPU time spent on low priority processes
+id: idle cpu time (or) % CPU time spent idle
+wa: io wait cpu time (or) % CPU time spent in wait (on disk)
+hi: hardware irq (or) % CPU time spent servicing/handling hardware interrupts
+si: software irq (or) % CPU time spent servicing/handling software interrupts
+st: steal time - - % CPU time in involuntary wait by virtual cpu while hypervisor is servicing another processor (or) % CPU time stolen from a virtual machine
+*/
+/*
+ * utime: user
+ * stime: system time
+ * ntime: nice time, the time for modefiy the priority of cpu
+ * itime: idle time
+ * iowtime: io waiting time
+ * irqtime: interuption time
+ * sirqtime: soft interuption time
+*/
+struct cpu_info
 {
-public:
-    Processes();
-
-};
-
-struct cpu_info {
     long unsigned utime, ntime, stime, itime;
     long unsigned iowtime, irqtime, sirqtime;
 };
+
 
 #define PROC_NAME_LEN 64
 #define THREAD_NAME_LEN 32
@@ -54,8 +75,46 @@ struct proc_list
     int size;
 };
 
+#define die(...) { fprintf(stderr, __VA_ARGS__); exit(EXIT_FAILURE); }
+
 #define INIT_PROCS 50
 #define THREAD_MULT 8
+
+
+#define MAX_LINE 256
+
+
+static struct proc_info **old_procs, **new_procs;
+static int num_old_procs, num_new_procs;
+static struct proc_info *free_procs;
+static int num_used_procs, num_free_procs;
+
+static int max_procs, delay, iterations, threads;
+
+static struct cpu_info old_cpu, new_cpu;
+
+static struct proc_info *alloc_proc(void);
+static void free_proc(struct proc_info *proc);
+static void read_procs(void);
+static int read_stat(char *filename, struct proc_info *proc);
+static void read_policy(int pid, struct proc_info *proc);
+static void add_proc(int proc_num, struct proc_info *proc);
+static int read_cmdline(char *filename, struct proc_info *proc);
+static int read_status(char *filename, struct proc_info *proc);
+static void print_procs(void);
+static struct proc_info *find_old_proc(pid_t pid, pid_t tid);
+static void free_old_procs(void);
+static int (*proc_cmp)(const void *a, const void *b);
+//extern int (*a)(const void *a, const void *b);
+
+static int proc_cpu_cmp(const void *a, const void *b);
+//a=&proc_cpu_cmp;
+static int proc_vss_cmp(const void *a, const void *b);
+static int proc_rss_cmp(const void *a, const void *b);
+static int proc_thr_cmp(const void *a, const void *b);
+static int numcmp(long long a, long long b);
+static void usage(char *cmd);
+
 
 
 

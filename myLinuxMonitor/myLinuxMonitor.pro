@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
+QT      +=charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,15 +27,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    resources.cpp \
-    filesystems.cpp \
-    processes.cpp
+    chart.cpp \
+    processes.cpp \
+    filesystems.cpp
 
 HEADERS += \
         mainwindow.h \
-    resources.h \
     filesystems.h \
-    processes.h
+    processes.h \
+    chart.h \
 
 FORMS += \
         mainwindow.ui
