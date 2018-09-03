@@ -1,4 +1,4 @@
 Others/
-build-*/
+*build-*/
 /mySystemCall/
 .~*

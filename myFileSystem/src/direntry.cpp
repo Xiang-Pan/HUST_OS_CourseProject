@@ -1,4 +1,4 @@
-#include "direntry.hpp"
+#include "../include/direntry.hpp"
 #include <algorithm>
 #include <sstream>
 #include <vector>

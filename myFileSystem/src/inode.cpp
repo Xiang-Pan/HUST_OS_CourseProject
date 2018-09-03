@@ -1,4 +1,4 @@
-#include "inode.hpp"
+#include "../include/inode.hpp"
 #include <algorithm>
 #include <list>
 #include <vector>
@@ -65,4 +65,37 @@ Inode::~Inode()
     }
     free_list->emplace_front(size, start);
 }
+
+
+
+// // 从磁盘中读取inode
+// bool Inode::read_inode_from_disk(int inode_num) 
+// {
+//     assert(inode_num >= 0 && inode_num < INODE_NUM);
+//     set_inode_num(inode_num);
+//     int sec_num = get_inode_sec_num();
+//     int num_in_sec = inode_num % 16;
+//     BufferNode buffer_node;
+
+//     buffer.read_disk(sec_num, buffer_node);
+//     memcpy(this, buffer_node.buffer + num_in_sec * sizeof(Inode), sizeof(Inode));
+
+//     return true;
+// }
+
+// // D: inode is used and modefied
+// bool Inode::write_inode_back_to_disk(int inode_num)
+// {
+//    block_size
+//     int sec_num = get_inode_sec_num();
+//     int num_in_sec = _inode_num % 16;
+//     BufferNode buffer_node;
+//
+//     buffer.read_disk(sec_num, buffer_node);
+//     memcpy(buffer_node.buffer + num_in_sec * sizeof(Inode), this, sizeof(Inode));
+//     cout << "将inode写回磁盘, inode号码" << _inode_num << ", 扇区号：" << sec_num << endl;
+//     buffer.write_disk(buffer_node);
+//     return true;
+// }
+
 

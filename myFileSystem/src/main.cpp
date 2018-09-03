@@ -2,11 +2,14 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "myfs.hpp"
+#include "../include/myfs.hpp"
 
-#include <boost/archive/text_oarchive.hpp> //文本格式输入存档
-#include <boost/archive/text_iarchive.hpp> //文本格式输出存档
-#include <boost/serialization/vector.hpp>  //vector的序列化实现头文件
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+
 using namespace boost;
 
 using std::cerr;
@@ -240,22 +243,9 @@ int main(int argc, char **argv)
 #ifdef DEBUG
     test_fs(string(argv[1]));
 #else
-    // repl(string(argv[1]));  // Read-eval-print-loop
-    // timer  t;
-	// vector<int> v = (assign::list_of(1), 2, 3, 4, 5);
-	// //(assign::list_of(1)( 2)(3)( 4) (5));
-	// BOOST_FOREACH(int x, v)
-	// {
-	// 	cout << x << ",";
-	// }
-	// cout << endl;
- 
-	// cout << t.elapsed() << "s" << endl;
-	// cout << "Hello world!" << endl;
-	// system("pause");
-	// return 0;
+    repl(argv[1]);
 #endif
-    // return 0;
+    return 0;
 }
 
 

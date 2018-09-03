@@ -1,0 +1,11 @@
+obj-m := myDevDriver.o
+PWD := $(shell pwd)
+
+
+KERNELDIR := ../mySystemCall/linux-4.18.5
+all:make -C $(KERNELDIR) M=$(PWD) modules
+
+
+.PHONY: clean # prevent make clean error while clean is a target
+clean:
+	rm -rf *.o *~ core *.ko *.mod.c modules.order Module.symvers

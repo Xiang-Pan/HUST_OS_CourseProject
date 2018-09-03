@@ -16,6 +16,10 @@ myfs.o: myfs.cpp myfs.hpp
 direntry.o: direntry.cpp direntry.hpp
 	$(CXX) $(CFLAGS) -c direntry.cpp
 
+superblock.o: superblock.cpp superblock.hpp
+	$(CXX) $(CFLAGS) -c superblock.cpp
+
+
 inode.o: inode.cpp inode.hpp
 	$(CXX) $(CFLAGS) -c inode.cpp
 

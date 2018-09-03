@@ -1,4 +1,4 @@
-#include "myfs.hpp"
+#include "../include/myfs.hpp"
 #include <cmath>
 #include <iostream>
 #include <iomanip>
@@ -9,9 +9,9 @@
 #include <vector>
 #include <deque>
 #include <assert.h>
-#include "direntry.hpp"
-#include "inode.hpp"
-#include "freenode.hpp"
+#include "../include/direntry.hpp"
+#include "../include/inode.hpp"
+#include "../include/freenode.hpp"
 
 using namespace std;
 
@@ -48,6 +48,8 @@ myFS::myFS(const string& filename,
     // init inode
     Inode::block_size = block_size;
     Inode::free_list = &free_list;
+
+
     root_dir = DirEntry::make_de_dir("root", nullptr);
 
     // start at root dir/ set pwd
