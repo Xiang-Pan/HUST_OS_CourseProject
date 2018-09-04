@@ -2,20 +2,26 @@
 #define _MYFS_H_
 
 
-#include<boost/serialization/vector.hpp>
+//#include<boost/serialization/vector.hpp>
 #include <fstream>
 #include <list>
 #include <map>
 #include <string>
 #include <vector>
+#include "macro.h"
 #include "inode.hpp"
 #include "direntry.hpp"
 #include "freenode.hpp"
+#include "superblock.hpp"
+#include "Buffer.hpp"
 
+
+using namespace std;
 
 
 class myFS 
 {
+
     enum Mode {R, W, RW}; // open file mode
 
     // Mode 
@@ -23,88 +29,99 @@ class myFS
     {
         Mode mode;
         uint byte_pos;
-        std::weak_ptr<Inode> inode;
-        std::weak_ptr<DirEntry> from;
+        weak_ptr<Inode> inode;
+        weak_ptr<DirEntry> from;
         uint fd;
     };
-    bool getMode(Mode *mode, std::string mode_s);
+    bool getMode(Mode *mode, string mode_s);
 
     //return path
     struct PathRet 
     {
         bool invalid_path = false;
-        std::string final_name;
-        std::shared_ptr<DirEntry> parent_node;
-        std::shared_ptr<DirEntry> final_node;
+        string final_name;
+        shared_ptr<DirEntry> parent_node;
+        shared_ptr<DirEntry> final_node;
     };
 
     // can be seen as superblock
-    const std::string filename;
-    std::fstream disk_file;
-    const uint block_size;
-    const uint direct_blocks;
-    const uint num_blocks;
+    string filename;     //disk file name
+
+    uint block_size;
+    uint direct_blocks;
+    uint block_num;
 
     // DirEntry root;
-    std::list<FreeNode>free_list;
-    std::shared_ptr<DirEntry> root_dir;
-    std::shared_ptr<DirEntry> pwd;
-    std::map<uint, Descriptor> open_files;  //save open file uint and desp
+    list<FreeNode>free_list;
+    shared_ptr<DirEntry> root_dir;
+    shared_ptr<DirEntry> pwd;
+    map<uint, Descriptor> open_files;  //save open file uint and desp
     uint next_descriptor = 0;
 
-    void init_disk(const std::string& filename);
-    std::unique_ptr<PathRet> parse_path(std::string path_str) const;
-    bool basic_open(Descriptor *d, std::vector <std::string> args);
-    std::unique_ptr<std::string> basic_read(Descriptor &desc, const uint size);
-    uint basic_write(Descriptor &desc, const std::string data);
+    void init_disk(const string& filename);
+    unique_ptr<PathRet> parse_path(string path_str) const;
+    bool basic_open(Descriptor *d, vector <string> args);
+    unique_ptr<string> basic_read(Descriptor &desc, const uint size);
+    uint basic_write(Descriptor &desc, const string data);
     bool basic_close(uint fd);
 
     public:
-    myFS(const std::string& filename,
-        const uint fs_size,
-        const uint block_size,
-        const uint direct_blocks);
+    myFS(string& filename);
     ~myFS();
-    void open(std::vector<std::string> args);
-    void read(std::vector<std::string> args);
-    void write(std::vector<std::string> args);
-    void seek(std::vector<std::string> args);
-    void close(std::vector<std::string> args);
-    void mkdir(std::vector<std::string> args);
-    void rmdir(std::vector<std::string> args);
-    void cd(std::vector<std::string> args);
-    void link(std::vector<std::string> args);
-    void unlink(std::vector<std::string> args);
-    void stat(std::vector<std::string> args);
-    void ls(std::vector<std::string> args);
-    void cat(std::vector<std::string> args);
-    void cp(std::vector<std::string> args);
-    void tree(std::vector<std::string> args);
-    void import(std::vector<std::string> args);
-    void printwd(std::vector<std::string> args);
-
-    std::string getpwd(std::vector<std::string> args);
-
-    void FS_export(std::vector<std::string> args);
 
 
-    friend class boost::serialization::access;
-	template<class Archive>
-	void save(Archive & ar, const unsigned int version) const
-	{
-        ar &filename;
-        ar &num_blocks;
-        ar &block_size;
-        ar &direct_blocks;
-	}
-	template<class Archive>
-	void load(Archive & ar, const unsigned int version)
-	{
-		ar &filename;
-        ar &num_blocks;
-        ar &block_size;
-        ar &direct_blocks;
-	}
+    fstream disk_file;
+
+
+    class SuperBlock* p_sp;
+
+    // current dir
+    Inode cur_dir_node; // current dir inode
+    DirEntry cur_dir;   //current dir
+
+    // cache
+    Buffer fs_cache;
+
+    void open(vector<string> args);
+    void read(vector<string> args);
+    void write(vector<string> args);
+    void seek(vector<string> args);
+    void close(vector<string> args);
+    void mkdir(vector<string> args);
+    void rmdir(vector<string> args);
+    void cd(vector<string> args);
+    void link(vector<string> args);
+    void unlink(vector<string> args);
+    void stat(vector<string> args);
+    void ls(vector<string> args);
+    void cat(vector<string> args);
+    void cp(vector<string> args);
+    void tree(vector<string> args);
+    void import(vector<string> args);
+    void printwd(vector<string> args);
+
+    string getpwd(vector<string> args);
+
+    void FS_export(vector<string> args);
+
+
+//    friend class boost::serialization::access;
+//	template<class Archive>
+//	void save(Archive & ar, const unsigned int version) const
+//	{
+//        ar &filename;
+//        ar &blocks_num;
+//        ar &block_size;
+//        ar &direct_blocks;
+//	}
+//	template<class Archive>
+//	void load(Archive & ar, const unsigned int version)
+//	{
+//		ar &filename;
+//        ar &blocks_num;
+//        ar &block_size;
+//        ar &direct_blocks;
+//	}
 
 };
 

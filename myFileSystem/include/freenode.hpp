@@ -7,9 +7,9 @@
 class FreeNode 
 {
 	public:
-	uint num_blocks;	//free node num
+	uint block_num;		//free node num
 	uint pos;			//start pos
-	FreeNode(uint num_blocks, uint pos): num_blocks(num_blocks),pos(pos) {}
+	FreeNode(uint block_num, uint pos): block_num(block_num),pos(pos) {}
 };
 
 #endif /* _FREENODE_H_ */

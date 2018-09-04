@@ -8,29 +8,31 @@
 #include "freenode.hpp"
 #include "inode.hpp"
 
+using namespace std;
+
 enum EntryType { file, dir };
 
-class DirEntry: public std::enable_shared_from_this<DirEntry> 
+class DirEntry: public enable_shared_from_this<DirEntry> 
 {
-    DirEntry();
     public:
-    static std::shared_ptr<DirEntry> make_de_dir(const std::string name,
-                                                const std::shared_ptr<DirEntry> parent);
-    static std::shared_ptr<DirEntry> make_de_file(const std::string name,
-                                                const std::shared_ptr<DirEntry> parent,
-                                                const std::shared_ptr<Inode> &inode=nullptr);
+    DirEntry();
+    static shared_ptr<DirEntry> make_de_dir(const string name,
+                                                const shared_ptr<DirEntry> parent);
+    static shared_ptr<DirEntry> make_de_file(const string name,
+                                                const shared_ptr<DirEntry> parent,
+                                                const shared_ptr<Inode> &inode=nullptr);
     uint block_size;
     EntryType type;                 //file or dir
-    std::string name;   
-    std::weak_ptr<DirEntry> parent; // .
-    std::weak_ptr<DirEntry> self;   // ..
-    std::shared_ptr<Inode> inode;   // file
-    std::list<std::shared_ptr<DirEntry>> contents; // dir entry
-    bool is_locked;                                // lock 
+    string name;   
+    weak_ptr<DirEntry> parent; // .
+    weak_ptr<DirEntry> self;   // ..
+    shared_ptr<Inode> inode;   // file
+    list<shared_ptr<DirEntry>> contents; // dir entry
+    bool is_locked;                      // lock
 
-    std::shared_ptr<DirEntry> find_child(const std::string name) const;
-    std::shared_ptr<DirEntry> add_dir(const std::string name);
-    std::shared_ptr<DirEntry> add_file(const std::string name);
+    shared_ptr<DirEntry> find_child(const string name) const;
+    shared_ptr<DirEntry> add_dir(const string name);
+    shared_ptr<DirEntry> add_file(const string name);
 };
 
 #endif /* _DIRENTRY_H_ */

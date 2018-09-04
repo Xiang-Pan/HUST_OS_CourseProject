@@ -2,15 +2,15 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "../include/myfs.hpp"
+#include "myfs.hpp"
+//
+//#include <boost/archive/text_oarchive.hpp>
+//#include <boost/archive/text_iarchive.hpp>
+//
+//#include <boost/archive/binary_iarchive.hpp>
+//#include <boost/archive/binary_oarchive.hpp>
 
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
-
-using namespace boost;
+//using namespace boost;
 
 using std::cerr;
 using std::cin;
@@ -28,48 +28,48 @@ const uint DISKSIZE = 100000000;
 const uint BLOCKSIZE = 1024;
 const uint DIRECTBLOCKS = 100;
 
-int test_fs(const string filename)
-{
-    myFS myfs(filename, DISKSIZE, BLOCKSIZE, DIRECTBLOCKS);
+//int test_fs(const string filename)
+//{
+//    myFS myfs(filename, DISKSIZE, BLOCKSIZE, DIRECTBLOCKS);
+//
+//    myfs.mkdir({"mkdir", "dir-2"});
+//    myfs.mkdir({"mkdir", "dir-2/dir-b"});
+//    myfs.mkdir({"mkdir", "dir-2/dir-b/dir-deep"});
+//    myfs.open({"open", "somefile", "w"});
+//    myfs.open({"open", "somefile2", "w"});
+//    myfs.write({"write", "0", "hi there buddy"});
+//    myfs.close({"close", "0"});
+//    myfs.open({"open", "somefile", "r"});
+//    myfs.seek({"seek", "2", "3"});
+//    myfs.read({"read", "2", "5"});
+//    myfs.ls({"ls"});
+//    myfs.close({"close", "1"});
+//    myfs.close({"close", "2"});
+//    myfs.cat({"cat", "somefile"});
+//    myfs.tree({"tree"});
+//    myfs.import({"import", "exampleFile.txt", "ex.txt"});
+//    myfs.cat({"cat", "somefile"});
+//    myfs.cat({"cat", "ex.txt"});
+//    myfs.link({"link", "ex.txt", "/dir-2/dir-b/linked"});
+//    myfs.cat({"cat", "/dir-2/dir-b/linked"});
+//    myfs.cp({"cp", "ex.txt", "newEx.txt"});
+//    //myfs.unlink({"unlink", "ex.txt"});
+//    //myfs.FS_export({"export", "dir-2/dir-b/linked", "newExFile.txt"});
+//    myfs.tree({"tree"});
+//    myfs.stat({"stat", "somefile", "somefile2", "dir-2/dir-b/linked"});
+//    //myfs.unlink({"unlink", "dir-2/dir-b/linked"});
+//    //myfs.rmdir({"rmdir", "dir-2/dir-b/dir-deep", "dir-2/dir-b", "dir-2"});
+//    myfs.tree({"tree"});
+//    myfs.mkdir({"mkdir", "ant"});
+//    myfs.cd({"cd", "ant"});
+//    myfs.printwd({"pwd"});
+//    myfs.tree({"tree"});
+//    return 0;
+//}
 
-    myfs.mkdir({"mkdir", "dir-2"});
-    myfs.mkdir({"mkdir", "dir-2/dir-b"});
-    myfs.mkdir({"mkdir", "dir-2/dir-b/dir-deep"});
-    myfs.open({"open", "somefile", "w"});
-    myfs.open({"open", "somefile2", "w"});
-    myfs.write({"write", "0", "hi there buddy"});
-    myfs.close({"close", "0"});
-    myfs.open({"open", "somefile", "r"});
-    myfs.seek({"seek", "2", "3"});
-    myfs.read({"read", "2", "5"});
-    myfs.ls({"ls"});
-    myfs.close({"close", "1"});
-    myfs.close({"close", "2"});
-    myfs.cat({"cat", "somefile"});
-    myfs.tree({"tree"});
-    myfs.import({"import", "exampleFile.txt", "ex.txt"});
-    myfs.cat({"cat", "somefile"});
-    myfs.cat({"cat", "ex.txt"});
-    myfs.link({"link", "ex.txt", "/dir-2/dir-b/linked"});
-    myfs.cat({"cat", "/dir-2/dir-b/linked"});
-    myfs.cp({"cp", "ex.txt", "newEx.txt"});
-    //myfs.unlink({"unlink", "ex.txt"});
-    //myfs.FS_export({"export", "dir-2/dir-b/linked", "newExFile.txt"});
-    myfs.tree({"tree"});
-    myfs.stat({"stat", "somefile", "somefile2", "dir-2/dir-b/linked"});
-    //myfs.unlink({"unlink", "dir-2/dir-b/linked"});
-    //myfs.rmdir({"rmdir", "dir-2/dir-b/dir-deep", "dir-2/dir-b", "dir-2"});
-    myfs.tree({"tree"});
-    myfs.mkdir({"mkdir", "ant"});
-    myfs.cd({"cd", "ant"});
-    myfs.printwd({"pwd"});
-    myfs.tree({"tree"});
-    return 0;
-}
-
-void repl(const string filename)
+void repl(string filename)
 {
-    myFS *fs = new myFS(filename, DISKSIZE, BLOCKSIZE, DIRECTBLOCKS);
+    myFS *fs = new myFS(filename);
     // test
     fs->mkdir({"mkdir", "dir-2/dir-b"});
     fs->mkdir({"mkdir", "dir-2/dir-b/dir-deep"});
@@ -117,7 +117,7 @@ void repl(const string filename)
             if (args.size() == 1) 
             {
                 delete(fs);
-                fs = new myFS(filename, DISKSIZE, BLOCKSIZE, DIRECTBLOCKS);
+                fs = new myFS(filename);
             } else 
             {
                 cerr << "mkfs: too many operands" << endl;

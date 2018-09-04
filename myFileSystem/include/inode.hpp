@@ -7,24 +7,30 @@
 #include <vector>
 #include <string>
 #include "freenode.hpp"
+#include "macro.h"
+using namespace std;
 
-// using namespace std;
+
+
 class Inode
 {
     public:
-        uint inode_num;
-        uint size;
-        uint blocks_used;
-        static uint block_size;
-        static std::list<FreeNode> *free_list; // freenode list
-        
+    long create_time;
+    uint inode_num;
+    uint sec_num;
 
-        // use unique_ptr to ensure the alloc err , if false then recollect
-        std::vector<uint> d_blocks;
-        std::unique_ptr<std::vector<std::vector<uint>>> i_blocks; // i_blocks map
+    uint size;
+    uint blocks_used;
+    static uint block_size;
+    static list<FreeNode> *free_list; // freenode list
 
-        Inode();
-        ~Inode();
+
+    // use unique_ptr to ensure the alloc err , if false then recollect
+    vector<uint> d_blocks;
+    unique_ptr<std::vector<std::vector<uint>>> i_blocks; // i_blocks map
+
+    Inode();
+    ~Inode();
 };
 
 #endif /* _INODE_H_ */

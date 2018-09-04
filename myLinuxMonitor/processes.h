@@ -10,7 +10,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-
+#include <vector>
 
 //class Processes
 //{
@@ -83,37 +83,39 @@ struct proc_list
 
 #define MAX_LINE 256
 
+extern double cpu_user;
+extern double cpu_sys;
+extern struct proc_info **old_procs, **new_procs;
+extern int num_old_procs, num_new_procs;
+extern struct proc_info *free_procs;
+extern int num_used_procs, num_free_procs;
 
-static struct proc_info **old_procs, **new_procs;
-static int num_old_procs, num_new_procs;
-static struct proc_info *free_procs;
-static int num_used_procs, num_free_procs;
+extern int max_procs, delay, iterations, threads;
 
-static int max_procs, delay, iterations, threads;
+extern struct cpu_info old_cpu, new_cpu;
 
-static struct cpu_info old_cpu, new_cpu;
+struct proc_info *alloc_proc(void);
+void free_proc(struct proc_info *proc);
+void read_procs(void);
+int read_stat(char *filename, struct proc_info *proc);
+void read_policy(int pid, struct proc_info *proc);
+void add_proc(int proc_num, struct proc_info *proc);
+int read_cmdline(char *filename, struct proc_info *proc);
+int read_status(char *filename, struct proc_info *proc);
+void print_procs(void);
+struct proc_info *find_old_proc(pid_t pid, pid_t tid);
+void free_old_procs(void);
 
-static struct proc_info *alloc_proc(void);
-static void free_proc(struct proc_info *proc);
-static void read_procs(void);
-static int read_stat(char *filename, struct proc_info *proc);
-static void read_policy(int pid, struct proc_info *proc);
-static void add_proc(int proc_num, struct proc_info *proc);
-static int read_cmdline(char *filename, struct proc_info *proc);
-static int read_status(char *filename, struct proc_info *proc);
-static void print_procs(void);
-static struct proc_info *find_old_proc(pid_t pid, pid_t tid);
-static void free_old_procs(void);
-static int (*proc_cmp)(const void *a, const void *b);
+extern int (*proc_cmp)(const void *a, const void *b);
 //extern int (*a)(const void *a, const void *b);
 
-static int proc_cpu_cmp(const void *a, const void *b);
+ int proc_cpu_cmp(const void *a, const void *b);
 //a=&proc_cpu_cmp;
-static int proc_vss_cmp(const void *a, const void *b);
-static int proc_rss_cmp(const void *a, const void *b);
-static int proc_thr_cmp(const void *a, const void *b);
-static int numcmp(long long a, long long b);
-static void usage(char *cmd);
+ int proc_vss_cmp(const void *a, const void *b);
+ int proc_rss_cmp(const void *a, const void *b);
+ int proc_thr_cmp(const void *a, const void *b);
+ int numcmp(long long a, long long b);
+ void usage(char *cmd);
 
 
 

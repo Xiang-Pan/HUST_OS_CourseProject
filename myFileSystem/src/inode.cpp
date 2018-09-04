@@ -11,7 +11,13 @@ using std::vector;
 uint Inode::block_size = 0;
 list<FreeNode> * Inode::free_list = nullptr;
 
-Inode::Inode(): size(0), blocks_used(0), i_blocks(new vector<vector<uint>>()) {}
+Inode::Inode(): size(0), blocks_used(0), i_blocks(new vector<vector<uint>>())
+{
+    inode_num= static_cast<uint>(inode_total);
+    inode_total++;
+
+
+}
 
 Inode::~Inode()
 {

@@ -1,4 +1,4 @@
-#include "../include/myfs.hpp"
+#include "myfs.hpp"
 #include <cmath>
 #include <iostream>
 #include <iomanip>
@@ -9,9 +9,9 @@
 #include <vector>
 #include <deque>
 #include <assert.h>
-#include "../include/direntry.hpp"
-#include "../include/inode.hpp"
-#include "../include/freenode.hpp"
+//#include "../include/direntry.hpp"
+//#include "../include/inode.hpp"
+//#include "../include/freenode.hpp"
 
 using namespace std;
 
@@ -35,29 +35,52 @@ using namespace std;
   ops_at_least(x);                              \
   ops_less_than(x);
 
+//// Constructor
+//myFS::myFS(const string& filename,
+//           const uint fs_size,
+//           const uint block_size,
+//           const uint direct_blocks):
+//        filename(filename),
+//        block_size(block_size),
+//        direct_blocks(direct_blocks),
+//        block_num(ceil(static_cast<double>(fs_size) / block_size))
+//{
+//    // init inode
+//    Inode::block_size = block_size;
+//    Inode::free_list = &free_list;
+//
+//
+//    root_dir = DirEntry::make_de_dir("root", nullptr);
+//
+//    // start at root dir/ set pwd
+//    pwd = root_dir;
+//
+//    // init disk
+//    init_disk(filename);
+//    free_list.emplace_back(block_num, 0);
+//}
+
 // Constructor
-myFS::myFS(const string& filename,
-           const uint fs_size,
-           const uint block_size,
-           const uint direct_blocks): 
-        filename(filename),
-        block_size(block_size),
-        direct_blocks(direct_blocks),
-        num_blocks(ceil(static_cast<double>(fs_size) / block_size)) 
+myFS::myFS(string& filename)
 {
+    block_num=BLOCK_NUM;
+
     // init inode
     Inode::block_size = block_size;
     Inode::free_list = &free_list;
 
+    class SuperBlock *p_sb=new SuperBlock();
+    p_sb->myfs=this;
+    p_sb->write_back_to_disk();
 
-    root_dir = DirEntry::make_de_dir("root", nullptr);
+    root_dir = DirEntry::make_de_dir("root", nullptr); // make dir de
 
     // start at root dir/ set pwd
     pwd = root_dir;
 
-    // init disk 
+    // init disk
     init_disk(filename);
-    free_list.emplace_back(num_blocks, 0);
+    free_list.emplace_back(block_num, 0); // make freenode
 }
 
 myFS::~myFS() 
@@ -70,7 +93,7 @@ myFS::~myFS()
 void myFS::init_disk(const string& filename)
 {
     // write disk with 0, prevent some dirty data
-    const vector<char>zeroes(num_blocks, 0);
+    const vector<char>zeroes(block_num, 0);
 
     disk_file.open(filename,
                     fstream::in |
@@ -78,7 +101,7 @@ void myFS::init_disk(const string& filename)
                     fstream::binary |
                     fstream::trunc);
 
-    for (uint i = 0; i < num_blocks; ++i) 
+    for (uint i = 0; i < block_num; ++i) 
     {
         disk_file.write(zeroes.data(), block_size);
     }
@@ -361,16 +384,16 @@ uint myFS::basic_write(Descriptor &desc, const string data)
             // 0 return because ran out of free space, find no space
             return 0;
         }
-        if (fl_it->num_blocks > blocks_needed)  // chunk big enough to hold the rest of our write
+        if (fl_it->block_num > blocks_needed)  // chunk big enough to hold the rest of our write
         {
             free_chunks.push_back(make_pair(fl_it->pos, blocks_needed));
             fl_it->pos += blocks_needed * block_size;
-            fl_it->num_blocks -= blocks_needed;
+            fl_it->block_num -= blocks_needed;
             break;
         }
         // a chunk, but will fill it and need more, then find another chunk
-        free_chunks.push_back((make_pair(fl_it->pos, fl_it->num_blocks)));
-        blocks_needed -= fl_it->num_blocks;
+        free_chunks.push_back((make_pair(fl_it->pos, fl_it->block_num)));
+        blocks_needed -= fl_it->block_num;
         auto used_entry = fl_it++;
         free_list.erase(used_entry);
     }
@@ -379,8 +402,8 @@ uint myFS::basic_write(Descriptor &desc, const string data)
     for (auto fc_it : free_chunks)
     {
         uint block_pos = fc_it.first;
-        uint num_blocks = fc_it.second;
-        for (uint k = 0; k < num_blocks; ++k, ++file_blocks_used, block_pos += block_size) 
+        uint block_num = fc_it.second;
+        for (uint k = 0; k < block_num; ++k, ++file_blocks_used, block_pos += block_size) 
         {
             if (file_blocks_used < direct_blocks) 
             {
@@ -495,29 +518,37 @@ void myFS::close(vector<string> args)
     }
 }
 
-void myFS::mkdir(vector<string> args) {
-  ops_at_least(1);
+//D: mkdir, can not recrusive
+void myFS::mkdir(vector<string> args)
+{
+    ops_at_least(1);
   /* add each new directory one at a time */
-  for (uint i = 1; i < args.size(); i++) {
-    auto path = parse_path(args[i]);
-    auto node = path->final_node;
-    auto dirname = path->final_name;
-    auto parent = path->parent_node;
+    for (uint i = 1; i < args.size(); i++)
+    {
+        auto path = parse_path(args[i]);    // final inode and constuct inode
+        auto node = path->final_node;
+        auto dirname = path->final_name;
+        auto parent = path->parent_node;
 
-    if (path->invalid_path) {
-      cerr << "mkdir: error: Invalid path: " << args[i] << endl;
-      return;
-    } else if (node == root_dir) {
-      cerr << "mkdir: error: Cannot recreate root." << endl;
-      return;
-    } else if (node != nullptr) {
-      cerr << "mkdir: error: " << args[i] << " already exists." << endl;
-      continue;
+        if (path->invalid_path)
+        {
+          cerr << "mkdir: error: Invalid path: " << args[i] << endl;
+          return;
+        }
+        else if (node == root_dir)
+        {
+          cerr << "mkdir: error: Cannot recreate root." << endl;
+          return;
+        }
+        else if (node != nullptr)
+        {
+          cerr << "mkdir: error: " << args[i] << " already exists." << endl;
+          continue;
+        }
+
+        /* actually add the directory */
+        parent->add_dir(dirname);
     }
-
-    /* actually add the directory */
-    parent->add_dir(dirname);
-  }
 }
 
 //D: rm -r dir

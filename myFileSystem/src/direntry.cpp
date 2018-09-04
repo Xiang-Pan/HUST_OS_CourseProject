@@ -17,11 +17,11 @@ DirEntry::DirEntry()
     is_locked = false;
 }
 
-//make Dir
+//D: make Dir
 shared_ptr<DirEntry> DirEntry::make_de_dir(const string name,const shared_ptr<DirEntry> parent) 
 {
-    auto sp = make_shared<DirEntry>(DirEntry());
-    if (parent == nullptr)// .=..
+    auto sp = make_shared<DirEntry>(DirEntry()); // de ptr
+    if (parent == nullptr)  // .=..
     {
         sp->parent = sp;
     } 
@@ -36,7 +36,7 @@ shared_ptr<DirEntry> DirEntry::make_de_dir(const string name,const shared_ptr<Di
     return sp;
 }
 
-//make file
+//D: make file
 shared_ptr<DirEntry> DirEntry::make_de_file(const string name,
                                             const shared_ptr<DirEntry> parent,
                                             const shared_ptr<Inode> &inode) 
