@@ -8,7 +8,9 @@
  * hi — 硬中断（Hardware IRQ）占用CPU的百分比
  * si — 软中断（Software Interrupts）占用CPU的百分比
 */
-
+QVector<QVector<QString>> process_table;
+QVector<QString> process_vec;
+QVector<QString> process_title;
 double cpu_user;
 double cpu_sys;
 struct proc_info **old_procs, **new_procs;
@@ -26,11 +28,14 @@ int (*proc_cmp)(const void *a, const void *b)=&proc_cpu_cmp;
 {
     struct proc_info *proc;
 
-    if (free_procs) {
+    if (free_procs)
+    {
         proc = free_procs;
         free_procs = free_procs->next;
         num_free_procs--;
-    } else {
+    }
+    else
+    {
         proc = (proc_info*)malloc(sizeof(*proc));
         if (!proc) die("Could not allocate struct process_info.\n");
     }
@@ -40,7 +45,8 @@ int (*proc_cmp)(const void *a, const void *b)=&proc_cpu_cmp;
     return proc;
 }
 
- void free_proc(struct proc_info *proc) {
+void free_proc(struct proc_info *proc)
+{
     proc->next = free_procs;
     free_procs = proc;
 
@@ -70,12 +76,11 @@ void read_procs(void)
 
     file = fopen("/proc/stat", "r");
     if (!file) die("Could not open /proc/stat.\n");
-    fscanf(file, "cpu  %lu %lu %lu %lu %lu %lu %lu", &new_cpu.utime, &new_cpu.ntime, &new_cpu.stime,
-            &new_cpu.itime, &new_cpu.iowtime, &new_cpu.irqtime, &new_cpu.sirqtime);
+    fscanf(file, "cpu  %lu %lu %lu %lu %lu %lu %lu", &new_cpu.utime, &new_cpu.ntime, &new_cpu.stime,&new_cpu.itime, &new_cpu.iowtime, &new_cpu.irqtime, &new_cpu.sirqtime);
     fclose(file);
-
     proc_num = 0;
-    while ((pid_dir = readdir(proc_dir))) {
+    while ((pid_dir = readdir(proc_dir)))
+    {
         if (!isdigit(pid_dir->d_name[0]))
             continue;
 
@@ -83,7 +88,8 @@ void read_procs(void)
 
         struct proc_info cur_proc;
 
-        if (!threads) {
+        if (!threads)
+        {
             proc = alloc_proc();
 
             proc->pid = proc->tid = pid;
@@ -100,7 +106,9 @@ void read_procs(void)
             read_policy(pid, proc);
 
             proc->num_threads = 0;
-        } else {
+        }
+        else
+        {
             sprintf(filename, "/proc/%d/cmdline", pid);
             read_cmdline(filename, &cur_proc);
 
@@ -114,11 +122,13 @@ void read_procs(void)
         task_dir = opendir(filename);
         if (!task_dir) continue;
 
-        while ((tid_dir = readdir(task_dir))) {
+        while ((tid_dir = readdir(task_dir)))
+        {
             if (!isdigit(tid_dir->d_name[0]))
                 continue;
 
-            if (threads) {
+            if (threads)
+            {
                 tid = atoi(tid_dir->d_name);
 
                 proc = alloc_proc();
@@ -135,7 +145,9 @@ void read_procs(void)
                 proc->gid = cur_proc.gid;
 
                 add_proc(proc_num++, proc);
-            } else {
+            }
+            else
+            {
                 proc->num_threads++;
             }
         }
@@ -147,12 +159,16 @@ void read_procs(void)
     }
 
     for (i = proc_num; i < num_new_procs; i++)
+    {
         new_procs[i] = NULL;
+    }
+
 
     closedir(proc_dir);
 }
 
- int read_stat(char *filename, struct proc_info *proc) {
+ int read_stat(char *filename, struct proc_info *proc)
+ {
     FILE *file;
     char buf[MAX_LINE], *open_paren, *close_paren;
     int res, idx;
@@ -179,10 +195,12 @@ void read_procs(void)
     return 0;
 }
 
- void add_proc(int proc_num, struct proc_info *proc) {
+ void add_proc(int proc_num, struct proc_info *proc)
+ {
     int i;
 
-    if (proc_num >= num_new_procs) {
+    if (proc_num >= num_new_procs)
+    {
         new_procs = (proc_info**)realloc(new_procs, 2 * num_new_procs * sizeof(struct proc_info *));
         if (!new_procs) die("Could not expand procs array.\n");
         for (i = num_new_procs; i < 2 * num_new_procs; i++)
@@ -192,7 +210,8 @@ void read_procs(void)
     new_procs[proc_num] = proc;
 }
 
- int read_cmdline(char *filename, struct proc_info *proc) {
+ int read_cmdline(char *filename, struct proc_info *proc)
+ {
     FILE *file;
     char line[MAX_LINE];
 
@@ -209,7 +228,8 @@ void read_procs(void)
     return 0;
 }
 
- void read_policy(int pid, struct proc_info *proc) {
+ void read_policy(int pid, struct proc_info *proc)
+ {
 
     /*
     SchedPolicy p;
@@ -225,7 +245,8 @@ void read_procs(void)
     }*/
 }
 
- int read_status(char *filename, struct proc_info *proc) {
+ int read_status(char *filename, struct proc_info *proc)
+ {
     FILE *file;
     char line[MAX_LINE];
     unsigned int uid, gid;
@@ -241,91 +262,10 @@ void read_procs(void)
     return 0;
 }
 
-void print_procs(void)
-{
+
+ struct proc_info *find_old_proc(pid_t pid, pid_t tid)
+ {
     int i;
-    struct proc_info *old_proc, *proc;
-    long unsigned total_delta_time;
-    struct passwd *user;
-    struct group *group;
-    char *user_str, user_buf[20];
-    char *group_str, group_buf[20];
-
-    for (i = 0; i < num_new_procs; i++) {
-        if (new_procs[i]) {
-            old_proc = find_old_proc(new_procs[i]->pid, new_procs[i]->tid);
-            if (old_proc) {
-                new_procs[i]->delta_utime = new_procs[i]->utime - old_proc->utime;
-                new_procs[i]->delta_stime = new_procs[i]->stime - old_proc->stime;
-            } else {
-                new_procs[i]->delta_utime = 0;
-                new_procs[i]->delta_stime = 0;
-            }
-            new_procs[i]->delta_time = new_procs[i]->delta_utime + new_procs[i]->delta_stime;
-        }
-    }
-
-    total_delta_time = (new_cpu.utime + new_cpu.ntime + new_cpu.stime + new_cpu.itime
-                        + new_cpu.iowtime + new_cpu.irqtime + new_cpu.sirqtime)
-                     - (old_cpu.utime + old_cpu.ntime + old_cpu.stime + old_cpu.itime
-                        + old_cpu.iowtime + old_cpu.irqtime + old_cpu.sirqtime);
-
-    qsort(new_procs, num_new_procs, sizeof(struct proc_info *), proc_cmp);
-    cpu_user= ((new_cpu.utime + new_cpu.ntime) - (old_cpu.utime + old_cpu.ntime)) * 100  / total_delta_time;
-    cpu_sys= ((new_cpu.stime ) - (old_cpu.stime)) * 100 / total_delta_time;
-    printf("\n\n\n");
-    printf("User %ld%%, System %ld%%, IOW %ld%%, IRQ %ld%%\n",
-            ((new_cpu.utime + new_cpu.ntime) - (old_cpu.utime + old_cpu.ntime)) * 100  / total_delta_time,
-            ((new_cpu.stime ) - (old_cpu.stime)) * 100 / total_delta_time,
-            ((new_cpu.iowtime) - (old_cpu.iowtime)) * 100 / total_delta_time,
-            ((new_cpu.irqtime + new_cpu.sirqtime)
-                    - (old_cpu.irqtime + old_cpu.sirqtime)) * 100 / total_delta_time);
-    printf("User %ld + Nice %ld + Sys %ld + Idle %ld + IOW %ld + IRQ %ld + SIRQ %ld = %ld\n",
-            new_cpu.utime - old_cpu.utime,
-            new_cpu.ntime - old_cpu.ntime,
-            new_cpu.stime - old_cpu.stime,
-            new_cpu.itime - old_cpu.itime,
-            new_cpu.iowtime - old_cpu.iowtime,
-            new_cpu.irqtime - old_cpu.irqtime,
-            new_cpu.sirqtime - old_cpu.sirqtime,
-            total_delta_time);
-    printf("\n");
-    if (!threads)
-        printf("%5s %4s %1s %5s %7s %7s %3s %-8s %s\n", "PID", "CPU%", "S", "#THR", "VSS", "RSS", "PCY", "UID", "Name");
-    else
-        printf("%5s %5s %4s %1s %7s %7s %3s %-8s %-15s %s\n", "PID", "TID", "CPU%", "S", "VSS", "RSS", "PCY", "UID", "Thread", "Proc");
-
-    for (i = 0; i < num_new_procs; i++) {
-        proc = new_procs[i];
-
-        if (!proc || (max_procs && (i >= max_procs)))
-            break;
-        user  = getpwuid(proc->uid);
-        group = getgrgid(proc->gid);
-        if (user && user->pw_name) {
-            user_str = user->pw_name;
-        } else {
-            snprintf(user_buf, 20, "%d", proc->uid);
-            user_str = user_buf;
-        }
-        if (group && group->gr_name) {
-            group_str = group->gr_name;
-        } else {
-            snprintf(group_buf, 20, "%d", proc->gid);
-            group_str = group_buf;
-        }
-        if (!threads)
-            printf("%5d %3ld%% %c %5d %6ldK %6ldK %3s %-8.8s %s\n", proc->pid, proc->delta_time * 100 / total_delta_time, proc->state, proc->num_threads,
-                proc->vss / 1024, proc->rss * getpagesize() / 1024, proc->policy, user_str, proc->name[0] != 0 ? proc->name : proc->tname);
-        else
-            printf("%5d %5d %3ld%% %c %6ldK %6ldK %3s %-8.8s %-15s %s\n", proc->pid, proc->tid, proc->delta_time * 100 / total_delta_time, proc->state,
-                proc->vss / 1024, proc->rss * getpagesize() / 1024, proc->policy, user_str, proc->tname, proc->name);
-    }
-}
-
- struct proc_info *find_old_proc(pid_t pid, pid_t tid) {
-    int i;
-
     for (i = 0; i < num_old_procs; i++)
         if (old_procs[i] && (old_procs[i]->pid == pid) && (old_procs[i]->tid == tid))
             return old_procs[i];
@@ -344,7 +284,8 @@ void free_old_procs(void)
     free(old_procs);
 }
 
- int proc_cpu_cmp(const void *a, const void *b) {
+ int proc_cpu_cmp(const void *a, const void *b)
+ {
     struct proc_info *pa, *pb;
 
     pa = *((struct proc_info **)a); pb = *((struct proc_info **)b);
@@ -356,7 +297,8 @@ void free_old_procs(void)
     return -numcmp(pa->delta_time, pb->delta_time);
 }
 
- int proc_vss_cmp(const void *a, const void *b) {
+ int proc_vss_cmp(const void *a, const void *b)
+ {
     struct proc_info *pa, *pb;
 
     pa = *((struct proc_info **)a); pb = *((struct proc_info **)b);
@@ -368,7 +310,8 @@ void free_old_procs(void)
     return -numcmp(pa->vss, pb->vss);
 }
 
- int proc_rss_cmp(const void *a, const void *b) {
+ int proc_rss_cmp(const void *a, const void *b)
+ {
     struct proc_info *pa, *pb;
 
     pa = *((struct proc_info **)a); pb = *((struct proc_info **)b);
@@ -380,7 +323,8 @@ void free_old_procs(void)
     return -numcmp(pa->rss, pb->rss);
 }
 
- int proc_thr_cmp(const void *a, const void *b) {
+ int proc_thr_cmp(const void *a, const void *b)
+ {
     struct proc_info *pa, *pb;
 
     pa = *((struct proc_info **)a); pb = *((struct proc_info **)b);

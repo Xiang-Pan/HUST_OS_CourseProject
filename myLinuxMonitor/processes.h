@@ -10,15 +10,11 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <vector>
+#include <QVector>
+#include <QString>
+#include <iostream>
 
-//class Processes
-//{
-//public:
-//    Processes();
-
-//};
-
+using namespace std;
 /*
 us: user cpu time (or) % CPU time spent in user space
 sy: system cpu time (or) % CPU time spent in kernel space
@@ -82,16 +78,16 @@ struct proc_list
 
 
 #define MAX_LINE 256
-
+extern QVector<QVector<QString>> process_table;
+extern QVector<QString> process_vec;
+extern QVector<QString> process_title;
 extern double cpu_user;
 extern double cpu_sys;
 extern struct proc_info **old_procs, **new_procs;
 extern int num_old_procs, num_new_procs;
 extern struct proc_info *free_procs;
 extern int num_used_procs, num_free_procs;
-
 extern int max_procs, delay, iterations, threads;
-
 extern struct cpu_info old_cpu, new_cpu;
 
 struct proc_info *alloc_proc(void);
@@ -109,24 +105,11 @@ void free_old_procs(void);
 extern int (*proc_cmp)(const void *a, const void *b);
 //extern int (*a)(const void *a, const void *b);
 
- int proc_cpu_cmp(const void *a, const void *b);
-//a=&proc_cpu_cmp;
- int proc_vss_cmp(const void *a, const void *b);
- int proc_rss_cmp(const void *a, const void *b);
- int proc_thr_cmp(const void *a, const void *b);
- int numcmp(long long a, long long b);
- void usage(char *cmd);
-
-
-
-
-
-
-
-
-
-
-
-
+int proc_cpu_cmp(const void *a, const void *b);
+int proc_vss_cmp(const void *a, const void *b);
+int proc_rss_cmp(const void *a, const void *b);
+int proc_thr_cmp(const void *a, const void *b);
+int numcmp(long long a, long long b);
+void usage(char *cmd);
 
 #endif // PROCESSES_H

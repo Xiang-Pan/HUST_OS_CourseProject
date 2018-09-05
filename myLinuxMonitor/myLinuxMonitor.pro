@@ -31,13 +31,15 @@ SOURCES += \
         mainwindow.cpp \
     chart.cpp \
     filesystems.cpp \
-    processes.cpp
+    processes.cpp \
+    qstandarditemmodelex.cpp
 
 HEADERS += \
         mainwindow.h \
     filesystems.h \
     processes.h \
     chart.h \
+    qstandarditemmodelex.h
 
 FORMS += \
         mainwindow.ui
