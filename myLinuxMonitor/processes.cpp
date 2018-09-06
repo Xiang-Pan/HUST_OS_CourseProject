@@ -103,7 +103,7 @@ void read_procs(void)
             sprintf(filename, "/proc/%d/status", pid);
             read_status(filename, proc);
 
-            read_policy(pid, proc);
+//            read_policy(pid, proc);
 
             proc->num_threads = 0;
         }
@@ -138,7 +138,7 @@ void read_procs(void)
                 sprintf(filename, "/proc/%d/task/%d/stat", pid, tid);
                 read_stat(filename, proc);
 
-                read_policy(tid, proc);
+//                read_policy(tid, proc);
 
                 strcpy(proc->name, cur_proc.name);
                 proc->uid = cur_proc.uid;
@@ -171,7 +171,7 @@ void read_procs(void)
  {
     FILE *file;
     char buf[MAX_LINE], *open_paren, *close_paren;
-    int res, idx;
+//    int res, idx;
 
     file = fopen(filename, "r");
     if (!file) return 1;
@@ -228,22 +228,6 @@ void read_procs(void)
     return 0;
 }
 
- void read_policy(int pid, struct proc_info *proc)
- {
-
-    /*
-    SchedPolicy p;
-    if (get_sched_policy(pid, &p) < 0)
-        strcpy(proc->policy, "unk");
-    else {
-        if (p == SP_BACKGROUND)
-            strcpy(proc->policy, "bg");
-        else if (p == SP_FOREGROUND)
-            strcpy(proc->policy, "fg");
-        else
-            strcpy(proc->policy, "er");
-    }*/
-}
 
  int read_status(char *filename, struct proc_info *proc)
  {
@@ -263,8 +247,8 @@ void read_procs(void)
 }
 
 
- struct proc_info *find_old_proc(pid_t pid, pid_t tid)
- {
+struct proc_info *find_old_proc(pid_t pid, pid_t tid)
+{
     int i;
     for (i = 0; i < num_old_procs; i++)
         if (old_procs[i] && (old_procs[i]->pid == pid) && (old_procs[i]->tid == tid))

@@ -8,6 +8,8 @@ QT += core gui
 QT      +=charts
 QT += widgets
 
+CONFIG   += c++11
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = myLinuxMonitor
@@ -29,17 +31,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    chart.cpp \
     filesystems.cpp \
     processes.cpp \
-    qstandarditemmodelex.cpp
+    progressbardelegate.cpp \
+    tableview.cpp \
+    tablemodel.cpp \
+    netinfo.cpp
 
 HEADERS += \
         mainwindow.h \
     filesystems.h \
     processes.h \
-    chart.h \
-    qstandarditemmodelex.h
+    progressbardelegate.h \
+    tableview.h \
+    tablemodel.h \
+    netinfo.h
 
 FORMS += \
         mainwindow.ui
+
+DISTFILES +=
+
+RESOURCES += \
+    rsc.qrc

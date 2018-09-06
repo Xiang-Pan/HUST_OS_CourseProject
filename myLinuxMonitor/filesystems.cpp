@@ -1,58 +1,8 @@
 #include "filesystems.h"
 
-
-bool get_disk_speed()
-{
-    QProcess process;
-    process.start("iostat -k -d");
-    process.waitForFinished();
-    process.readLine();
-    process.readLine();
-    process.readLine();
-    QString str = process.readLine();
-    str.replace("\n","");
-    str.replace(QRegExp("( ){1,}")," ");
-    auto lst = str.split(" ");
-    if(lst.size() > 5)
-    {
-        qDebug("disk read:%.0lfkb/s disk write:%.0lfkb/s",(lst[4].toDouble() - m_disk_read ) / (m_timer_interval / 1000.0),(lst[5].toDouble() - m_disk_write) / (m_timer_interval / 1000.0));
-        m_disk_read = lst[4].toDouble();
-        m_disk_write = lst[5].toDouble();
-        return true;
-    }
-    return false;
-}
-
-
-bool get_disk_space()
-{
-    QProcess process;
-    process.start("df -k");
-    process.waitForFinished();
-    process.readLine();
-    while(!process.atEnd())
-    {
-        QString str = process.readLine();
-        if(str.startsWith("/dev/sda"))
-        {
-            str.replace("\n","");
-            str.replace(QRegExp("( ){1,}")," ");
-            auto lst = str.split(" ");
-            if(lst.size() > 5)
-                qDebug("挂载点:%s 已用:%.0lfMB 可用:%.0lfMB",lst[5].toStdString().c_str(),lst[2].toDouble()/1024.0,lst[3].toDouble()/1024.0);
-        }
-    }
-    return true;
-}
-
-
-bool get_path_space(QString  path)
-{
-    struct statfs diskInfo;
-    statfs(path.toUtf8().data(), &diskInfo);
-    qDebug("%s 总大小:%.0lfMB 可用大小:%.0lfMB",path.toStdString().c_str(),(diskInfo.f_blocks * diskInfo.f_bsize)/1024.0/1024.0,(diskInfo.f_bavail * diskInfo.f_bsize)/1024.0/1024.0);
-    return true;
-}
+int device_num;
+char mount_on_device[20];
+QString device_info[20][6];
 
 
 char* kscale(unsigned long b, unsigned long bs)
@@ -98,8 +48,8 @@ int mydf()
         return -1;
     }
     disp_units_hdr = "     Size";
-    printf("Filesystem           %-15sUsed Available %s Mounted on/n",
-            disp_units_hdr, "Use%");
+//    printf("Filesystem           %-15sUsed Available %s Mounted on/n",
+//            disp_units_hdr, "Use%");
     while (1)
     {
         const char *device;
@@ -149,24 +99,19 @@ int mydf()
 //                    s2,
 //                    s3,
 //                    blocks_percent_used, mount_point);
-            printf(" %9s %9s %9s %3u%% %s/n",
-                    s1,
-                    s2,
-                    s3,
-                    blocks_percent_used, mount_point);
-            device_info[device_num][0]=QString(s1);
-            device_info[device_num][1]=QString(s2);
-            device_info[device_num][2]=QString(s3);
-            device_info[device_num][3]=QString(blocks_percent_used);
-            device_info[device_num][4]=QString(mount_point);
-
-//            qDebug()<<"here";
-//            qDebug()<<"debug!!!!!!!!!!1"<<info[device_num][0];
-//            qDebug()<<s1;
+//            printf(" %9s %9s %9s %3u%% %s/n",
+//                    s1,
+//                    s2,
+//                    s3,
+//                    blocks_percent_used, mount_point);
+            device_info[device_num][0]=QString(device);
+            device_info[device_num][1]=QString(s1);
+            device_info[device_num][2]=QString(s2);
+            device_info[device_num][3]=QString(s3);
+//            qDebug()<<device_num<<"blocks_percent_used"<<blocks_percent_used;
+            device_info[device_num][4]=QString::number(blocks_percent_used);
+            device_info[device_num][5]=QString(mount_point);
             device_num++;
-
-
-
         }
 
     }

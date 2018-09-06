@@ -1,0 +1,10 @@
+Filesystem                Size      Used Available Use% Mounted on/nndev                 /n                       
+3.84 GB    0.00 B   3.84 GB   0% /dev/nnrun                 /n                       
+3.84 GB   1.53 MB   3.84 GB   0% /run/nn/dev/sdb1           /n                     
+457.45 GB 349.21 GB  84.94 GB  80% //nntmpfs               /n                       
+3.84 GB 124.79 MB   3.72 GB   3% /dev/shm/nntmpfs               /n                       
+3.84 GB    0.00 B   3.84 GB   0% /sys/fs/cgroup/nntmpfs               /n                       
+3.84 GB 180.80 MB   3.67 GB   5% /tmp/nn/dev/sda1           /n                     
+255.98 MB 147.07 MB 108.91 MB  57% /boot/nntmpfs               /n                     
+786.91 MB   68.00 K 786.85 MB   0% /run/user/1000/nn/dev/sdc1           /n                     
+1862.98 GB 1703.70 GB 159.29 GB  91% /run/media/wings/Elements/n

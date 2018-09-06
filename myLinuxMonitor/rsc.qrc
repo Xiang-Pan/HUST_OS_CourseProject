@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>upload.jpg</file>
+        <file>download.jpg</file>
+    </qresource>
+</RCC>

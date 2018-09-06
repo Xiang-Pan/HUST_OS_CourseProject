@@ -15,7 +15,6 @@
 #include <QProcess>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-
 #include <QPoint>
 #include <QTimer>
 #include <qmath.h>
@@ -26,10 +25,11 @@
 #include <QValueAxis>
 #include <QtCharts>
 #include "processes.h"
-#include "chart.h"
 #include "filesystems.h"
-#include "qstandarditemmodelex.h"
-
+#include "progressbardelegate.h"
+#include "tablemodel.h"
+#include "tableview.h"
+#include "netinfo.h"
 namespace Ui
 {
     class MainWindow;
@@ -39,7 +39,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-
+    TableView *tv;
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
@@ -48,26 +48,56 @@ public:
     QChart *mem_chart;
     QLineSeries *mem_series;
     QLineSeries *swap_series;
+    QChart *net_chart;
+    QLineSeries *upload_series;
+    QLineSeries *download_series;
 
-    //QList<double> dataList;//存储业务数据
-    int maxSize = 100;
+
+    QLabel *receiving_label;
+    QLabel * totalReceived_label;
+    QLabel *sending_label;
+    QLabel * totalsent_label;
+    int maxSize = 60;
     int timeId;
-    //extern void read_procs();
-    //proc_cmp=;
+    int process_timeId;
     bool set_Process=true;
     QStandardItemModel *process_model;
-
+//    QStandardItemModel *fs_model;
+    // process info
     QModelIndex focus_index;
     QString process_focus_pid="0";
     int process_focou_row=0;
     int process_focus_col=0;
     bool selected=false;
 
+    // mem info var
+    QFile memFile; //用于打开系统文件
+    QString memTotal;
+    QString memFree;
+    QString memUsed;
+    QString swapTotal;
+    QString swapFree;
+    QString swapUsed;
+    QString MemAvailable;
+    int nMemAvailable,nMemTotal, nMemFree, nMemUsed, nSwapTotal, nSwapFree, nSwapUsed;
+    QString tempStr;
+    int pos;
+    QPieSeries *mem_pieseries;
+    QPieSeries *swap_pieseries;
+    QChartView *mem_piechartView;
+    QChartView *swap_piechartView;
+
+    TableView* fs_view;
+    TableModel* fs_model;
+    QValueAxis *net_axisY;
+    int net_max_ax;
+
+
 public slots:
 //    void update_resources();
     void onHeaderClicked(int _colNum);
     void searchModelandItem(QString ID);
-
+    void rowDoubleClicked(const QModelIndex index);
 private slots:
 //    void on_tabWidget_currentChanged(int index);
     void on_kill_pushButton_clicked();
@@ -85,12 +115,20 @@ private:
     int _colNum;
     Ui::MainWindow *ui;
 
-    void setProcess();
-    void setProcess1();
+    void setProcess(bool update_process);
+
     void setRescources();
+    void setMem();
+    void setNet();
     void setFileSystem(int device_num);
-    void show_procs(void);
+    void updateFileSystem();
+    void show_procs(bool update_process);
     double getData(double time);
+
+    void updateCPUGraph();
+    void updateMemGraph();
+    void updateSwapGraph();
+    void updateNetGraph();
 
 
 

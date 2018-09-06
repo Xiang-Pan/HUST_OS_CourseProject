@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>977</width>
-    <height>581</height>
+    <width>1013</width>
+    <height>1006</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
-      <width>961</width>
-      <height>481</height>
+      <y>10</y>
+      <width>971</width>
+      <height>921</height>
      </rect>
     </property>
     <property name="tabPosition">
@@ -30,7 +30,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideMiddle</enum>
@@ -61,8 +61,8 @@
      <widget class="QPushButton" name="kill_pushButton">
       <property name="geometry">
        <rect>
-        <x>550</x>
-        <y>400</y>
+        <x>300</x>
+        <y>600</y>
         <width>88</width>
         <height>27</height>
        </rect>
@@ -98,10 +98,10 @@
       <widget class="QGraphicsView" name="graphicsView">
        <property name="geometry">
         <rect>
-         <x>-30</x>
-         <y>-10</y>
-         <width>551</width>
-         <height>281</height>
+         <x>-100</x>
+         <y>-40</y>
+         <width>851</width>
+         <height>571</height>
         </rect>
        </property>
       </widget>
@@ -111,34 +111,6 @@
      <attribute name="title">
       <string>FileSystems</string>
      </attribute>
-     <widget class="QTableView" name="FileSys_tableView">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>90</y>
-        <width>531</width>
-        <height>192</height>
-       </rect>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="geometry">
-       <rect>
-        <x>50</x>
-        <y>230</y>
-        <width>256</width>
-        <height>192</height>
-       </rect>
-      </property>
-      <column>
-       <property name="text">
-        <string>asd</string>
-       </property>
-      </column>
-     </widget>
     </widget>
    </widget>
   </widget>
@@ -147,7 +119,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>977</width>
+     <width>1013</width>
      <height>24</height>
     </rect>
    </property>
