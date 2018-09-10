@@ -1,0 +1,3 @@
+/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build/CMakeFiles/rebuild_cache.dir
+/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build/CMakeFiles/myfs.dir
+/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build/CMakeFiles/edit_cache.dir

@@ -1,48 +1,55 @@
-#ifndef _SUPERBLOCK_H_
-#define _SUPERBLOCK_H_
-#include "inode.hpp"
+#ifndef SUPERBLOCK_H
+#define SUPERBLOCK_H
 #include <fstream>
-#include <list>
-#include <map>
-#include <string>
+#include <string.h>
 #include <vector>
+#include <assert.h>
+#include <iostream>
 #include <cstring>
-#include "macro.h"
-#include "assert.h"
-#include "myfs.hpp"
-
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-
-#include <boost/archive/binary_iarchive.hpp>
-#include <boost/archive/binary_oarchive.hpp>
+#include "myfs_macro.h"
+#include "inode.hpp"
+//#include "myfs.hpp"
 
 
-class myFS;
-class SuperBlock
+using namespace std;
+class superblock
 {
-    private:
-        bool inode_bitmap[INODE_NUM];
-        bool block_bitmap[BLOCK_NUM];
+private:
+    bool inode_bitmap[INODE_NUM];
+    bool block_bitmap[BLOCK_NUM];
+    fstream disk;
 
-    public:
-//        uint node_num;          // now inode num
-//        uint direct_blocks;
-//        uint blocks_num;
-//        uint block_size;
-        int q;
-        class myFS* myfs;
-        SuperBlock();
-        bool write_back_to_disk();
 
-        bool read_from_disk();
 
-        template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
-        {
-            ar& inode_bitmap;
-            ar& block_bitmap;
-        }
+public:
+    int cur_dir_node_num; // inode num
+    int cur_dir_num;      // dir block num
+    class myFS* myfs;
+
+    int remain_inode();
+
+    int remain_sec();
+
+    int get_new_inode();
+
+    int get_new_sec();
+
+    bool recv_inode(int inode_num);
+
+    bool recv_sec(int sec_num);
+
+    superblock();
+    ~superblock();
+
+    bool init();
+
+    void print_inode_bitmap();
+    void print_block_bitmap();
+
+    void read_from_disk();
+    void write_to_disk();
+//    fstream disk;
+
 };
 
 #endif

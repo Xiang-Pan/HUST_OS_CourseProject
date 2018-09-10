@@ -47,3 +47,4 @@ void MainWindow::cycle_fun()
 
 
 
+

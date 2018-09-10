@@ -12,29 +12,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23a6d09f-a2e4-4917-9efa-fdcce96fae33" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/Buffer.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/macro.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Buffer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../QtTest/src/QtTest.pro.user" beforeDir="false" afterPath="$PROJECT_DIR$/../QtTest/src/QtTest.pro.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../QtTest/src/mainwindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../QtTest/src/mainwindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.c" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.ko" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.ko" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.c" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.o" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.o" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/include/direntry.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/include/freenode.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/include/inode.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/include/myfs.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/include/superblock.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.idea/src.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/direntry.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/exampleFile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/inode.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/myfs.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/note.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/src/superblock.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Buffer.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/Buffer.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/direntry.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/direntry.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/freenode.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/freenode.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/freenode.hpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/include/inode.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/inode.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/macro.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/include/myfs.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/myfs.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/superblock.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/superblock.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Buffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Buffer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/direntry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/direntry.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/exampleFile.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/inode.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/myfs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/myfs.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/note.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/superblock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/superblock.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/mainwindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/mainwindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/myLinuxMonitor.pro" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/myLinuxMonitor.pro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/myLinuxMonitor.pro.user" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/myLinuxMonitor.pro.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/processes.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/processes.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/processes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/processes.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <ignored path="$PROJECT_DIR$/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,50 +78,55 @@
     <session id="416205421">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.12" value="3" />
           <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.7" value="2" />
-          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.8" value="4" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.99" value="1" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LICENSE" value="1" />
-          <entry key="Makefile" value="3" />
-          <entry key="cpp" value="27" />
-          <entry key="h" value="5" />
+          <entry key="Makefile" value="4" />
+          <entry key="cbp" value="1" />
+          <entry key="cpp" value="59" />
+          <entry key="h" value="17" />
           <entry key="h++" value="1" />
-          <entry key="hpp" value="22" />
-          <entry key="md" value="3" />
-          <entry key="myfs (disassembly)" value="4" />
+          <entry key="hpp" value="67" />
+          <entry key="md" value="4" />
+          <entry key="myfs (disassembly)" value="11" />
           <entry key="output" value="1" />
-          <entry key="txt" value="5" />
+          <entry key="txt" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="3" />
-          <entry key="Disassembly" value="4" />
-          <entry key="ObjectiveC" value="55" />
-          <entry key="PLAIN_TEXT" value="10" />
+          <entry key="CMakeLists.txt" value="6" />
+          <entry key="Disassembly" value="11" />
+          <entry key="ObjectiveC" value="144" />
+          <entry key="PLAIN_TEXT" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="650" />
-          <entry key="h" value="222" />
-          <entry key="hpp" value="916" />
-          <entry key="txt" value="21" />
+          <entry key="cpp" value="3853" />
+          <entry key="h" value="317" />
+          <entry key="hpp" value="1747" />
+          <entry key="txt" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="21" />
-          <entry key="ObjectiveC" value="1788" />
+          <entry key="ObjectiveC" value="5917" />
+          <entry key="PLAIN_TEXT" value="12" />
         </counts>
       </usages-collector>
     </session>
@@ -97,44 +134,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/macro.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myfs.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="558" selection-start-line="558" selection-end-line="558" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1876">
-              <caret line="134" column="9" selection-start-line="134" selection-start-column="9" selection-end-line="134" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#6476#6501#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="405">
+              <caret line="283" column="8" selection-start-line="283" selection-start-column="8" selection-end-line="283" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -142,22 +145,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/myfs.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="910">
-              <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
+            <state relative-caret-position="301">
+              <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
               <folding>
-                <element signature="e#79#97#0" expanded="true" />
+                <element signature="e#0#23#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/inode.hpp">
+        <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="29" column="55" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="55" />
+            <state relative-caret-position="252">
+              <caret line="18" column="7" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="7" />
               <folding>
-                <element signature="e#37#59#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -166,33 +169,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/inode.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/Buffer.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-              <folding>
-                <element signature="e#85#103#0" expanded="true" />
-                <element signature="e#171#190#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/freenode.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+            <state relative-caret-position="128">
+              <caret line="61" selection-start-line="61" selection-end-line="61" />
             </state>
           </provider>
         </entry>
@@ -200,8 +178,62 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/superblock.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
+            <state relative-caret-position="187">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <element signature="e#42#60#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/direntry.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2072">
+              <caret line="74" column="13" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/include/direntry.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/inode.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="379">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
+              <folding>
+                <element signature="e#33#56#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Buffer.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="672">
+              <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -210,36 +242,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>num_blocks</find>
-      <find>blocks_num</find>
-      <find>PathRet</find>
-      <find>node_name</find>
-      <find>find_child</find>
-      <find>parse_path</find>
-      <find>block_size</find>
-      <find>add_dir</find>
-      <find>make_de_dir</find>
-      <find>Inode</find>
-      <find>superblock</find>
-      <find>BLOCK_SIZE</find>
-      <find>MAX_BLOCK</find>
-      <find>disk</find>
-      <find>disk.</find>
-      <find>binary_oarchive</find>
-      <find>SUCCESS:</find>
-      <find>succees</find>
-      <find>SUCCESS</find>
-      <find>fd</find>
-      <find>using</find>
-      <find>disk_file</find>
-      <find>succes</find>
-      <find>repl</find>
-      <find>Buffer</find>
-      <find>std::</find>
-      <find>文件没有打开</find>
-      <find>inode</find>
-      <find>freenode</find>
-      <find>free_list</find>
+      <find>dir</find>
+      <find>write_back_to_disk</find>
+      <find>isroot</find>
+      <find>==</find>
+      <find>20</find>
+      <find>sizeof</find>
+      <find>SEC_SIZE- sizeof(int)</find>
+      <find>sector_dir</find>
+      <find>cur_dir_node-&gt;</find>
+      <find>valid</find>
+      <find>缓存</find>
+      <find>_name</find>
+      <find>touch</find>
+      <find>VALID_DATA_LENGTH</find>
+      <find>myfs::ls</find>
+      <find>myfs::</find>
+      <find>exit</find>
+      <find>cur_dir_node</find>
+      <find>for</find>
+      <find>ls</find>
+      <find>mode</find>
+      <find>format</find>
+      <find>read_dir_from_disk</find>
+      <find>508</find>
+      <find>name</find>
+      <find>dir_name</find>
+      <find>mkdir</find>
+      <find>pwd</find>
+      <find>move)</find>
+      <find>sector_file</find>
     </findStrings>
     <replaceStrings>
       <replace>block</replace>
@@ -251,6 +283,10 @@
       <replace>SEC_SIZE</replace>
       <replace>MAX_SEC</replace>
       <replace>disk_file.</replace>
+      <replace>cur_dir_node-&gt;</replace>
+      <replace>SEC_SIZE- sizeof(int)</replace>
+      <replace>cur_dir_node.</replace>
+      <replace>VALID_DATA_LENGTH</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -260,19 +296,23 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/include/freenode.hpp" />
-        <option value="$PROJECT_DIR$/src/direntry.cpp" />
-        <option value="$PROJECT_DIR$/include/inode.hpp" />
-        <option value="$PROJECT_DIR$/src/inode.cpp" />
-        <option value="$PROJECT_DIR$/include/myfs.hpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/superblock.cpp" />
-        <option value="$PROJECT_DIR$/include/superblock.hpp" />
-        <option value="$PROJECT_DIR$/src/myfs.cpp" />
-        <option value="$PROJECT_DIR$/src/Buffer.cpp" />
         <option value="$PROJECT_DIR$/include/macro.h" />
-        <option value="$PROJECT_DIR$/include/direntry.hpp" />
+        <option value="$PROJECT_DIR$/src/exampleFile.txt" />
+        <option value="$PROJECT_DIR$/back1/src/main.cpp" />
+        <option value="$PROJECT_DIR$/back1/src/inode.cpp" />
+        <option value="$PROJECT_DIR$/src/superblock.cpp" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/include/Buffer.hpp" />
+        <option value="$PROJECT_DIR$/include/superblock.hpp" />
+        <option value="$PROJECT_DIR$/src/Buffer.cpp" />
+        <option value="$PROJECT_DIR$/include/myfs_macro.h" />
+        <option value="$PROJECT_DIR$/src/inode.cpp" />
+        <option value="$PROJECT_DIR$/include/myfs.hpp" />
+        <option value="$PROJECT_DIR$/src/myfs.cpp" />
+        <option value="$PROJECT_DIR$/include/inode.hpp" />
+        <option value="$PROJECT_DIR$/src/direntry.cpp" />
+        <option value="$PROJECT_DIR$/include/direntry.hpp" />
       </list>
     </option>
   </component>
@@ -283,10 +323,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-682" />
-    <option name="y" value="413" />
-    <option name="width" value="1430" />
-    <option name="height" value="773" />
+    <option name="x" value="-330" />
+    <option name="y" value="271" />
+    <option name="width" value="1910" />
+    <option name="height" value="810" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -311,6 +351,11 @@
               <item name="myFileSystem" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="myfs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myFileSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="temp" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -323,7 +368,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -377,11 +422,19 @@
       <workItem from="1535975326077" duration="8305000" />
       <workItem from="1536020295901" duration="1078000" />
       <workItem from="1536022920381" duration="630000" />
+      <workItem from="1536278400873" duration="5329000" />
+      <workItem from="1536285879580" duration="4668000" />
+      <workItem from="1536303899099" duration="146000" />
+      <workItem from="1536304088821" duration="2921000" />
+      <workItem from="1536334062321" duration="6223000" />
+      <workItem from="1536538839391" duration="11798000" />
+      <workItem from="1536588322242" duration="11000" />
+      <workItem from="1536588514962" duration="13460000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22387000" />
+    <option name="totallyTimeSpent" value="66943000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -394,23 +447,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1020" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23850267" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26363635" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32834226" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32834226" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.38502672" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.224" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.38285714" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="6" weight="0.3272727" />
-      <window_info anchor="bottom" id="TODO" order="7" weight="0.32941177" />
+      <window_info anchor="bottom" id="Messages" order="6" weight="0.32457143" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.328" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32834226" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.304" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="CMake" order="12" weight="0.32834226" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32914287" />
+      <window_info anchor="bottom" id="CMake" order="12" weight="0.3257143" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -427,49 +481,31 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.cpp</url>
-          <line>71</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/myfs.cpp</url>
-          <line>64</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Buffer.cpp</url>
-          <line>9</line>
-          <option name="timeStamp" value="5" />
+          <line>430</line>
+          <option name="timeStamp" value="81" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="cur_dir_node" />
+        <watch expression="root_node" />
+        <watch expression="fs-&gt;my_cache" />
+        <watch expression="cur_dir" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/LICENSE" />
     <entry file="file://$PROJECT_DIR$/src/newExFile.txt" />
     <entry file="file://$PROJECT_DIR$/src/output" />
-    <entry file="file://$PROJECT_DIR$/src/exampleFile.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/note.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file:///usr/include/boost/archive/detail/oserializer.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
           <caret line="92" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="31" column="29" lean-forward="true" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Makefile">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file:///usr/include/c++/8.2.0/bits/ios_base.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -485,114 +521,134 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/direntry.hpp">
+    <entry file="file://$PROJECT_DIR$/src/exampleFile.txt" />
+    <entry file="file://$PROJECT_DIR$/src/Makefile" />
+    <entry file="file://$PROJECT_DIR$/include/freenode.hpp" />
+    <entry file="file://$PROJECT_DIR$/include/macro.h" />
+    <entry file="file://$PROJECT_DIR$/src/note.md" />
+    <entry file="file://$PROJECT_DIR$/include/mycacro.h" />
+    <entry file="file://$PROJECT_DIR$/back1/src/myfs.cpp" />
+    <entry file="file://$PROJECT_DIR$/back1/src/main.cpp" />
+    <entry file="file://$PROJECT_DIR$/back1/src/inode.cpp" />
+    <entry file="file://$PROJECT_DIR$/back1/include/macro.h" />
+    <entry file="file://$PROJECT_DIR$/back1/include/myfs.hpp" />
+    <entry file="file://$PROJECT_DIR$/back1/include/direntry.hpp" />
+    <entry file="file://$PROJECT_DIR$/myfs.cbp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="30" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
+        <state relative-caret-position="229">
+          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/direntry.cpp">
+    <entry file="file:///usr/include/c++/8.2.0/bits/stl_vector.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="60" column="41" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="41" />
+        <state relative-caret-position="234">
+          <caret line="465" selection-start-line="465" selection-end-line="465" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Buffer.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#35#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/myfs_macro.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Buffer.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="128" column="12" selection-start-line="128" selection-start-column="12" selection-end-line="128" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/macro.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+        <state relative-caret-position="672">
+          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1876">
-          <caret line="134" column="9" selection-start-line="134" selection-start-column="9" selection-end-line="134" selection-end-column="9" />
+        <state relative-caret-position="355">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#6476#6501#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/myfs.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="910">
-          <caret line="65" column="30" selection-start-line="65" selection-start-column="30" selection-end-line="65" selection-end-column="30" />
-          <folding>
-            <element signature="e#79#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/inode.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="29" column="55" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="55" />
-          <folding>
-            <element signature="e#37#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/inode.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="128">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/freenode.hpp">
+    <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+        <state relative-caret-position="252">
+          <caret line="18" column="7" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/superblock.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="44" column="9" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/Buffer.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+        <state relative-caret-position="187">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
-            <element signature="e#85#103#0" expanded="true" />
-            <element signature="e#171#190#0" expanded="true" />
+            <element signature="e#42#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myfs.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="558" selection-start-line="558" selection-end-line="558" />
+        <state relative-caret-position="405">
+          <caret line="283" column="8" selection-start-line="283" selection-start-column="8" selection-end-line="283" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/myfs.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/inode.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="e#33#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/direntry.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2072">
+          <caret line="74" column="13" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/direntry.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>

@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build",
+  "command": "/usr/bin/g++   -I../include  -g   -o CMakeFiles/myfs.dir/src/Buffer.cpp.o -c /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/Buffer.cpp",
+  "file": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/Buffer.cpp"
+},
+
+{
+  "directory": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build",
+  "command": "/usr/bin/g++   -I../include  -g   -o CMakeFiles/myfs.dir/src/direntry.cpp.o -c /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/direntry.cpp",
+  "file": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/direntry.cpp"
+},
+
+{
+  "directory": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build",
+  "command": "/usr/bin/g++   -I../include  -g   -o CMakeFiles/myfs.dir/src/inode.cpp.o -c /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/inode.cpp",
+  "file": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/inode.cpp"
+},
+
+{
+  "directory": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build",
+  "command": "/usr/bin/g++   -I../include  -g   -o CMakeFiles/myfs.dir/src/main.cpp.o -c /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/main.cpp",
+  "file": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/main.cpp"
+},
+
+{
+  "directory": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build",
+  "command": "/usr/bin/g++   -I../include  -g   -o CMakeFiles/myfs.dir/src/myfs.cpp.o -c /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/myfs.cpp",
+  "file": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/myfs.cpp"
+},
+
+{
+  "directory": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/build",
+  "command": "/usr/bin/g++   -I../include  -g   -o CMakeFiles/myfs.dir/src/superblock.cpp.o -c /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/superblock.cpp",
+  "file": "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/superblock.cpp"
+}
+]

@@ -120,10 +120,9 @@ void MainWindow::show_procs(bool update_process)
     {
             process_model->clear();;
     }
-
-    process_vec.clear();
-    process_title.clear();
-    process_table.clear();
+//    process_vec.clear();
+//    process_title.clear();
+//    process_table.clear();
     int i;
     struct proc_info *old_proc, *proc;
     long unsigned total_delta_time;
@@ -170,13 +169,13 @@ void MainWindow::show_procs(bool update_process)
     if (!threads)
     {
         titleList<<QString("PID")
-                     <<QString("CPU%")
-                     <<QString("S")
-                     <<QString("#THR")
-                     <<QString("VSS")
-                     <<QString("RSS")
-                     <<QString("UID")
-                     <<QString("Name");
+                 <<QString("CPU%")
+                 <<QString("S")
+                 <<QString("#THR")
+                 <<QString("VSS")
+                 <<QString("RSS")
+                 <<QString("UID")
+                 <<QString("Name");
     }
     else
     {

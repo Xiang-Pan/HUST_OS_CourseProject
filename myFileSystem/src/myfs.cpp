@@ -1,893 +1,625 @@
 #include "myfs.hpp"
-#include <cmath>
-#include <iostream>
-#include <iomanip>
-#include <list>
-#include <memory>
-#include <sstream>  //istringstream
-#include <string>
-#include <vector>
-#include <deque>
-#include <assert.h>
-//#include "../include/direntry.hpp"
-//#include "../include/inode.hpp"
-//#include "../include/freenode.hpp"
-
-using namespace std;
-
-// less than opt required
-#define ops_at_least(x)                                 \
-  if (static_cast<int>(args.size()) < x+1) {            \
-    cerr << args[0] << ": missing operand" << endl;     \
-    return;                                             \
-  }
-
-// more than opt required
-#define ops_less_than(x)                                \
-  if (static_cast<int>(args.size()) > x+1) {            \
-    cerr << args[0] << ": too many operands" << endl;   \
-    return;                                             \
-  }\
+using  namespace std;
 
 
-// check exact opt arg nums
-#define ops_exactly(x)                          \
-  ops_at_least(x);                              \
-  ops_less_than(x);
-
-//// Constructor
-//myFS::myFS(const string& filename,
-//           const uint fs_size,
-//           const uint block_size,
-//           const uint direct_blocks):
-//        filename(filename),
-//        block_size(block_size),
-//        direct_blocks(direct_blocks),
-//        block_num(ceil(static_cast<double>(fs_size) / block_size))
-//{
-//    // init inode
-//    Inode::block_size = block_size;
-//    Inode::free_list = &free_list;
-//
-//
-//    root_dir = DirEntry::make_de_dir("root", nullptr);
-//
-//    // start at root dir/ set pwd
-//    pwd = root_dir;
-//
-//    // init disk
-//    init_disk(filename);
-//    free_list.emplace_back(block_num, 0);
-//}
-
-// Constructor
-myFS::myFS(string& filename)
+// construct
+myFS::myFS()
 {
-    block_num=BLOCK_NUM;
+    cout << endl << "****************** Hover's FileSystem ******************" << endl;
+    this->sp.myfs=this;
+    cout<<sp.cur_dir_num<<" "<<sp.cur_dir_node_num;
+//
+//    cur_dir_node.read_inode_from_disk(sp.cur_dir_node_num,my_cache);
+//    cout<<cur_dir_node.get_sec_beg()<<" "<<cur_dir_node.get_inode_num();
+//
+//    sector_dir root_sec_dir;
+//    root_sec_dir.read_dir_from_disk(my_cache,cur_dir_node.get_sec_beg());
+//    cur_dir=root_sec_dir;
+//    root_sec_dir.write_back_to_disk(my_cache,sp.cur_dir_num);
 
-    // init inode
-    Inode::block_size = block_size;
-    Inode::free_list = &free_list;
+    format_file_system();
 
-    class SuperBlock *p_sb=new SuperBlock();
-    p_sb->myfs=this;
-    p_sb->write_back_to_disk();
-
-    root_dir = DirEntry::make_de_dir("root", nullptr); // make dir de
-
-    // start at root dir/ set pwd
-    pwd = root_dir;
-
-    // init disk
-    init_disk(filename);
-    free_list.emplace_back(block_num, 0); // make freenode
 }
 
-myFS::~myFS() 
+void myFS::myshell()
 {
-    disk_file.close();
-    remove(filename.c_str());
-}
-
-
-void myFS::init_disk(const string& filename)
-{
-    // write disk with 0, prevent some dirty data
-    const vector<char>zeroes(block_num, 0);
-
-    disk_file.open(filename,
-                    fstream::in |
-                    fstream::out |
-                    fstream::binary |
-                    fstream::trunc);
-
-    for (uint i = 0; i < block_num; ++i) 
-    {
-        disk_file.write(zeroes.data(), block_size);
-    }
-}
-
-//D: parase path Layer by layer to the last node
-//I: path string
-//O: pathret ptr
-unique_ptr<myFS::PathRet> myFS::parse_path(string path_str) const 
-{
-    unique_ptr<PathRet> ret(new PathRet);
-
-    // check if path is relative or absolute
-    ret->final_node = pwd;
-
-    // pwd==root
-    if (path_str[0] =='/') 
-    {
-        path_str.erase(0,1);
-        ret->final_node = root_dir;
-    }
-
-    // initialize data structure
-    ret->final_name = ret->final_node->name;
-    ret->parent_node = ret->final_node->parent.lock();
-
-    // tokenize the string, redirector
-    istringstream is(path_str);
+    string cmd;
+    myFS * fs=this;
+    vector<string> args;
     string token;
-    vector<string> path_tokens;
-    while (getline(is, token, '/')) 
+    PRMPT=getpwd(args);
+//    cout<<fs->getpwd(args);
+    PRMPT+=">";
+//    cout << PRMPT;
+    while (getline(cin, cmd))
     {
-        path_tokens.push_back(token);
-    }
-
-    // walk the path updating pointers
-    for (auto &node_name : path_tokens) 
-    {
-        // something other than the last entry was not found
-        if (ret->final_node == nullptr) 
+        PRMPT=fs->getpwd(args);
+        PRMPT+="   >";
+        args.clear();
+        istringstream iss(cmd);
+        while (iss >> token) { args.push_back(token); }
+        if (args.size() == 0)
         {
-            ret->invalid_path = true;
-            return ret;
+            cout << PRMPT;
+            continue;
         }
-        ret->parent_node = ret->final_node;
-        ret->final_node = ret->final_node->find_child(node_name);
-        ret->final_name = node_name;
-    }
-
-    return ret;
-}
-
-//TODO: change this
-bool myFS::getMode(Mode *mode, string mode_s)
-{
-    if (mode_s == "w") 
-    {
-        *mode = W;
-    } 
-    else if(mode_s == "r") 
-    {
-    *mode = R;
-    } 
-    else if (mode_s == "rw") 
-    {
-    *mode = RW;
-    }
-    else 
-    {
-        return false;
-    }
-    return true;
-}
-
-
-bool myFS::basic_open(Descriptor *d, vector <string> args) 
-{
-    assert(args.size() == 3);
-
-    Mode mode;
-    auto path = parse_path(args[1]);            //path ret
-    auto node = path->final_node;               //final node
-    auto parent = path->parent_node;            //parent node
-    bool known_mode = getMode(&mode, args[2]);
-
-    if (path->invalid_path == true)
-    {
-        cerr << args[0] << ": error: Invalid path: " << args[1] << endl;
-    } 
-    else if(!known_mode)
-    {
-        cerr << args[0] << ": error: Unknown mode: " << args[2] << endl;
-    } 
-    else if (node == nullptr && (mode == R || mode == RW)) 
-    {
-        cerr << args[0] << ": error: " << args[1] << " does not exist." << endl;
-    } 
-    else if (node != nullptr && node->type == dir) 
-    {
-        cerr << args[0] << ": error: Cannot open a directory." << endl;
-    } 
-    else if (node != nullptr && node->is_locked) 
-    {
-        cerr << args[0] << ": error: " << args[1] << " is already open." << endl;
-    } 
-    else 
-    {
-        //create the file if the file not exist
-        if(node == nullptr) 
+        if (args[0] == "ls")
         {
-            node = parent->add_file(path->final_name);
+            ls(args);
         }
-        // get a descriptor
-        uint fd = next_descriptor++;
-        node->is_locked = true;
-        *d = Descriptor{mode, 0, node->inode, node, fd};
-        open_files[fd] = *d;        //save open file descriptor
-        return true;
-    }
-    return false;
-}
-
-// wrap basic open
-void myFS::open(vector<string> args) 
-{
-    ops_exactly(2);
-    Descriptor desc;
-    if (basic_open(&desc, args)) 
-    {
-        cout << "SUCCESS: fd=" << desc.fd << endl;
-    }
-}
-
-//D: wrap basic_read safely, read a file
-//I: read filename
-//O: S/F
-void myFS::read(vector<string> args)
-{
-    ops_exactly(2);
-
-    uint fd;
-    if ( !(istringstream(args[1]) >> fd)) 
-    {
-        cerr << "read: error: Unknown descriptor." << endl;
-        return;
-    }
-    auto desc_it = open_files.find(fd);
-    if (desc_it == open_files.end())    // last is empty
-    {
-        cerr << "read: error: File descriptor not open." << endl;
-        return;
-    }
-    auto &desc = desc_it->second; //map value
-    if(desc.mode != R && desc.mode != RW) 
-    {
-        cerr << "read: error: " << args[1] << " not open for read." << endl;
-        return;
-    }
-
-    uint size;
-    if (!(istringstream(args[2]) >> size)) 
-    {
-        cerr << "read: error: Invalid read size." << endl;
-    } 
-    else if (size + desc.byte_pos > desc.inode.lock()->size) // Out of read ava zone
-    {
-        cerr << "read: error: Read goes beyond file end." << endl;
-    } 
-    else 
-    {
-        auto data = basic_read(desc, size);
-        cout << *data << endl;
-    }
-}
-
-//I: desc, read size
-//O: dara ptr
-unique_ptr<string> myFS::basic_read(Descriptor &desc, const uint size) 
-{
-    //for constrite the size, using char instead of string
-    char *data = new char[size];
-    char *data_p = data;
-    uint &pos = desc.byte_pos;
-    uint bytes_to_read = size;
-    auto inode = desc.inode.lock();
-
-    uint dbytes = direct_blocks * block_size;   //
-    while (bytes_to_read > 0) 
-    {
-        uint read_size = min(bytes_to_read, block_size - pos % block_size); // prevent reading out of range
-        uint read_src;
-        if (pos < dbytes) 
+        else if (args[0] == "touch")
         {
-            read_src = inode->d_blocks[pos / block_size] + pos % block_size;
-        } 
-        else 
-        {
-            uint i = (pos - dbytes) / (direct_blocks * block_size);
-            uint j = (pos - dbytes) / block_size % direct_blocks;
-            read_src = inode->i_blocks->at(i)[j] + pos % block_size;
+            touch(args);
         }
-        disk_file.seekp(read_src);
-        disk_file.read(data_p, read_size);
-        pos += read_size;
-        data_p += read_size;
-        bytes_to_read -= read_size;
+        else if (args[0] == "cd")
+        {
+            cur_dir_node.write_inode_back_to_disk(my_cache);
+            cd(args);
+            PRMPT=fs->getpwd(args);
+            PRMPT+="   >";
+            cout<<PRMPT;
+        }
+        else if (args[0] == "mkdir")
+        {
+            mkdir(args);
+        }
+        else if (args[0] == "rmdir")
+        {
+            rmdir(args);
+        }
+        else if (args[0] == "print")
+        {
+            sp.print_block_bitmap();
+            cout<<endl;
+            sp.print_inode_bitmap();
+        }
+        else if (args[0] == "format")
+        {
+            format_file_system();
+        }
+        else if (args[0] == "pwd")
+        {
+            printpwd(args);
+        }
+        else if (args[0] == "exit")
+        {
+            cerr<<sp.cur_dir_num<<" "<<sp.cur_dir_node_num<<endl;
+            cur_dir_node.write_inode_back_to_disk(my_cache);
+            fs->sp.write_to_disk();
+            fs->my_cache.all_write_to_disk();
+            return;
+        }
+        else
+        {
+            cerr<< "comman not found"<<endl;
+        }
+        cout<<PRMPT;
     }
-    return unique_ptr<string>(new string(data, size));
+
 }
 
-//D: wrap write safely
-//I: write filename
-//O: S/F
-void myFS::write(vector<string> args) 
+
+namespace strtool
 {
-    ops_exactly(2);
-
-    uint fd;
-    uint max_size = block_size * (direct_blocks + direct_blocks * direct_blocks);
-    if ( !(istringstream(args[1]) >> fd))   // desc error
+    string trim(const string& str)
     {
-        cerr << "write: error: Unknown descriptor." << endl;
-    } 
-    else 
-    {
-        auto desc = open_files.find(fd);
-        if (desc == open_files.end())   //final not open
+        string::size_type pos = str.find_first_not_of(' ');
+        if (pos == string::npos)
         {
-            cerr << "write: error: File descriptor not open." << endl;
-        } 
-        else if (desc->second.mode != W && desc->second.mode != RW) 
-        {
-            cerr << "write: error: " << args[1] << " not open for write." << endl;
-        } 
-        else if (desc->second.byte_pos + args[2].size() > max_size) 
-        {
-            cerr << "write: error: File to large for inode." << endl;
-        } 
-        else if (!basic_write(desc->second, args[2])) // ONLY reason!
-        {
-            cerr << "write: error: Insufficient disk space." << endl;
+            return str;
         }
-    }
-}
-
-uint myFS::basic_write(Descriptor &desc, const string data) 
-{
-    const char *bytes = data.c_str();
-    uint &pos = desc.byte_pos;
-    uint bytes_to_write = data.size();              // expected to write
-    uint bytes_written = 0;                         // already write
-    auto inode = desc.inode.lock();
-    uint &file_size = inode->size;                  
-    uint &file_blocks_used = inode->blocks_used;
-    uint new_size = max(file_size, pos + bytes_to_write);
-    uint new_blocks_used = ceil(static_cast<double>(new_size)/block_size);
-    uint blocks_needed = new_blocks_used - file_blocks_used;
-    uint dbytes = direct_blocks * block_size;
-
-    // expand the inode to indirect blocks if needed
-    if (blocks_needed && blocks_needed + file_blocks_used > 2) 
-    {
-        // expand inode vec
-        uint ivec_used = (ceil(min(file_blocks_used - 2, 0U) / static_cast<float>(direct_blocks)));
-        uint ivec_new = (ceil((new_blocks_used - 2) / static_cast<float>(direct_blocks)));
-        while (ivec_used < ivec_new)
+        string::size_type pos2 = str.find_last_not_of(' ');
+        if (pos2 != string::npos)
         {
-            inode->i_blocks->push_back(vector<uint>());
-            ivec_used++;
+            return str.substr(pos, pos2 - pos + 1);
         }
+        return str.substr(pos);
     }
 
-    // find space
-    vector<pair<uint, uint>> free_chunks;
-    auto fl_it = begin(free_list);
-    while (blocks_needed > 0) // can be more effecient
+    int split(const string& str, vector<string>& ret_, string sep = ",")
     {
-        if (fl_it == end(free_list)) 
+        if (str.empty())
         {
-            // 0 return because ran out of free space, find no space
             return 0;
         }
-        if (fl_it->block_num > blocks_needed)  // chunk big enough to hold the rest of our write
-        {
-            free_chunks.push_back(make_pair(fl_it->pos, blocks_needed));
-            fl_it->pos += blocks_needed * block_size;
-            fl_it->block_num -= blocks_needed;
-            break;
-        }
-        // a chunk, but will fill it and need more, then find another chunk
-        free_chunks.push_back((make_pair(fl_it->pos, fl_it->block_num)));
-        blocks_needed -= fl_it->block_num;
-        auto used_entry = fl_it++;
-        free_list.erase(used_entry);
-    }
 
-    // allocate blocks
-    for (auto fc_it : free_chunks)
-    {
-        uint block_pos = fc_it.first;
-        uint block_num = fc_it.second;
-        for (uint k = 0; k < block_num; ++k, ++file_blocks_used, block_pos += block_size) 
+        string tmp;
+        string::size_type pos_begin = str.find_first_not_of(sep);
+        string::size_type comma_pos = 0;
+
+        while (pos_begin != string::npos)
         {
-            if (file_blocks_used < direct_blocks) 
+            comma_pos = str.find(sep, pos_begin);
+            if (comma_pos != string::npos)
             {
-                inode->d_blocks.push_back(block_pos);
-            } 
-            else 
+                tmp = str.substr(pos_begin, comma_pos - pos_begin);
+                pos_begin = comma_pos + sep.length();
+            }
+            else
             {
-                uint i = ((file_blocks_used - direct_blocks) / direct_blocks);
-                inode->i_blocks->at(i).push_back(block_pos);
+                tmp = str.substr(pos_begin);
+                pos_begin = comma_pos;
+            }
+
+            if (!tmp.empty())
+            {
+                ret_.push_back(tmp);
+                tmp.clear();
             }
         }
+        return 0;
     }
 
-    // actually write our blocks
-    while (bytes_to_write > 0) 
+    string replace(const string& str, const string& src, const string& dest)
     {
-        uint write_size = min(block_size - pos % block_size, bytes_to_write);
-        uint write_dest = 0;
-        if (pos < dbytes) 
+        string ret;
+
+        string::size_type pos_begin = 0;
+        string::size_type pos       = str.find(src);
+        while (pos != string::npos)
         {
-            write_dest = inode->d_blocks[pos / block_size] + pos % block_size;
-        } 
-        else 
-        {
-            uint i = (pos - dbytes) / (direct_blocks * block_size);
-            uint j = (pos - dbytes) / block_size % direct_blocks;
-            write_dest = inode->i_blocks->at(i)[j] + pos % block_size;
+            cout <<"replacexxx:" << pos_begin <<" " << pos <<"\n";
+            ret.append(str.data() + pos_begin, pos - pos_begin);
+            ret += dest;
+            pos_begin = pos + 1;
+            pos       = str.find(src, pos_begin);
         }
-        disk_file.seekp(write_dest);
-        disk_file.write(bytes + bytes_written, write_size);
-        bytes_written += write_size;
-        bytes_to_write -= write_size;
-        pos += write_size;
-    }
-
-    disk_file.flush();
-    file_size = new_size;
-    return bytes_written;
-}
-
-//D: change the pos of desc
-//I: seek 
-void myFS::seek(vector<string> args) 
-{
-    ops_exactly(2);
-    uint fd;
-    if ( !(istringstream(args[1]) >> fd)) 
-    {
-        cerr << "seek: error: Unknown descriptor." << endl;
-        return;
-    }
-    auto desc_it = open_files.find(fd);
-    if (desc_it == open_files.end()) 
-    {
-        cerr << "seek: error: File descriptor not open." << endl;
-        return;
-    }
-    auto &desc = desc_it->second;
-    uint pos;
-    if (!(istringstream(args[2]) >> pos)) 
-    {
-        cerr << "seek: error: Invalid position." << endl;
-    } 
-    else if (pos > desc.inode.lock()->size)
-    {
-        cerr << "seek: error: Position outside file." << endl;
-    } 
-    else 
-    {
-        desc.byte_pos = pos;
+        if (pos_begin < str.length())
+        {
+            ret.append(str.begin() + pos_begin, str.end());
+        }
+        return ret;
     }
 }
 
 
-bool myFS::basic_close(uint fd) 
+void myFS::ls(vector<string> args)
 {
-    auto kv = open_files.find(fd);
-    if(kv == open_files.end())  // file do not open 
+    for(int i = 2; i < 15; i++)
     {
-        return false;
-    }
-    else 
-    {
-        kv->second.from.lock()->is_locked = false;
-        open_files.erase(fd);
-    }
-    return true;
-}
-
-//TODO
-//D: wrap basic_close
-//I: 
-void myFS::close(vector<string> args)
-{
-    ops_exactly(1);
-    uint fd;
-
-    if (! (istringstream (args[1]) >> fd)) 
-    {
-        cerr << "close: error: File descriptor not recognized" << endl;
-    } 
-    else
-    {
-        if (!basic_close(fd)) 
-        {
-            cerr << "close: error: File descriptor not open" << endl;
-        }
-        else 
-        {
-            cout << "closed " << fd << endl;
-        }
-    }
-}
-
-//D: mkdir, can not recrusive
-void myFS::mkdir(vector<string> args)
-{
-    ops_at_least(1);
-  /* add each new directory one at a time */
-    for (uint i = 1; i < args.size(); i++)
-    {
-        auto path = parse_path(args[i]);    // final inode and constuct inode
-        auto node = path->final_node;
-        auto dirname = path->final_name;
-        auto parent = path->parent_node;
-
-        if (path->invalid_path)
-        {
-          cerr << "mkdir: error: Invalid path: " << args[i] << endl;
-          return;
-        }
-        else if (node == root_dir)
-        {
-          cerr << "mkdir: error: Cannot recreate root." << endl;
-          return;
-        }
-        else if (node != nullptr)
-        {
-          cerr << "mkdir: error: " << args[i] << " already exists." << endl;
-          continue;
-        }
-
-        /* actually add the directory */
-        parent->add_dir(dirname);
-    }
-}
-
-//D: rm -r dir
-//O: S/F
-void myFS::rmdir(vector<string> args) 
-{
-    ops_at_least(1);
-
-    for (uint i = 1; i < args.size(); i++) 
-    {
-        auto path = parse_path(args[i]);
-        auto node = path->final_node;
-        auto parent = path->parent_node;
-
-        if (node == nullptr) 
-        {
-            cerr << "rmdir: error: Invalid path: " << args[i] << endl;
-        } 
-        else if (node == root_dir) 
-        {
-            cerr << "rmdir: error: Cannot remove root." << endl;
-        } 
-        else if (node == pwd) 
-        {
-            cerr << "rmdir: error: Cannot remove working directory." << endl;
-        }
-        else if (node->contents.size() > 0) 
-        {
-            cerr << "rmdir: error: Directory not empty." << endl;
-        } 
-        else if (node->type != dir)
-        {
-            cerr << "rmdir: error: " << node->name << " must be directory." << endl;
-        } 
-        else 
-        {
-            parent->contents.remove(node);
-        }
-    }
-}
-
-//D: print pwd
-void myFS::printwd(vector<string> args) 
-{
-    ops_exactly(0);
-
-    if (pwd == root_dir) 
-    {
-        cout << "/" << endl;
-        return;
-    }
-
-    auto wd = pwd;
-    deque<string> plist;
-    while (wd != root_dir) 
-    {
-        plist.push_front(wd->name);
-        wd = wd->parent.lock();
-    }
-
-    for (auto dirname : plist) 
-    {
-        cout << "/" << dirname;
+        cout << cur_dir.dirs[i].name << " ";
     }
     cout << endl;
 }
 
 
-std::string myFS::getpwd(vector<string> args) 
+//Begin
+void myFS::run()
 {
-    // ops_exactly(0);
-    std::string str;
-    if (pwd == root_dir) 
-    {
-        str="/";
-        // cout << "/" << endl;
-        return str;
-    }
-
-    auto wd = pwd;
-    deque<string> plist;
-    while (wd != root_dir) 
-    {
-        plist.push_front(wd->name);
-        wd = wd->parent.lock();
-    }
-    // str+="/";
-    for (auto dirname : plist) 
-    {
-        str+="/";
-        str+=dirname;
-    }
-    return str;
-    // cout << endl;
-
+    myshell();
+    return;
 }
 
-//D: change dir
-//I: cd dir
-void myFS::cd(vector<string> args) 
+
+bool myFS::del_inode(Inode& node, sector_dir& del_dir)
 {
-    ops_exactly(1);
-
-    auto path = parse_path(args[1]);
-    auto node = path->final_node;
-
-    if (node == nullptr) 
+    cout << "delete inode, inode num为" << node.get_inode_num() << endl;
+    if(node.get_type())
     {
-        cerr << "cd: error: Invalid path: " << args[1] << endl;
-    } 
-    else if (node->type != dir) 
-    {
-        cerr << "cd: error: " << args[1] << " must be a directory." << endl;
-    }
-    else
-    {
-        pwd = node;
-    }
-}
-
-void myFS::link(vector<string> args) 
-{
-    ops_exactly(2);
-
-    auto src_path = parse_path(args[1]);
-    auto src = src_path->final_node;
-    auto src_parent = src_path->parent_node;
-    auto dest_path = parse_path(args[2]);
-    auto dest = dest_path->final_node;
-    auto dest_parent = dest_path->parent_node;
-    auto dest_name = dest_path->final_name;
-
-    if (src == nullptr) 
-    {
-        cerr << "link: error: Cannot find " << args[1] << endl;
-    } 
-    else if (dest != nullptr) 
-    {
-        cerr << "link: error: " << args[2] << " already exists." << endl;
-    } 
-    else if (src->type != file)
-    {
-        cerr << "link: error: " << args[1] << " must be a file." << endl;
-    } 
-    else if (src_parent == dest_parent) 
-    {
-        cerr << "link: error: src and dest must be in different directories." << endl;
-    } 
-    else 
-    {
-        auto new_file = DirEntry::make_de_file(dest_name, dest_parent, src->inode);
-        dest_parent->contents.push_back(new_file);
-    }
-}
-
-void myFS::unlink(vector<string> args) 
-{
-    ops_exactly(1);
-
-    auto path = parse_path(args[1]);
-    auto node = path->final_node;
-    auto parent = path->parent_node;
-
-    if (node == nullptr) 
-    {
-        cerr << "unlink: error: File not found." << endl;
-    } 
-    else if (node->type != file) 
-    {
-        cerr << "unlink: error: " << args[1] << " must be a file." << endl;
-    } 
-    else if (node->is_locked) 
-    {
-        cerr << "unlink: error: " << args[1] << " is open." << endl;
-    } 
-    else 
-    {
-        parent->contents.remove(node);
-    }
-}
-
-void myFS::stat(vector<string> args) 
-{
-    ops_at_least(1);
-
-    for (uint i = 1; i < args.size(); i++) 
-    {
-        auto path = parse_path(args[i]);
-        auto node = path->final_node;
-
-        if (node == nullptr) 
+        for(int i = 2; i < 15; i++)
         {
-            cerr << "stat: error: " << args[i] << " not found." << endl;
+            if(del_dir.dirs[i].inode_num == node.get_inode_num())
+            {
+                cout << "delate inode，删除sector中对文件的记录" << endl;
+                memset(&del_dir.dirs[i], 0, sizeof(sector_dir_entry));
+                del_dir.write_back_to_disk(my_cache, node.get_sec_beg());
+                break;
+            }
         }
-        else 
-        {
-            cout << "  File: " << node->name << endl;
-            if (node->type == file) 
-            {
-                cout << "  Type: file" << endl;
-                cout << " Inode: " << node->inode.get() << endl;
-                cout << " Links: " << node->inode.use_count() << endl;
-                cout << "  Size: " << node->inode->size << endl;
-                cout << "Blocks: " << node->inode->blocks_used << endl;
-            } 
-            else if(node->type == dir) 
-            {
-                cout << "  Type: directory" << endl;
+
+        // 2. 释放inode和对应的扇区
+        sp.recv_sec(node.get_sec_beg() - BLOCK_BEGIN / 512);
+        sp.recv_inode(node.get_inode_num());
+    }
+    else {
+        // dir
+        // 1.先删除当前目录对这个目录的记录
+        for(int i = 0; i < 15; i++) {
+            if(node.get_inode_num() == del_dir.dirs[i].inode_num) {
+                cout << "delate inode，删除sector中对文件的记录" << endl;
+                memset(&del_dir.dirs[i], 0, sizeof(sector_dir_entry));
+                del_dir.write_back_to_disk(my_cache, node.get_sec_beg());
+                break;
+            }
+        }
+        // 2. 释放这个目录的inode和扇区
+        sp.recv_sec(node.get_sec_beg() - BLOCK_BEGIN / 512);
+        sp.recv_inode(node.get_inode_num());
+        // 3. 切换到要删除的目录下
+        Inode new_node;
+        new_node = node;
+        sector_dir new_dir;
+        new_dir = del_dir;
+
+        new_dir.read_dir_from_disk(my_cache, new_node.get_sec_beg());
+        // 4. delete every files and directories recursively
+        for(int i = 2; i < 15; i++) {
+            if(new_dir.dirs[i].inode_num != 0) {
+                new_node.read_inode_from_disk(new_dir.dirs[i].inode_num, my_cache);
+                del_inode(new_node, new_dir);
             }
         }
     }
 }
 
-void myFS::ls(vector<string> args) 
+
+bool myFS::move_in()
 {
-    ops_exactly(0);
-    for (auto dir : pwd->contents) 
-    {
-        cout << dir->name << endl;
-    }
-}
+    /*
+    *  move p1.png into my file system
+    */
+    // 1. get file size, compute needed block number, allocate block
+    ifstream is(IMG, ifstream::binary);
+    if(is) {
+        is.seekg(0, is.end);
+        int length = is.tellg();
+        cout << "size of the file:" << length << " bytes" << endl;
 
-void myFS::cat(vector<string> args) 
-{
-    ops_at_least(1);
+        // 2. compute needed blocks
+        int needed_block = length / VALID_DATA_LENGTH;
+        if(length % VALID_DATA_LENGTH != 0)
+            needed_block++;
+        int left = length % VALID_DATA_LENGTH;
+        cout << endl << "last node contain " << ((left == 0) ? VALID_DATA_LENGTH : left) << "bytes of data" << endl;
+        cout << "need " << needed_block << " blocks to store data" << endl;
 
-    for(uint i = 1; i < args.size(); i++) 
-    {
-        Descriptor desc;
-        if(!basic_open(&desc, vector<string> {args[0], args[i], "r"}))
+        Inode new_file_inode(sp.get_new_inode(), true, length, sp.get_new_sec());
+        new_file_inode.write_inode_back_to_disk(my_cache);
+        cout << "img inode info: #inode: " << new_file_inode.get_inode_num() << endl;
+        cout << "file length " << new_file_inode.get_file_size() << endl;
+        cout << " #sector begin: " << new_file_inode.get_sec_beg() << endl;
+
+        // 3. add new entry in current directory
+        int flag = false;
+        for(int i = 2; i < 15; i++)
         {
-        /* failed to open */
-        continue;
-        }
-
-        auto size = desc.inode.lock()->size;
-        read(vector<string>{args[0], std::to_string(desc.fd), std::to_string(size)});
-        basic_close(desc.fd);
-    }
-}
-
-void myFS::cp(vector<string> args) 
-{
-    ops_exactly(2);
-
-    Descriptor src, dest;
-    if(basic_open(&src, vector<string> {args[0], args[1], "r"})) 
-    {
-        if(!basic_open(&dest, vector<string> {args[0], args[2], "w"})) 
-        {
-            basic_close(src.fd);
-        } 
-        else 
-        {
-            auto data = basic_read(src, src.inode.lock()->size);
-            if (!basic_write(dest, *data)) 
+            if(cur_dir.dirs[i].inode_num == 0)
             {
-                cerr << args[0] << ": error: out of free space or file too large"<< endl;
+                cur_dir.dirs[i].init(IMG, new_file_inode.get_inode_num());
+                flag = true;
+                break;
             }
-            basic_close(src.fd);
-            basic_close(dest.fd);
         }
-    }
-}
-
-void tree_helper(shared_ptr<DirEntry> directory, string indent) 
-{
-    auto cont = directory->contents;
-    if (directory->type == file) 
-    {
-        cout << directory->name << ": " << directory->inode->size << " bytes" << endl;
-    }
-    else 
-    {
-        cout << directory->name << endl;
-    }
-    if (cont.size() == 0) return;
-
-    if (cont.size() >= 2) 
-    {
-        auto last = *(cont.rbegin());
-        for (auto entry = cont.begin(); *entry != last; entry++) 
+        if(flag)
         {
-            cout << indent << "├───";
-            tree_helper(*entry, indent + "│   ");
+            cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
+        }
+
+        // 4. store data into file system
+        is.seekg(0, is.beg);
+        char buffer[VALID_DATA_LENGTH];
+        sector_file img_sectors[needed_block];
+        int sec_numbers[needed_block];
+        sec_numbers[0] = new_file_inode.get_sec_beg();
+        for(int i = 0; i < needed_block - 1; i++) {
+            is.read(buffer, VALID_DATA_LENGTH);
+            sec_numbers[i+1] = sp.get_new_sec();
+            memcpy(img_sectors[i].data, buffer, VALID_DATA_LENGTH);
+            img_sectors[i].next = sec_numbers[i+1];
+            cout << "#next data sector:" << img_sectors[i].next << endl;
+        }
+        if(left == 0) {
+            is.read(buffer, VALID_DATA_LENGTH);
+            memcpy(img_sectors[needed_block - 1].data, buffer, VALID_DATA_LENGTH);
+            img_sectors[needed_block - 1].next = 0;
+        }
+        else {
+            is.read(buffer, left);
+            memcpy(img_sectors[needed_block - 1].data, buffer, left);
+            img_sectors[needed_block - 1].next = 0;
+        }
+
+        cout << "File pointer location" << is.tellg() << endl;
+        cout << "file sectors info" << endl;
+        cout << new_file_inode.get_sec_beg();
+        for(int i = 0; i < needed_block; i++) {
+            cout << " -> " << img_sectors[i].next;
+        }
+        cout << endl;
+        for(int i = 0; i < needed_block; i++) {
+            img_sectors[i].write_back_to_disk(my_cache, sec_numbers[i]);
+        }
+
+        is.close();
+    }
+
+}
+
+bool myFS::move_out(string name)
+{
+    /*
+    * move p1.png out of my file system
+    */
+
+    // 1. search for inode number
+    int inode_num = -1;
+    for(int i = 0; i < 15; i++)
+    {
+        if(strncmp(IMG, cur_dir.dirs[i].name, strlen(IMG)) == 0)
+        {
+            inode_num = cur_dir.dirs[i].inode_num;
+            cout << "inode of p1.png: " << inode_num << endl;
+            break;
+        }
+    }
+    if(inode_num == -1)
+    {
+        cout << "pl.png not exists" << endl;
+        return false;
+    }
+    Inode file_node;
+    file_node.read_inode_from_disk(inode_num, my_cache);
+
+    cout << "file info: #inode " << file_node.get_inode_num() << endl;
+    cout << "file length: " << file_node.get_file_size() << endl;
+    cout << "sec number: " << file_node.get_sec_num() << endl;
+    cout << "sec_begin: " << file_node.get_sec_beg() << endl << endl;
+
+    // 2. get data of p1.png from my file system
+    sector_file data_sec;
+    data_sec.read_dir_from_disk(my_cache, file_node.get_sec_beg());
+    string file_name = name + ".png";
+    fstream os(file_name.c_str(), fstream::in | fstream::out | fstream::app);
+
+    char buffer[VALID_DATA_LENGTH];
+    int next_sec = -1, left = file_node.get_file_size() % VALID_DATA_LENGTH;
+    if(os)
+    {
+        for(int i = 0; i < file_node.get_sec_num() ; i++)
+        {
+            if(i != file_node.get_sec_num() - 1 || left == 0)
+            {
+                next_sec = data_sec.next;
+                memcpy(buffer, data_sec.data, VALID_DATA_LENGTH);
+                os.write(buffer, VALID_DATA_LENGTH);
+                data_sec.read_dir_from_disk(my_cache, next_sec);
+            }
+            else
+            {
+                memcpy(buffer, data_sec.data, left);
+                os.write(buffer, left);
+            }
+            cout << "size of new file:" << os.tellg() << endl;
+        }
+        os.close();
+    }
+
+    return true;
+}
+
+string myFS::getpwd(vector<string> args)
+{
+    sector_dir back_dir=cur_dir;
+    Inode back_inode=cur_dir_node;
+    string path;
+    string dir_name;
+    if(cur_dir.isroot())
+    {
+        path="/";
+        cout<<path;
+        return path;
+    }
+    path=cur_dir.dir_name;
+    dir_name=cur_dir.dir_name;
+    sector_dir* now=&cur_dir;
+    while(!now->isroot())
+    {
+        int dir_inode_num=cur_dir.dirs[1].inode_num;
+        cur_dir_node.read_inode_from_disk(dir_inode_num, my_cache);
+        cur_dir.read_dir_from_disk(my_cache, cur_dir_node.get_sec_beg());
+        dir_name=cur_dir.dir_name;
+        path=dir_name+"/"+path;
+        now=&cur_dir;
+    }
+    cout<<path<<endl;
+    cur_dir_node=back_inode;
+    cur_dir=back_dir;
+    return path;
+}
+
+void myFS::printpwd(vector<string> args)
+{
+    string pwd;
+    pwd=getpwd(args);
+    cout<<pwd<<endl;
+
+}
+
+// format
+bool myFS::format_file_system()
+{
+    sp.init();
+
+    Inode root_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    Inode bin_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    Inode etc_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    Inode home_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    Inode dev_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    Inode tangrui_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    cout << "1. 申请inode" << endl;
+
+
+    root_node.write_inode_back_to_disk(my_cache);
+    bin_node.write_inode_back_to_disk(my_cache);
+    etc_node.write_inode_back_to_disk(my_cache);
+    home_node.write_inode_back_to_disk(my_cache);
+    dev_node.write_inode_back_to_disk(my_cache);
+    tangrui_node.write_inode_back_to_disk(my_cache);
+    cout << "2. inode写回磁盘" << endl;
+
+
+    sector_dir root_sec_dir;
+    root_sec_dir.dirs[0].init(".", 0);
+    root_sec_dir.dirs[1].init("..", 0);
+    root_sec_dir.dirs[2].init("bin", bin_node.get_inode_num());
+    root_sec_dir.dirs[3].init("etc", etc_node.get_inode_num());
+    root_sec_dir.dirs[4].init("home", home_node.get_inode_num());
+    root_sec_dir.dirs[5].init("dev", dev_node.get_inode_num());
+
+    sector_dir bin_sec_dir;
+    bin_sec_dir.dirs[0].init(".", bin_node.get_inode_num());
+    bin_sec_dir.dirs[1].init("..", root_node.get_inode_num());
+
+    sector_dir etc_sec_dir;
+    etc_sec_dir.dirs[0].init(".", etc_node.get_inode_num());
+    etc_sec_dir.dirs[1].init("..", root_node.get_inode_num());
+
+    sector_dir home_sec_dir;
+    home_sec_dir.dirs[0].init(".", home_node.get_inode_num());
+    home_sec_dir.dirs[1].init("..", root_node.get_inode_num());
+    home_sec_dir.dirs[2].init("tangrui", tangrui_node.get_inode_num());
+
+    sector_dir dev_sec_dir;
+    dev_sec_dir.dirs[0].init(".",  dev_node.get_inode_num());
+    dev_sec_dir.dirs[1].init("..", root_node.get_inode_num());
+
+    sector_dir tangrui_sec_dir;
+    tangrui_sec_dir.dirs[0].init(".",  tangrui_node.get_inode_num());
+    tangrui_sec_dir.dirs[1].init("..", home_node.get_inode_num());
+
+    cout << "3. 目录创建完成" << endl;
+
+
+    root_sec_dir.write_back_to_disk(my_cache, root_node.get_sec_beg());
+    bin_sec_dir.write_back_to_disk(my_cache, bin_node.get_sec_beg());
+    etc_sec_dir.write_back_to_disk(my_cache, etc_node.get_sec_beg());
+    home_sec_dir.write_back_to_disk(my_cache, home_node.get_sec_beg());
+    dev_sec_dir.write_back_to_disk(my_cache, dev_node.get_sec_beg());
+    tangrui_sec_dir.write_back_to_disk(my_cache, tangrui_node.get_sec_beg());
+    cout << "4.目录创建完成" << endl;
+
+
+    cur_dir = root_sec_dir;
+    cur_dir_node = root_node;
+    return true;
+}
+
+// D:mkdir dir
+void myFS::mkdir(vector<string> args)
+{
+    string file_name=args[1];
+    const char *name = file_name.c_str();
+    // create inode
+    Inode new_dir_inode(sp.get_new_inode(), false, 0, sp.get_new_sec());
+    cout<<"mkdir inode num num"<<new_dir_inode.get_inode_num();
+//    cout<<"mkdir inode num num"<<new_dir_inode.get_inode_num();
+    // write back to disk
+    new_dir_inode.write_inode_back_to_disk(my_cache);
+
+    // mkdir entry
+    sector_dir new_sec_dir;
+    strcpy(new_sec_dir.dir_name,file_name.c_str());
+    new_sec_dir.dirs[0].init(".", new_dir_inode.get_inode_num());
+    new_sec_dir.dirs[1].init("..", cur_dir_node.get_inode_num());
+    new_sec_dir.write_back_to_disk(my_cache, new_dir_inode.get_sec_beg());
+
+    // add dir to parent dir
+    int flag = false;
+    for(int i = 2; i < 15; i++)
+    {
+        if(cur_dir.dirs[i].inode_num == -1)
+        {
+            cur_dir.dirs[i].init(name, new_dir_inode.get_inode_num());
+            flag = true;
+            break;
+        }
+    }
+    if(flag)
+    {
+        cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
+    }
+    cout << "******************************** 创建新文件夹结束 ********************************" << endl;
+    return;
+}
+
+// D: touch file
+void myFS::touch(vector<string> args)
+{
+    string file_name=args[1];
+    const char *name = file_name.c_str();
+    cout << "touch file" << endl;
+    // create inode
+    Inode new_file_inode(sp.get_new_inode(), true, 1, sp.get_new_sec());
+    new_file_inode.write_inode_back_to_disk(my_cache);
+
+//    sector_file new_sec_file;
+//    new_sec_file.write_back_to_disk(my_cache, new_file_inode.get_sec_beg());
+
+    // add inode to dir
+    int flag = false;
+    for(int i = 2; i < 15; i++)
+    {
+        if(cur_dir.dirs[i].inode_num == -1)
+        {
+            cur_dir.dirs[i].init(name, new_file_inode.get_inode_num());
+            flag = true;
+            break;
         }
     }
 
-    cout << indent << "└───";
-    tree_helper(*(cont.rbegin()), indent + "    ");
-}
-
-void myFS::tree(vector<string> args)
-{
-  ops_exactly(0);
-
-  tree_helper(pwd, "");
-}
-
-//D: file only import
-void myFS::import(vector<string> args) 
-{
-    ops_exactly(2);
-
-    Descriptor desc;
-    fstream in(args[1]);
-    if(!in.is_open())
+    if(flag)
     {
-        cerr << args[0] << ": error: Unable to open " << args[1] << endl;
+        cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
+    }
+
+    return;
+}
+
+
+void myFS::rmdir(vector<string> args)
+{
+    string file_name=args[1];
+    const char *name = file_name.c_str();
+    int del_inode_num = -1;
+    for(int i = 0; i < 15; i++)
+    {
+        if(strncmp(name, cur_dir.dirs[i].name, strlen(name)) == 0)
+        {
+            del_inode_num = cur_dir.dirs[i].inode_num;
+            cout << "inode num of the dir is ：" << del_inode_num << endl;
+            break;
+        }
+    }
+    if(del_inode_num == -1)
+    {
+        cerr << "dir not exist" << endl;
+    }
+
+
+    Inode del_node;
+    del_node.read_inode_from_disk(del_inode_num, my_cache);
+
+
+    del_inode(del_node, cur_dir);
+    cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
+
+}
+
+
+void myFS::cd(vector<string> args)
+{
+    string file_name=args[1];
+    const char *name = file_name.c_str();
+    // get subdir inode
+    int dir_inode_num = -1;
+    for(int i = 0; i < 15; i++)
+    {
+        if(strncmp(name, cur_dir.dirs[i].name, strlen(name)) == 0)
+        {
+            dir_inode_num = cur_dir.dirs[i].inode_num;
+            cout << "inode num:" << dir_inode_num << endl;
+            break;
+        }
+    }
+    if(dir_inode_num == -1)
+    {
+        cerr << "cd: no such file or directory:" <<file_name << endl;
         return;
     }
-    if (basic_open(&desc, vector<string>{args[0], args[2], "w"})) 
-    {
-        string data((istreambuf_iterator<char>(in)), istreambuf_iterator<char>());
-        if (!basic_write(desc, data)) 
-        {
-            cerr << args[0] << ": error: out of free space or file too large"<< endl;
-        }
-        basic_close(desc.fd);
-    }
-}
 
-//D: file only export
-void myFS::FS_export(vector<string> args) 
-{
-    ops_exactly(2);
+    // find inode by inode num
+    cur_dir_node.read_inode_from_disk(dir_inode_num, my_cache);
 
-    Descriptor desc;
-    ofstream out(args[2], ofstream::binary);
-    if (!out.is_open()) 
-    {
-        cerr << args[0] << ": error: Unable to open " << args[2] << endl;
-        return;
-    }
-
-    if (basic_open(&desc, vector<string>{args[0], args[1], "r"})) 
-    {
-        unique_ptr<string> data = basic_read(desc, desc.inode.lock()->size);
-        out << *data;
-        basic_close(desc.fd);
-    }
+    // read info by inode info
+    cur_dir.read_dir_from_disk(my_cache, cur_dir_node.get_sec_beg());
 }

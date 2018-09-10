@@ -15,7 +15,7 @@ int my_release(struct inode *inode, struct file *file);
 ssize_t my_read(struct file *file, char __user *user, size_t t, loff_t *f);
 ssize_t my_write(struct file *file, const char __user *user, size_t t, loff_t *f);
 
-char message[MAX_SIZE] = "--------welcome---------";
+char message[MAX_SIZE] = "--------Hover'sDriver---------";
 
 
 

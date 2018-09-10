@@ -167,11 +167,11 @@ void read_procs(void)
     closedir(proc_dir);
 }
 
- int read_stat(char *filename, struct proc_info *proc)
- {
+int read_stat(char *filename, struct proc_info *proc)
+{
     FILE *file;
     char buf[MAX_LINE], *open_paren, *close_paren;
-//    int res, idx;
+    //    int res, idx;
 
     file = fopen(filename, "r");
     if (!file) return 1;
@@ -195,8 +195,8 @@ void read_procs(void)
     return 0;
 }
 
- void add_proc(int proc_num, struct proc_info *proc)
- {
+void add_proc(int proc_num, struct proc_info *proc)
+{
     int i;
 
     if (proc_num >= num_new_procs)

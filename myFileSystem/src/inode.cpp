@@ -1,107 +1,89 @@
-#include "../include/inode.hpp"
-#include <algorithm>
-#include <list>
-#include <vector>
+#include "inode.hpp"
 
-using std::list;
-using std::shared_ptr;
-using std::sort;
-using std::vector;
+using namespace std;
+extern Buffer buffer;
 
-uint Inode::block_size = 0;
-list<FreeNode> * Inode::free_list = nullptr;
-
-Inode::Inode(): size(0), blocks_used(0), i_blocks(new vector<vector<uint>>())
+// 构造函数初始化
+Inode::Inode()
 {
-    inode_num= static_cast<uint>(inode_total);
-    inode_total++;
-
-
+    _inode_num = 0;
+    _is_file = false;
+    _file_size = 0;
+    _sec_beg = 0;
+    _sec_num = 0;
+    memset(_compensate, 0, 12);
 }
 
-Inode::~Inode()
+Inode::Inode(int node_num, bool _is_file, int file_size, int sec_begin)
 {
-    if (blocks_used == 0)
-    {
-        return;
-    }
-    else
-    {
-        if(blocks_used == 1) 
-        {
-            free_list->emplace_front(block_size, d_blocks[0]);
-        }
-    }
+    _inode_num = node_num;
+    _is_file = _is_file;
+    _file_size = file_size;
+    _sec_beg = sec_begin;
+    _sec_num = (file_size) / sizeof(VALID_DATA_LENGTH) + 1;
+    cout << "创建新的i节点，inode号" << node_num ;
+    cout << " ，开始扇区：" << sec_begin << endl;
+}
 
-    vector<uint> blocks;
+int Inode::get_inode_num()
+{
+    return _inode_num;
+}
 
-    for (uint block : d_blocks)
-    {
-        blocks.push_back(block);
-    }
+// true->file; false->dir
+bool Inode::get_type() {
+    return _is_file;
+}
 
-    for (auto vec: *i_blocks)
-    {
-        for (uint block: vec)
-        {
-            blocks.push_back(block);
-        }
-    }
+int Inode::get_file_size() {
+    return _file_size;
+}
 
-    sort(begin(blocks), end(blocks));
+int Inode::get_sec_beg() {
+    return _sec_beg;
+}
 
-    uint start = blocks.front();
-    uint last = start;
-    uint size = block_size;
-    blocks.erase(begin(blocks));
-    for (uint block : blocks)
-    {
-        if (block - last != block_size)
-        {
-            free_list->emplace_back(size, start);
-            start= block;
-            last = start;
-            size = 0;
-        }
-        else
-        {
-            last = block;
-            size += block_size;
-        }
-    }
-    free_list->emplace_front(size, start);
+int Inode::get_sec_num() {
+    return _sec_num;
+}
+
+// 返回Inode对应的扇区号
+int Inode::get_inode_sec_num()
+{
+//    return INODE_BEGIN / SEC_SIZE + _inode_num / sizeof(Inode);
+    return INODE_BEGIN / SEC_SIZE + _inode_num;
+}
+
+void Inode::set_inode_num(int num)
+{
+    _inode_num = num;
 }
 
 
+bool Inode::read_inode_from_disk(int inode_num,Buffer &buffer)
+{
+    assert(inode_num >= 0 && inode_num < INODE_NUM);
+    set_inode_num(inode_num);
+    int sec_num = get_inode_sec_num();
+    int num_in_sec = inode_num % 16;
+    BufferNode buffer_node;
 
-// // 从磁盘中读取inode
-// bool Inode::read_inode_from_disk(int inode_num) 
-// {
-//     assert(inode_num >= 0 && inode_num < INODE_NUM);
-//     set_inode_num(inode_num);
-//     int sec_num = get_inode_sec_num();
-//     int num_in_sec = inode_num % 16;
-//     BufferNode buffer_node;
+    buffer.read_disk(sec_num, buffer_node);
+    memcpy(this, buffer_node.buffer + num_in_sec * sizeof(Inode), sizeof(Inode));
 
-//     buffer.read_disk(sec_num, buffer_node);
-//     memcpy(this, buffer_node.buffer + num_in_sec * sizeof(Inode), sizeof(Inode));
-
-//     return true;
-// }
-
-// // D: inode is used and modefied
-// bool Inode::write_inode_back_to_disk(int inode_num)
-// {
-//    block_size
-//     int sec_num = get_inode_sec_num();
-//     int num_in_sec = _inode_num % 16;
-//     BufferNode buffer_node;
-//
-//     buffer.read_disk(sec_num, buffer_node);
-//     memcpy(buffer_node.buffer + num_in_sec * sizeof(Inode), this, sizeof(Inode));
-//     cout << "将inode写回磁盘, inode号码" << _inode_num << ", 扇区号：" << sec_num << endl;
-//     buffer.write_disk(buffer_node);
-//     return true;
-// }
+    return true;
+}
 
 
+bool Inode::write_inode_back_to_disk(Buffer &buffer)
+{
+    int sec_num = get_inode_sec_num();
+    int num_in_sec = _inode_num % 16;
+    BufferNode buffer_node;
+
+    buffer.read_disk(sec_num, buffer_node);
+    memcpy(buffer_node.buffer + num_in_sec * sizeof(Inode), this, sizeof(Inode));
+    cout << "将inode写回磁盘, inode号码" << _inode_num << ", 扇区号：" << sec_num << endl;
+    buffer.write_disk(buffer_node);
+    return true;
+}

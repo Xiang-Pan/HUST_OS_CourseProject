@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "module.h": "c"
+        "module.h": "c",
+        "system_error": "c"
     }
 }

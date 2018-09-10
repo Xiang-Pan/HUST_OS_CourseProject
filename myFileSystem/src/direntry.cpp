@@ -1,97 +1,107 @@
-#include "../include/direntry.hpp"
-#include <algorithm>
-#include <sstream>
-#include <vector>
+#include "direntry.hpp"
 
-using std::find_if;
-using std::istringstream;
-using std::make_shared;
-using std::shared_ptr;
-using std::string;
-using std::vector;
-using std::weak_ptr;
-
-//init DirEntry
-DirEntry::DirEntry() 
+void sector_dir_entry::init(const char* _name, int _num)
 {
-    is_locked = false;
+    memcpy(name, _name, 28);
+    inode_num = _num;
 }
 
-//D: make Dir
-shared_ptr<DirEntry> DirEntry::make_de_dir(const string name,const shared_ptr<DirEntry> parent) 
+sector_dir_entry::sector_dir_entry()
 {
-    auto sp = make_shared<DirEntry>(DirEntry()); // de ptr
-    if (parent == nullptr)  // .=..
+    memset(this, 0, sizeof(sector_dir_entry));
+}
+
+sector_dir::sector_dir()
+{
+    for(int i=0;i<16;i++)
     {
-        sp->parent = sp;
-    } 
-    else 
-    {
-        sp->parent = parent;
+        dirs[i].inode_num = -1;
     }
-    sp->type = dir;
-    sp->self = sp;
-    sp->name = name;
-    sp->inode = nullptr;
-    return sp;
 }
 
-//D: make file
-shared_ptr<DirEntry> DirEntry::make_de_file(const string name,
-                                            const shared_ptr<DirEntry> parent,
-                                            const shared_ptr<Inode> &inode) 
+
+bool sector_dir::write_back_to_disk(Buffer& buffer, int sec_num)
 {
-    auto sp = make_shared<DirEntry>(DirEntry());
-    if (parent == nullptr) 
+    assert(sec_num >= 0 && sec_num < BLOCK_NUM);
+
+    BufferNode buffer_node;
+    buffer.read_disk(sec_num, buffer_node);
+    memcpy(buffer_node.buffer, this, sizeof(sector_dir));
+
+    buffer.write_disk(buffer_node);
+    return true;
+}
+
+bool sector_dir::read_dir_from_disk(Buffer& buffer, int sec_num)
+{
+    assert(sec_num >= 0 && sec_num < BLOCK_NUM);
+
+    BufferNode buffer_node;
+    buffer.read_disk(sec_num, buffer_node);
+    memcpy(this, buffer_node.buffer, sizeof(sector_dir));
+
+    return true;
+}
+
+
+sector_dir_entry sector_dir_entry::operator = (const sector_dir_entry& dir)
+{
+    memcpy(name, dir.name, 28);
+    inode_num = dir.inode_num;
+}
+
+void sector_dir_entry::clone(const sector_dir_entry& dir) {
+    memcpy(name, dir.name, 28);
+    inode_num = dir.inode_num;
+}
+
+sector_dir sector_dir::operator = (const sector_dir& sec_dir)
+{
+    for(int i = 0; i < 16; i ++)
     {
-        sp->parent = sp;
-    } 
-    else 
-    {
-        sp->parent = parent;
+        dirs[i].clone(sec_dir.dirs[i]);
     }
-    sp->type = file;
-    sp->self = sp;
-    sp->name = name;
-    sp->inode = inode;
-    return sp;
 }
 
-//D: find child(cd)
-shared_ptr<DirEntry> DirEntry::find_child(const string name) const 
+bool sector_dir::isroot()
 {
-    // handle . and ..
-    if (name == "..") 
-    {
-        return parent.lock();
-    } 
-    else if (name == ".") 
-    {
-        return self.lock();
-    }
-
-    // search through contents and return ptr if found, otherwise nullptr for traveling all the ptr auto
-    auto named = [&] (const shared_ptr<DirEntry> de) {return de->name == name;};
-    auto it = find_if(begin(contents), end(contents), named);
-    if (it == end(contents)) 
-    {
-        return nullptr;
-    }
-    return *it;
+    return dirs[0].inode_num==dirs[1].inode_num;
 }
 
-// wrap make dir
-shared_ptr<DirEntry> DirEntry::add_dir(const string name) 
+
+sector_file::sector_file()
 {
-    auto new_dir = make_de_dir(name, self.lock());
-    contents.push_back(new_dir);
-    return new_dir;
+    memset(data, 0, VALID_DATA_LENGTH);
+    next = -1;
 }
 
-//wrap make file
-shared_ptr<DirEntry> DirEntry::add_file(const string name) 
+sector_file sector_file::operator = (const sector_file& sec_file)
 {
-    auto new_file = make_de_file(name, self.lock(), make_shared<Inode>());
-    contents.push_back(new_file);
-    return new_file;
+    memcpy(data, sec_file.data, VALID_DATA_LENGTH);
+    next = sec_file.next;
 }
+
+
+bool sector_file::read_dir_from_disk(Buffer& buffer, int sec_num)
+{
+    assert(sec_num >= 0 && sec_num < BLOCK_NUM);
+
+    BufferNode buffer_node;
+    buffer.read_disk(sec_num, buffer_node);
+    memcpy(this, buffer_node.buffer, sizeof(sector_file));
+
+    return true;
+}
+bool sector_file::write_back_to_disk(Buffer& buffer, int sec_num)
+{
+    assert(sec_num >= 0 && sec_num < BLOCK_NUM);
+
+    BufferNode buffer_node;
+    buffer.read_disk(sec_num, buffer_node);
+    memcpy(buffer_node.buffer, this, sizeof(sector_dir));
+
+    buffer.write_disk(buffer_node);
+    return true;
+}
+
+

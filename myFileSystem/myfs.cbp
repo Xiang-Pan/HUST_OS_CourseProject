@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="myfs"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="myfs">
+				<Option output="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/myfs" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 myfs"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="myfs/fast">
+				<Option output="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/myfs" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 myfs/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/Buffer.cpp">
+			<Option target="myfs"/>
+		</Unit>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/direntry.cpp">
+			<Option target="myfs"/>
+		</Unit>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/inode.cpp">
+			<Option target="myfs"/>
+		</Unit>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/main.cpp">
+			<Option target="myfs"/>
+		</Unit>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/myfs.cpp">
+			<Option target="myfs"/>
+		</Unit>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/superblock.cpp">
+			<Option target="myfs"/>
+		</Unit>
+		<Unit filename="/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,36 +1,56 @@
-#ifndef _INODE_H_
-#define _INODE_H_
 
-#include <sys/types.h>
-#include <list>
-#include <memory>
-#include <vector>
-#include <string>
-#include "freenode.hpp"
-#include "macro.h"
-using namespace std;
+#ifndef INODE_H
+#define INODE_H
+#include "myfs_macro.h"
+#include "Buffer.hpp"
+#include <iostream>
+#include "assert.h"
+#include "superblock.hpp"
 
 
-
+// compensate to 32 Bytes
 class Inode
 {
-    public:
-    long create_time;
-    uint inode_num;
-    uint sec_num;
+friend class Buffer;
+private:
+    int _inode_num;
+    bool _is_file;
+    int _file_size; // Byte
+    int _sec_beg;   //  link by ptr
+    int _sec_num;   // total sec num
+    char _compensate[12];
 
-    uint size;
-    uint blocks_used;
-    static uint block_size;
-    static list<FreeNode> *free_list; // freenode list
+public:
+  Inode();
+  class Buffer *buffer;
+  int mode;
+  time_t creat_time;
+  time_t modify_time;
+  Inode(int node_num, bool _is_file, int file_size, int sec_begin);
 
+  int get_inode_num();
 
-    // use unique_ptr to ensure the alloc err , if false then recollect
-    vector<uint> d_blocks;
-    unique_ptr<std::vector<std::vector<uint>>> i_blocks; // i_blocks map
+  // true->file; false->dir
+  bool get_type();
 
-    Inode();
-    ~Inode();
+  int get_file_size();
+
+  int get_sec_beg();
+
+  int get_sec_num();
+
+  void set_inode_num(int num);
+
+  int get_inode_sec_num();
+
+  bool read_inode_from_disk(int inode_num,Buffer &buffer);
+
+  bool write_inode_back_to_disk(Buffer &buffer);
+
+  Inode operator = (const Inode& b)
+  {
+
+  }
 };
 
-#endif /* _INODE_H_ */
+#endif
