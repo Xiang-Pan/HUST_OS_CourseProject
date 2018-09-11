@@ -3,12 +3,12 @@
 using namespace std;
 extern Buffer buffer;
 
-// 构造函数初始化
+
 Inode::Inode()
 {
     _inode_num = 0;
     _is_file = false;
-    _file_size = 0;
+//    _file_size = 0;
     _sec_beg = 0;
     _sec_num = 0;
     memset(_compensate, 0, 12);
@@ -21,8 +21,8 @@ Inode::Inode(int node_num, bool _is_file, int file_size, int sec_begin)
     _file_size = file_size;
     _sec_beg = sec_begin;
     _sec_num = (file_size) / sizeof(VALID_DATA_LENGTH) + 1;
-    cout << "创建新的i节点，inode号" << node_num ;
-    cout << " ，开始扇区：" << sec_begin << endl;
+    cout << "create new inode" << node_num ;
+    cout << " ，begin sec：" << sec_begin << endl;
 }
 
 int Inode::get_inode_num()
@@ -31,23 +31,27 @@ int Inode::get_inode_num()
 }
 
 // true->file; false->dir
-bool Inode::get_type() {
+bool Inode::get_type()
+{
     return _is_file;
 }
 
-int Inode::get_file_size() {
+int Inode::get_file_size()
+{
     return _file_size;
 }
 
-int Inode::get_sec_beg() {
+int Inode::get_sec_beg()
+{
     return _sec_beg;
 }
 
-int Inode::get_sec_num() {
+int Inode::get_sec_num()
+{
+    _sec_num = (_file_size) / VALID_DATA_LENGTH + 1;
     return _sec_num;
 }
 
-// 返回Inode对应的扇区号
 int Inode::get_inode_sec_num()
 {
 //    return INODE_BEGIN / SEC_SIZE + _inode_num / sizeof(Inode);
@@ -83,7 +87,7 @@ bool Inode::write_inode_back_to_disk(Buffer &buffer)
 
     buffer.read_disk(sec_num, buffer_node);
     memcpy(buffer_node.buffer + num_in_sec * sizeof(Inode), this, sizeof(Inode));
-    cout << "将inode写回磁盘, inode号码" << _inode_num << ", 扇区号：" << sec_num << endl;
+    cout << "inode write back , inode num" << _inode_num << ", sec num：" << sec_num << endl;
     buffer.write_disk(buffer_node);
     return true;
 }

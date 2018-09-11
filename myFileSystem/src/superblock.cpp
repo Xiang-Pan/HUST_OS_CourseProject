@@ -119,14 +119,14 @@ void superblock::read_from_disk()
     disk.read((char*)&cur_dir_num, sizeof(int));
     disk.read((char*)inode_bitmap, sizeof(bool) * INODE_NUM);
     disk.read((char*)block_bitmap, sizeof(bool) * BLOCK_NUM);
-    cout<<cur_dir_node_num<<cur_dir_num;
+//    cout<<cur_dir_node_num<<cur_dir_num;
 }
 
 void superblock::write_to_disk()
 {
     cur_dir_node_num=myfs->cur_dir_node.get_inode_num();
     cur_dir_num=myfs->cur_dir_node.get_sec_beg();
-    cout<<cur_dir_node_num<<cur_dir_num;
+//    cout<<cur_dir_node_num<<cur_dir_num;
     if(disk.is_open())
     {
         cout<<"wriet open sus!";

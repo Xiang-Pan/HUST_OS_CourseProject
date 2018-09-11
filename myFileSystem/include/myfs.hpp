@@ -9,16 +9,14 @@
 class myFS
 {
 public:
-    // 显示模拟的shell界面
     void myshell();
 
-    // 开始
     void run();
 
     // construct
     myFS();
 
-
+    void vim(vector<string> args);
 //    void open(vector<string> args);
 //    void read(vector<string> args);
 //    void write(vector<string> args);
@@ -32,7 +30,7 @@ public:
 //    void stat(vector<string> args);
     void ls(vector<string> args);
     void touch(vector<string> args);
-//    void cat(vector<string> args);
+    void cat(vector<string> args);
 //    void cp(vector<string> args);
 //    void tree(vector<string> args);
 //    void import(vector<string> args);
@@ -56,10 +54,13 @@ private:
     bool format_file_system();
     bool del_inode(Inode& node, sector_dir& del_dir);
 
-    bool move_in();
-    bool move_out(string name);
+    bool move_in(int ionde_num,string file_name);
+//    bool move_out(string name);
+    bool move_out(int inode_num);
 
     bool init_file_system();
+
+    int is_existed_file(string filename);
 
 
 

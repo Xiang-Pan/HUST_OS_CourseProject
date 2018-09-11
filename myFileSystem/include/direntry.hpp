@@ -45,5 +45,4 @@ public:
     bool write_back_to_disk(Buffer& buffer, int sec_num);
 };
 
-
 #endif

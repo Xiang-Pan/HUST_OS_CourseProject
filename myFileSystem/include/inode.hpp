@@ -13,14 +13,17 @@ class Inode
 {
 friend class Buffer;
 private:
-    int _inode_num;
-    bool _is_file;
-    int _file_size; // Byte
+
+
+
     int _sec_beg;   //  link by ptr
     int _sec_num;   // total sec num
     char _compensate[12];
 
 public:
+    bool _is_file;
+    int _file_size; // Byte
+    int _inode_num;
   Inode();
   class Buffer *buffer;
   int mode;

@@ -57,6 +57,7 @@ void sector_dir_entry::clone(const sector_dir_entry& dir) {
 
 sector_dir sector_dir::operator = (const sector_dir& sec_dir)
 {
+    strcpy(dir_name,sec_dir.dir_name);
     for(int i = 0; i < 16; i ++)
     {
         dirs[i].clone(sec_dir.dirs[i]);

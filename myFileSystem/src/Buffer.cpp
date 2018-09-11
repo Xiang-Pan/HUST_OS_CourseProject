@@ -25,7 +25,7 @@ bool Buffer::write_disk(const BufferNode& node)
     i = has_sec(node.sec_num);
     if(i >= 0)
     {
-        cout << "write disk: update buffer" << endl;
+//        cout << "write disk: update buffer" << endl;
         cache[i].update(node);
         return true;
     }
@@ -33,12 +33,12 @@ bool Buffer::write_disk(const BufferNode& node)
     i = is_full();
     if(i >= 0)
     {
-        cout << "write disk:buffer full replace buffer" << i << endl;
+//        cout << "write disk:buffer full replace buffer " << i << endl;
         real_disk_write(cache[i]);
         cache.erase(cache.begin() + i);
     }
     cache.push_back(node);
-    cout << "write disk: write to buffer" << endl;
+//    cout << "write disk: write to buffer" << endl;
     return true;
 }
 
@@ -54,7 +54,7 @@ bool Buffer::read_disk(int sec_num, BufferNode& node){
 
     if(i >= 0)
     {
-        cout << "read disk: the sec is in buffer " <<sec_num<< endl;
+//        cout << "read disk: the sec is in buffer " <<sec_num<< endl;
         node.update(cache[i]);
         return true;
     }
@@ -62,7 +62,7 @@ bool Buffer::read_disk(int sec_num, BufferNode& node){
     i = is_full();
     if(i >= 0)
     {
-        cout << "read disk: buffer ，replace buffer " << i  << endl;
+//        cout << "read disk: buffer ，replace buffer " << i  << endl;
         real_disk_write(cache[i]);
         cache.erase(cache.begin() + i);
         real_disk_read(sec_num, node);
@@ -73,7 +73,7 @@ bool Buffer::read_disk(int sec_num, BufferNode& node){
         real_disk_read(sec_num, node);
         node.init(sec_num);
         cache.push_back(node);
-        cout << "read disk: buffer available ，write to buffer" << endl;
+//        cout << "read disk: buffer available ，write to buffer " << endl;
     }
     return true;
 }
@@ -82,7 +82,7 @@ bool Buffer::read_disk(int sec_num, BufferNode& node){
 bool Buffer::real_disk_write(const BufferNode& node)
 {
     assert(node.sec_num >= 0 && node.sec_num < MAX_SEC);
-    cout << "read disk write 写回第" << node.sec_num << "号扇区" << endl;
+//    cout << "read disk write " << node.sec_num << "num sec" << endl;
     disk.seekg(node.sec_num * SEC_SIZE, disk.beg);
     disk.write(node.buffer, SEC_SIZE);
     return true;
@@ -92,7 +92,7 @@ bool Buffer::real_disk_write(const BufferNode& node)
 bool Buffer::real_disk_read(int sec_num, BufferNode& node)
 {
     assert(sec_num >= 0 && sec_num < MAX_SEC);
-    cout << "real disk read read " << sec_num << "sec" << endl;
+//    cout << "real disk read read " << sec_num << "sec" << endl;
     disk.seekg(sec_num * SEC_SIZE, disk.beg);
     disk.read(node.buffer, SEC_SIZE);
     node.buffer[SEC_SIZE] = '\0';

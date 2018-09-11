@@ -7,17 +7,19 @@ myFS::myFS()
 {
     cout << endl << "****************** Hover's FileSystem ******************" << endl;
     this->sp.myfs=this;
-    cout<<sp.cur_dir_num<<" "<<sp.cur_dir_node_num;
-//
-//    cur_dir_node.read_inode_from_disk(sp.cur_dir_node_num,my_cache);
-//    cout<<cur_dir_node.get_sec_beg()<<" "<<cur_dir_node.get_inode_num();
-//
-//    sector_dir root_sec_dir;
-//    root_sec_dir.read_dir_from_disk(my_cache,cur_dir_node.get_sec_beg());
-//    cur_dir=root_sec_dir;
-//    root_sec_dir.write_back_to_disk(my_cache,sp.cur_dir_num);
 
-    format_file_system();
+
+//    cout<<sp.cur_dir_num<<" "<<sp.cur_dir_node_num;
+//
+    cur_dir_node.read_inode_from_disk(sp.cur_dir_node_num,my_cache);
+//    cout<<cur_dir_node.get_sec_beg()<<" "<<cur_dir_node.get_inode_num();
+
+    sector_dir root_sec_dir;
+    root_sec_dir.read_dir_from_disk(my_cache,cur_dir_node.get_sec_beg());
+    cur_dir=root_sec_dir;
+    cur_dir.write_back_to_disk(my_cache,sp.cur_dir_num);
+
+//    format_file_system();
 
 }
 
@@ -30,11 +32,11 @@ void myFS::myshell()
     PRMPT=getpwd(args);
 //    cout<<fs->getpwd(args);
     PRMPT+=">";
-//    cout << PRMPT;
+    cout << PRMPT;
     while (getline(cin, cmd))
     {
-        PRMPT=fs->getpwd(args);
-        PRMPT+="   >";
+//        PRMPT=fs->getpwd(args);
+//        PRMPT+=">";
         args.clear();
         istringstream iss(cmd);
         while (iss >> token) { args.push_back(token); }
@@ -55,9 +57,6 @@ void myFS::myshell()
         {
             cur_dir_node.write_inode_back_to_disk(my_cache);
             cd(args);
-            PRMPT=fs->getpwd(args);
-            PRMPT+="   >";
-            cout<<PRMPT;
         }
         else if (args[0] == "mkdir")
         {
@@ -73,17 +72,41 @@ void myFS::myshell()
             cout<<endl;
             sp.print_inode_bitmap();
         }
+        else if (args[0] == "cat")
+        {
+            cat(args);
+        }
         else if (args[0] == "format")
         {
             format_file_system();
         }
         else if (args[0] == "pwd")
         {
+            cout<<"pwd:";
             printpwd(args);
+        }
+        else if (args[0] == "move_in")
+        {
+            string file_name=args[1];
+            const char *name = file_name.c_str();
+            int inode_num=is_existed_file(file_name);
+            move_in(inode_num,file_name);
+        }
+        else if (args[0] == "move_out")
+        {
+            string file_name=args[1];
+            const char *name = file_name.c_str();
+            int inode_num=is_existed_file(file_name);
+            move_out(inode_num);
+        }
+        else if (args[0] == "vim")
+        {
+            vim(args);
         }
         else if (args[0] == "exit")
         {
-            cerr<<sp.cur_dir_num<<" "<<sp.cur_dir_node_num<<endl;
+            cerr<<cur_dir_node.get_sec_beg()<<" "<<cur_dir_node.get_inode_num()<<endl;
+            cur_dir_node.read_inode_from_disk(cur_dir_node.get_inode_num(), my_cache);
             cur_dir_node.write_inode_back_to_disk(my_cache);
             fs->sp.write_to_disk();
             fs->my_cache.all_write_to_disk();
@@ -93,6 +116,8 @@ void myFS::myshell()
         {
             cerr<< "comman not found"<<endl;
         }
+        PRMPT=fs->getpwd(args);
+        PRMPT+=">";
         cout<<PRMPT;
     }
 
@@ -243,14 +268,13 @@ bool myFS::del_inode(Inode& node, sector_dir& del_dir)
 }
 
 
-bool myFS::move_in()
+bool myFS::move_in(int ionde_num,string file_name)
 {
-    /*
-    *  move p1.png into my file system
-    */
-    // 1. get file size, compute needed block number, allocate block
-    ifstream is(IMG, ifstream::binary);
-    if(is) {
+    const char *name = file_name.c_str();
+    // get file size, compute needed block number, allocate block
+    ifstream is(IMG);
+    if(is)
+    {
         is.seekg(0, is.end);
         int length = is.tellg();
         cout << "size of the file:" << length << " bytes" << endl;
@@ -262,89 +286,92 @@ bool myFS::move_in()
         int left = length % VALID_DATA_LENGTH;
         cout << endl << "last node contain " << ((left == 0) ? VALID_DATA_LENGTH : left) << "bytes of data" << endl;
         cout << "need " << needed_block << " blocks to store data" << endl;
-
-        Inode new_file_inode(sp.get_new_inode(), true, length, sp.get_new_sec());
-        new_file_inode.write_inode_back_to_disk(my_cache);
-        cout << "img inode info: #inode: " << new_file_inode.get_inode_num() << endl;
-        cout << "file length " << new_file_inode.get_file_size() << endl;
-        cout << " #sector begin: " << new_file_inode.get_sec_beg() << endl;
-
-        // 3. add new entry in current directory
         int flag = false;
-        for(int i = 2; i < 15; i++)
+        Inode now_file_inode;
+        if(ionde_num==-1)
         {
-            if(cur_dir.dirs[i].inode_num == 0)
+            Inode new_file_inode(sp.get_new_inode(), true, length, sp.get_new_sec());
+            new_file_inode._is_file= true;
+            new_file_inode.write_inode_back_to_disk(my_cache);
+            ionde_num=new_file_inode.get_inode_num();
+
+            cout << "img inode info: #inode: " << new_file_inode.get_inode_num() << endl;
+            cout << "file length " << new_file_inode.get_file_size() << endl;
+            cout << " #sector begin: " << new_file_inode.get_sec_beg() << endl;
+            now_file_inode.read_inode_from_disk(ionde_num,my_cache);
+            // 3. add new entry in current directory
+
+            for(int i = 2; i < 15; i++)
             {
-                cur_dir.dirs[i].init(IMG, new_file_inode.get_inode_num());
-                flag = true;
-                break;
+                if(cur_dir.dirs[i].inode_num == -1)
+                {
+                    cur_dir.dirs[i].init(name, ionde_num);
+                    flag = true;
+                    break;
+                }
             }
+        }
+        else
+        {
+            now_file_inode.read_inode_from_disk(ionde_num,my_cache);
+            now_file_inode._file_size=length;
         }
         if(flag)
         {
-            cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
+            cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());// write back now
         }
-
+        cerr<<now_file_inode._file_size<<"!!!!!!!file size"<<endl;
         // 4. store data into file system
         is.seekg(0, is.beg);
         char buffer[VALID_DATA_LENGTH];
         sector_file img_sectors[needed_block];
         int sec_numbers[needed_block];
-        sec_numbers[0] = new_file_inode.get_sec_beg();
-        for(int i = 0; i < needed_block - 1; i++) {
+        sec_numbers[0] = now_file_inode.get_sec_beg();
+        for(int i = 0; i < needed_block - 1; i++)
+        {
             is.read(buffer, VALID_DATA_LENGTH);
             sec_numbers[i+1] = sp.get_new_sec();
             memcpy(img_sectors[i].data, buffer, VALID_DATA_LENGTH);
             img_sectors[i].next = sec_numbers[i+1];
             cout << "#next data sector:" << img_sectors[i].next << endl;
         }
-        if(left == 0) {
+        if(left == 0)
+        {
             is.read(buffer, VALID_DATA_LENGTH);
             memcpy(img_sectors[needed_block - 1].data, buffer, VALID_DATA_LENGTH);
-            img_sectors[needed_block - 1].next = 0;
+            img_sectors[needed_block - 1].next = -1;
         }
-        else {
+        else
+        {
             is.read(buffer, left);
             memcpy(img_sectors[needed_block - 1].data, buffer, left);
-            img_sectors[needed_block - 1].next = 0;
+            img_sectors[needed_block - 1].next = -1;
         }
 
         cout << "File pointer location" << is.tellg() << endl;
         cout << "file sectors info" << endl;
-        cout << new_file_inode.get_sec_beg();
-        for(int i = 0; i < needed_block; i++) {
-            cout << " -> " << img_sectors[i].next;
+        cout << now_file_inode.get_sec_beg();
+        for(int i = 0; i <=needed_block; i++)
+        {
+//            cout << " -> " << img_sectors[i];
         }
         cout << endl;
-        for(int i = 0; i < needed_block; i++) {
+        for(int i = 0; i <needed_block; i++)
+        {
             img_sectors[i].write_back_to_disk(my_cache, sec_numbers[i]);
         }
-
+        now_file_inode.write_inode_back_to_disk(my_cache);
         is.close();
     }
 
 }
 
-bool myFS::move_out(string name)
+bool myFS::move_out(int inode_num)
 {
-    /*
-    * move p1.png out of my file system
-    */
 
-    // 1. search for inode number
-    int inode_num = -1;
-    for(int i = 0; i < 15; i++)
-    {
-        if(strncmp(IMG, cur_dir.dirs[i].name, strlen(IMG)) == 0)
-        {
-            inode_num = cur_dir.dirs[i].inode_num;
-            cout << "inode of p1.png: " << inode_num << endl;
-            break;
-        }
-    }
     if(inode_num == -1)
     {
-        cout << "pl.png not exists" << endl;
+        cerr << "file do not exist" << endl;
         return false;
     }
     Inode file_node;
@@ -355,12 +382,12 @@ bool myFS::move_out(string name)
     cout << "sec number: " << file_node.get_sec_num() << endl;
     cout << "sec_begin: " << file_node.get_sec_beg() << endl << endl;
 
-    // 2. get data of p1.png from my file system
+    // get data from my file system
     sector_file data_sec;
     data_sec.read_dir_from_disk(my_cache, file_node.get_sec_beg());
-    string file_name = name + ".png";
-    fstream os(file_name.c_str(), fstream::in | fstream::out | fstream::app);
 
+
+    fstream os(IMG,   fstream::in | fstream::out |ios::trunc);
     char buffer[VALID_DATA_LENGTH];
     int next_sec = -1, left = file_node.get_file_size() % VALID_DATA_LENGTH;
     if(os)
@@ -383,9 +410,58 @@ bool myFS::move_out(string name)
         }
         os.close();
     }
-
     return true;
 }
+
+void myFS::cat(vector<string> args)
+{
+    string file_name=args[1];
+    const char *name = file_name.c_str();
+    int inode_num=is_existed_file(file_name);
+    if(inode_num == -1)
+    {
+        cerr << "file do not exist" << endl;
+        return;
+    }
+    Inode file_node;
+    file_node.read_inode_from_disk(inode_num, my_cache);
+    if((bool)file_node._is_file== false)
+    {
+        cerr << "can not cat dir" << endl;
+        return;
+    }
+
+    cout << "file info: #inode " << file_node.get_inode_num() << endl;
+    cout << "file length: " << file_node.get_file_size() << endl;
+    cout << "sec number: " << file_node.get_sec_num() << endl;
+    cout << "sec_begin: " << file_node.get_sec_beg() << endl << endl;
+
+    sector_file data_sec;
+    data_sec.read_dir_from_disk(my_cache, file_node.get_sec_beg());
+
+    char buffer[VALID_DATA_LENGTH];
+    int next_sec = -1, left = file_node.get_file_size() % VALID_DATA_LENGTH;
+    string out_str;
+    for(int i = 0; i < file_node.get_sec_num() ; i++)
+    {
+        if(i != file_node.get_sec_num() - 1 || left == 0)
+        {
+            next_sec = data_sec.next;
+            memcpy(buffer, data_sec.data, VALID_DATA_LENGTH);
+            out_str+=buffer;
+            data_sec.read_dir_from_disk(my_cache, next_sec);
+        }
+        else
+        {
+            memcpy(buffer, data_sec.data, left);
+            out_str+=buffer;
+        }
+
+    }
+    cout<<out_str.substr(0,file_node.get_file_size())<<endl;
+    return;
+}
+
 
 string myFS::getpwd(vector<string> args)
 {
@@ -396,7 +472,7 @@ string myFS::getpwd(vector<string> args)
     if(cur_dir.isroot())
     {
         path="/";
-        cout<<path;
+//        cout<<path;
         return path;
     }
     path=cur_dir.dir_name;
@@ -411,7 +487,7 @@ string myFS::getpwd(vector<string> args)
         path=dir_name+"/"+path;
         now=&cur_dir;
     }
-    cout<<path<<endl;
+//    cout<<path<<endl;
     cur_dir_node=back_inode;
     cur_dir=back_dir;
     return path;
@@ -422,7 +498,6 @@ void myFS::printpwd(vector<string> args)
     string pwd;
     pwd=getpwd(args);
     cout<<pwd<<endl;
-
 }
 
 // format
@@ -436,7 +511,6 @@ bool myFS::format_file_system()
     Inode home_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
     Inode dev_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
     Inode tangrui_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
-    cout << "1. 申请inode" << endl;
 
 
     root_node.write_inode_back_to_disk(my_cache);
@@ -445,10 +519,10 @@ bool myFS::format_file_system()
     home_node.write_inode_back_to_disk(my_cache);
     dev_node.write_inode_back_to_disk(my_cache);
     tangrui_node.write_inode_back_to_disk(my_cache);
-    cout << "2. inode写回磁盘" << endl;
 
 
     sector_dir root_sec_dir;
+    strcpy(root_sec_dir.dir_name,"root");
     root_sec_dir.dirs[0].init(".", 0);
     root_sec_dir.dirs[1].init("..", 0);
     root_sec_dir.dirs[2].init("bin", bin_node.get_inode_num());
@@ -457,27 +531,25 @@ bool myFS::format_file_system()
     root_sec_dir.dirs[5].init("dev", dev_node.get_inode_num());
 
     sector_dir bin_sec_dir;
+    strcpy(bin_sec_dir.dir_name,"bin");
     bin_sec_dir.dirs[0].init(".", bin_node.get_inode_num());
     bin_sec_dir.dirs[1].init("..", root_node.get_inode_num());
 
     sector_dir etc_sec_dir;
+    strcpy(etc_sec_dir.dir_name,"etc");
     etc_sec_dir.dirs[0].init(".", etc_node.get_inode_num());
     etc_sec_dir.dirs[1].init("..", root_node.get_inode_num());
 
     sector_dir home_sec_dir;
+    strcpy(home_sec_dir.dir_name,"home");
     home_sec_dir.dirs[0].init(".", home_node.get_inode_num());
     home_sec_dir.dirs[1].init("..", root_node.get_inode_num());
     home_sec_dir.dirs[2].init("tangrui", tangrui_node.get_inode_num());
 
     sector_dir dev_sec_dir;
+    strcpy(dev_sec_dir.dir_name,"dev");
     dev_sec_dir.dirs[0].init(".",  dev_node.get_inode_num());
     dev_sec_dir.dirs[1].init("..", root_node.get_inode_num());
-
-    sector_dir tangrui_sec_dir;
-    tangrui_sec_dir.dirs[0].init(".",  tangrui_node.get_inode_num());
-    tangrui_sec_dir.dirs[1].init("..", home_node.get_inode_num());
-
-    cout << "3. 目录创建完成" << endl;
 
 
     root_sec_dir.write_back_to_disk(my_cache, root_node.get_sec_beg());
@@ -485,12 +557,11 @@ bool myFS::format_file_system()
     etc_sec_dir.write_back_to_disk(my_cache, etc_node.get_sec_beg());
     home_sec_dir.write_back_to_disk(my_cache, home_node.get_sec_beg());
     dev_sec_dir.write_back_to_disk(my_cache, dev_node.get_sec_beg());
-    tangrui_sec_dir.write_back_to_disk(my_cache, tangrui_node.get_sec_beg());
-    cout << "4.目录创建完成" << endl;
 
-
-    cur_dir = root_sec_dir;
-    cur_dir_node = root_node;
+    cur_dir.read_dir_from_disk(my_cache,root_node.get_sec_beg());
+    cur_dir_node.read_inode_from_disk(0,my_cache);
+//    cur_dir = root_sec_dir;
+//    cur_dir_node = root_node;
     return true;
 }
 
@@ -508,7 +579,7 @@ void myFS::mkdir(vector<string> args)
 
     // mkdir entry
     sector_dir new_sec_dir;
-    strcpy(new_sec_dir.dir_name,file_name.c_str());
+    strcpy(new_sec_dir.dir_name,name);
     new_sec_dir.dirs[0].init(".", new_dir_inode.get_inode_num());
     new_sec_dir.dirs[1].init("..", cur_dir_node.get_inode_num());
     new_sec_dir.write_back_to_disk(my_cache, new_dir_inode.get_sec_beg());
@@ -528,7 +599,6 @@ void myFS::mkdir(vector<string> args)
     {
         cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
     }
-    cout << "******************************** 创建新文件夹结束 ********************************" << endl;
     return;
 }
 
@@ -540,6 +610,7 @@ void myFS::touch(vector<string> args)
     cout << "touch file" << endl;
     // create inode
     Inode new_file_inode(sp.get_new_inode(), true, 1, sp.get_new_sec());
+    new_file_inode._is_file= true;
     new_file_inode.write_inode_back_to_disk(my_cache);
 
 //    sector_file new_sec_file;
@@ -552,15 +623,16 @@ void myFS::touch(vector<string> args)
         if(cur_dir.dirs[i].inode_num == -1)
         {
             cur_dir.dirs[i].init(name, new_file_inode.get_inode_num());
+
             flag = true;
             break;
         }
     }
-
     if(flag)
     {
         cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
     }
+
 
     return;
 }
@@ -593,6 +665,51 @@ void myFS::rmdir(vector<string> args)
     del_inode(del_node, cur_dir);
     cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
 
+}
+
+int myFS::is_existed_file(string file_name)
+{
+    const char *name = file_name.c_str();
+    for(int i = 0; i < 15; i++)
+    {
+        if(strncmp(name, cur_dir.dirs[i].name, strlen(name)) == 0)
+        {
+            int inode_num = cur_dir.dirs[i].inode_num;
+            return inode_num;
+
+        }
+    }
+    return -1;
+}
+
+
+void myFS::vim(vector<string> args)
+{
+    string file_name=args[1];
+    const char *name = file_name.c_str();
+    int inode_num= is_existed_file(file_name);
+    if(inode_num!=-1)
+    {
+        Inode file_node;
+        file_node.read_inode_from_disk(inode_num, my_cache);
+        if(!file_node._is_file)
+        {
+            cerr << "can not cat dir" << endl;
+            return;
+        }
+        move_out(inode_num);
+    }
+
+//    string tstr="vim /tmp/myfs_temp";
+    const char *vim_cmd="vim /tmp/myfs_temp";
+    int return_val=system(vim_cmd);
+    cout<<return_val<<"return_val"<<endl;
+    if(return_val==0)
+    {
+        cout<<"move_in";
+        move_in(inode_num,file_name);
+    }
+    return;
 }
 
 
