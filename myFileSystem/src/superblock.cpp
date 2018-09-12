@@ -8,6 +8,17 @@ superblock::superblock()
 //    memset(block_bitmap, 0, sizeof(block_bitmap));
 }
 
+void superblock::format_disk()
+{
+    disk.seekg(BLOCK_BEGIN);
+    const vector<char>zeroes(SEC_SIZE, 0);
+    for (uint i = 0; i < BLOCK_NUM; ++i)
+    {
+        disk.write(zeroes.data(), SEC_SIZE);
+    }
+    disk.seekg(SUPER_BEGIN);
+}
+
 superblock::~superblock()
 {
     write_to_disk();
@@ -31,7 +42,6 @@ void superblock::print_block_bitmap()
 };
 
 
-// 剩余的inode数量
 int superblock::remain_inode()
 {
     int count = 0;
@@ -41,7 +51,6 @@ int superblock::remain_inode()
     return count;
 }
 
-// 剩余的扇区数量
 int superblock::remain_sec()
 {
     int count = 0;
@@ -51,7 +60,7 @@ int superblock::remain_sec()
     return count;
 }
 
-// 返回未使用的i节点, 如果满了就返回-1
+
 int superblock::get_new_inode()
 {
     for(int i = 0; i < INODE_NUM; i++)
@@ -65,7 +74,6 @@ int superblock::get_new_inode()
     return -1;
 }
 
-// 返回未使用的扇区,如果扇区已经用完就返回-1
 int superblock::get_new_sec()
 {
     for(int i = 0; i < BLOCK_NUM; i++)
@@ -98,6 +106,7 @@ bool superblock::init()
 {
     memset(inode_bitmap, 0, INODE_NUM);
     memset(block_bitmap, 0, sizeof(block_bitmap));
+
     return true;
 }
 

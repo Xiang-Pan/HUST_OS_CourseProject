@@ -1,6 +1,20 @@
 #include "myfs.hpp"
 using  namespace std;
 
+// less than opt required
+#define ops_at_least(x)                                 \
+  if (static_cast<int>(args.size()) < x+1) {            \
+    cerr << args[0] << ": missing operand" << endl;     \
+    return;                                             \
+  }
+
+// more than opt required
+#define ops_less_than(x)                                \
+  if (static_cast<int>(args.size()) > x+1) {            \
+    cerr << args[0] << ": too many operands" << endl;   \
+    return;                                             \
+  }\
+
 
 // construct
 myFS::myFS()
@@ -415,6 +429,7 @@ bool myFS::move_out(int inode_num)
 
 void myFS::cat(vector<string> args)
 {
+    ops_at_least(1);
     string file_name=args[1];
     const char *name = file_name.c_str();
     int inode_num=is_existed_file(file_name);
@@ -465,6 +480,7 @@ void myFS::cat(vector<string> args)
 
 string myFS::getpwd(vector<string> args)
 {
+
     sector_dir back_dir=cur_dir;
     Inode back_inode=cur_dir_node;
     string path;
@@ -495,16 +511,17 @@ string myFS::getpwd(vector<string> args)
 
 void myFS::printpwd(vector<string> args)
 {
+    ops_less_than(0);
     string pwd;
     pwd=getpwd(args);
-    cout<<pwd<<endl;
+    cout<<"pwd!!!!"<<pwd<<endl;
 }
 
 // format
 bool myFS::format_file_system()
 {
     sp.init();
-
+    sp.format_disk();
     Inode root_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
     Inode bin_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
     Inode etc_node(sp.get_new_inode(), false, 0, sp.get_new_sec());
@@ -540,11 +557,6 @@ bool myFS::format_file_system()
     etc_sec_dir.dirs[0].init(".", etc_node.get_inode_num());
     etc_sec_dir.dirs[1].init("..", root_node.get_inode_num());
 
-    sector_dir home_sec_dir;
-    strcpy(home_sec_dir.dir_name,"home");
-    home_sec_dir.dirs[0].init(".", home_node.get_inode_num());
-    home_sec_dir.dirs[1].init("..", root_node.get_inode_num());
-    home_sec_dir.dirs[2].init("tangrui", tangrui_node.get_inode_num());
 
     sector_dir dev_sec_dir;
     strcpy(dev_sec_dir.dir_name,"dev");
@@ -555,7 +567,7 @@ bool myFS::format_file_system()
     root_sec_dir.write_back_to_disk(my_cache, root_node.get_sec_beg());
     bin_sec_dir.write_back_to_disk(my_cache, bin_node.get_sec_beg());
     etc_sec_dir.write_back_to_disk(my_cache, etc_node.get_sec_beg());
-    home_sec_dir.write_back_to_disk(my_cache, home_node.get_sec_beg());
+//    home_sec_dir.write_back_to_disk(my_cache, home_node.get_sec_beg());
     dev_sec_dir.write_back_to_disk(my_cache, dev_node.get_sec_beg());
 
     cur_dir.read_dir_from_disk(my_cache,root_node.get_sec_beg());
@@ -682,6 +694,18 @@ int myFS::is_existed_file(string file_name)
     return -1;
 }
 
+int myFS::get_dir_index(int inode_num)
+{
+    for(int i = 0; i < 15; i++)
+    {
+        if(inode_num==cur_dir.dirs[i].inode_num)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 void myFS::vim(vector<string> args)
 {
@@ -710,6 +734,27 @@ void myFS::vim(vector<string> args)
         move_in(inode_num,file_name);
     }
     return;
+}
+
+
+void myFS::cp(vector<string> args)
+{
+    string src_str=args[1];
+    const char *src = src_str.c_str();
+    string dest_str=args[1];
+    const char *dest = src_str.c_str();
+    int src_inode_num=is_existed_file(src_str);
+    int dest_inode_num=is_existed_file(src_str);
+    if(src_inode_num=-1||dest_inode_num==-1)
+    {
+        cerr<<"file not exist!";
+    }
+    Inode src_inode;
+    Inode dest_inode;
+    src_inode.read_inode_from_disk(src_inode_num,my_cache);
+    dest_inode.read_inode_from_disk(dest_inode_num,my_cache);
+    int src_index=get_dir_index(src_inode_num);
+
 }
 
 

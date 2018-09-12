@@ -42,7 +42,7 @@ public:
     ~superblock();
 
     bool init();
-
+    void format_disk();
     void print_inode_bitmap();
     void print_block_bitmap();
 

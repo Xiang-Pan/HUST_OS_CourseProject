@@ -1,3 +1,4 @@
+
 #ifndef BUFFER_H
 #define BUFFER_H
 
@@ -31,7 +32,7 @@ struct BufferNode
     }
     void init(int _sec_num) 
     {
-        pri = 5;
+        pri = 1;
         sec_num = _sec_num;
     }
     void update(const BufferNode& b) 
@@ -47,21 +48,16 @@ class Buffer
     public:
     int buffer_size;
     Buffer();
-
     ~Buffer();
-
     bool write_disk(const BufferNode& node);
-
     bool read_disk(int sec_num, BufferNode& node);
     void all_write_to_disk();
-  private:
+
+    private:
 
     bool real_disk_write(const BufferNode& node);
-
     bool real_disk_read(int sec_num, BufferNode& node);
-
     int has_sec(int sec_number);
-
     int is_full();
 
 

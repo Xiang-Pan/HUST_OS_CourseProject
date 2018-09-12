@@ -1,3 +1,0 @@
-/home/wings/Projects/myShCommand/include/CMakeFiles/rebuild_cache.dir
-/home/wings/Projects/myShCommand/include/CMakeFiles/MYSHLIB.dir
-/home/wings/Projects/myShCommand/include/CMakeFiles/edit_cache.dir

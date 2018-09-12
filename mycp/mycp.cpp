@@ -27,7 +27,6 @@ int main(int argc, char **argv)
 
     char opt;
 
-    /*循环检测命令行参数中的选项*/
     while ((opt = getopt(argc, argv, "rRls")) != -1)
     {
         switch (opt)
@@ -251,6 +250,7 @@ int copyD2D(char *src_dir, char *dest_dir)
     char tempSrc[256];
     strcpy(tempDest, dest_dir);
     strcpy(tempSrc, src_dir);
+    
 
     //open dir
     if ((dp = opendir(src_dir)) == NULL)
@@ -264,9 +264,12 @@ int copyD2D(char *src_dir, char *dest_dir)
             if (!isdir(dirp->d_name))
             {
                 //link name
+                strcat(tempDest, "/");
+                strcat(tempSrc, "/");
                 strcat(tempDest, dirp->d_name);
                 strcat(tempSrc, dirp->d_name);
-
+                // printf("%s\n",tempDest);
+                // printf("%s\n",tempSrc);
                 //copy file
                 copyF2F(tempSrc, tempDest);
 

@@ -31,7 +31,7 @@ public:
     void ls(vector<string> args);
     void touch(vector<string> args);
     void cat(vector<string> args);
-//    void cp(vector<string> args);
+    void cp(vector<string> args);
 //    void tree(vector<string> args);
 //    void import(vector<string> args);
     void printpwd(vector<string> args);
@@ -46,11 +46,8 @@ public:
     Inode cur_dir_node;
     sector_dir cur_dir;
 private:
-
-    string pwd;
-
     Buffer my_cache;
-
+    int get_dir_index(int inode_num);
     bool format_file_system();
     bool del_inode(Inode& node, sector_dir& del_dir);
 
