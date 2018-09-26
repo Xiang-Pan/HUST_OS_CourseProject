@@ -1,3 +1,9 @@
+/* FileName:    myfs.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: myfs operation
+ */
 #include "myfs.hpp"
 using  namespace std;
 
@@ -232,39 +238,36 @@ void myFS::run()
 
 bool myFS::del_inode(Inode& node, sector_dir& del_dir)
 {
-    cout << "delete inode, inode num为" << node.get_inode_num() << endl;
+    cout << "delete inode, inode num" << node.get_inode_num() << endl;
     if(node.get_type())
     {
         for(int i = 2; i < 15; i++)
         {
             if(del_dir.dirs[i].inode_num == node.get_inode_num())
             {
-                cout << "delate inode，删除sector中对文件的记录" << endl;
+                cout << "delate inode，delete sector" << endl;
                 memset(&del_dir.dirs[i], 0, sizeof(sector_dir_entry));
                 del_dir.write_back_to_disk(my_cache, node.get_sec_beg());
                 break;
             }
         }
 
-        // 2. 释放inode和对应的扇区
+
         sp.recv_sec(node.get_sec_beg() - BLOCK_BEGIN / 512);
         sp.recv_inode(node.get_inode_num());
     }
     else {
         // dir
-        // 1.先删除当前目录对这个目录的记录
         for(int i = 0; i < 15; i++) {
             if(node.get_inode_num() == del_dir.dirs[i].inode_num) {
-                cout << "delate inode，删除sector中对文件的记录" << endl;
+                cout << "delate inode，delete sector" << endl;
                 memset(&del_dir.dirs[i], 0, sizeof(sector_dir_entry));
                 del_dir.write_back_to_disk(my_cache, node.get_sec_beg());
                 break;
             }
         }
-        // 2. 释放这个目录的inode和扇区
         sp.recv_sec(node.get_sec_beg() - BLOCK_BEGIN / 512);
         sp.recv_inode(node.get_inode_num());
-        // 3. 切换到要删除的目录下
         Inode new_node;
         new_node = node;
         sector_dir new_dir;
@@ -635,7 +638,6 @@ void myFS::touch(vector<string> args)
         if(cur_dir.dirs[i].inode_num == -1)
         {
             cur_dir.dirs[i].init(name, new_file_inode.get_inode_num());
-
             flag = true;
             break;
         }
@@ -644,8 +646,6 @@ void myFS::touch(vector<string> args)
     {
         cur_dir.write_back_to_disk(my_cache, cur_dir_node.get_sec_beg());
     }
-
-
     return;
 }
 

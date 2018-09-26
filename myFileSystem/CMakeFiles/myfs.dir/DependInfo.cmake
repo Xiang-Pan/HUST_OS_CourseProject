@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/Buffer.cpp" "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/Buffer.cpp.o"
-  "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/direntry.cpp" "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/direntry.cpp.o"
-  "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/inode.cpp" "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/inode.cpp.o"
-  "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/main.cpp" "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/main.cpp.o"
-  "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/myfs.cpp" "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/myfs.cpp.o"
-  "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/superblock.cpp" "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/superblock.cpp.o"
+  "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/Buffer.cpp" "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/Buffer.cpp.o"
+  "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/direntry.cpp" "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/direntry.cpp.o"
+  "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/inode.cpp" "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/inode.cpp.o"
+  "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/main.cpp" "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/main.cpp.o"
+  "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/myfs.cpp" "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/myfs.cpp.o"
+  "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/superblock.cpp" "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles/myfs.dir/src/superblock.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

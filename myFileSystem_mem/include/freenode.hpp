@@ -1,3 +1,9 @@
+/* FileName:    freenode.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: freenode
+ */
 #ifndef _FREENODE_H_
 #define _FREENODE_H_
 

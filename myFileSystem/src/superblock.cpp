@@ -1,3 +1,9 @@
+/* FileName:    superblock.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: superblock
+ */
 #include "superblock.hpp"
 #include "myfs.hpp"
 superblock::superblock()
@@ -85,7 +91,6 @@ int superblock::get_new_sec()
     return -1;
 }
 
-// 回收i节点
 bool superblock::recv_inode(int inode_num) 
 {
     assert(inode_num >= 0 && inode_num < INODE_NUM);
@@ -94,15 +99,13 @@ bool superblock::recv_inode(int inode_num)
     return true;
 }
 
-// 回收扇区
-bool superblock::recv_sec(int sec_num) {
-    assert(sec_num >= 0 && sec_num < BLOCK_NUM);
-
+bool superblock::recv_sec(int sec_num) 
+{
+    // assert(sec_num >= 0 && sec_num < BLOCK_NUM);
     block_bitmap[sec_num] = false;
     return true;
 }
 
-// 格式化
 bool superblock::init()
 {
     memset(inode_bitmap, 0, INODE_NUM);

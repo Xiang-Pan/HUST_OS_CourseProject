@@ -1,3 +1,9 @@
+/* FileName:    superblock.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: superblock
+ */
 #ifndef _SUPERBLOCK_H_
 #define _SUPERBLOCK_H_
 #include "inode.hpp"

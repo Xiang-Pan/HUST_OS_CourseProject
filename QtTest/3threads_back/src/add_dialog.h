@@ -1,3 +1,8 @@
+/* Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description:QtTest
+ */
 #ifndef ADD_DIALOG_H
 #define ADD_DIALOG_H
 

@@ -6,5 +6,5 @@ CXX_FLAGS = -g
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/include 
+CXX_INCLUDES = -I/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/include 
 

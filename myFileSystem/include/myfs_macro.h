@@ -1,3 +1,9 @@
+/* FileName:    myfs_macro.h
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: the macro need by many classes 
+ */
 #ifndef MYFS_MACRO_H
 #define MYFS_MACRO_H
 

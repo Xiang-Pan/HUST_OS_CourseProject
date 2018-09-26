@@ -1,3 +1,9 @@
+/* FileName:    direntry.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: direntry
+ */
 #ifndef _DIRENTRY_H_
 #define _DIRENTRY_H_
 

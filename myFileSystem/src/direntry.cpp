@@ -1,3 +1,9 @@
+/* FileName:    direntry.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: direntry
+ */
 #include "direntry.hpp"
 
 void sector_dir_entry::init(const char* _name, int _num)

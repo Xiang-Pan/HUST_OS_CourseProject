@@ -1,4 +1,9 @@
-
+/* FileName:    buffer.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: buffer
+ */
 #ifndef BUFFER_H
 #define BUFFER_H
 

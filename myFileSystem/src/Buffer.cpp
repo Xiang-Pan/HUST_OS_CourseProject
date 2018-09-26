@@ -1,3 +1,9 @@
+/* FileName:    buffer.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: buffer
+ */
 #include "Buffer.hpp"
 
 using  namespace std;

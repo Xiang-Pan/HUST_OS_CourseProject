@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/myfs.cpp
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/myfs.cpp
 myfs.hpp
-/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/src/myfs.hpp
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/src/myfs.hpp
 
 include/Buffer.hpp
 iostream

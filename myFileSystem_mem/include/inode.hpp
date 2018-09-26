@@ -1,3 +1,9 @@
+/* FileName:    inode.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: inode
+ */
 #ifndef _INODE_H_
 #define _INODE_H_
 

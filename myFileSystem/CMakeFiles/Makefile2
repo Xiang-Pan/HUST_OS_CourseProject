@@ -50,19 +50,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /home/wings/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.3684.76/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E remove -f
+RM = /home/wings/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.3684.76/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem
+CMAKE_SOURCE_DIR = /home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem
+CMAKE_BINARY_DIR = /home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem
 
 #=============================================================================
 # Target rules for target CMakeFiles/myfs.dir
@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem
 CMakeFiles/myfs.dir/all:
 	$(MAKE) -f CMakeFiles/myfs.dir/build.make CMakeFiles/myfs.dir/depend
 	$(MAKE) -f CMakeFiles/myfs.dir/build.make CMakeFiles/myfs.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target myfs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target myfs"
 .PHONY : CMakeFiles/myfs.dir/all
 
 # Include target in all.
@@ -81,9 +81,9 @@ all: CMakeFiles/myfs.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/myfs.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/myfs.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/CMakeFiles 0
 .PHONY : CMakeFiles/myfs.dir/rule
 
 # Convenience name for target.

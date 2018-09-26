@@ -336,10 +336,10 @@ void myFS::write(vector<string> args)
         {
             cerr << "write: error: " << args[1] << " not open for write." << endl;
         } 
-        else if (desc->second.byte_pos + args[2].size() > max_size) 
+        else if (desc->second.byte_pos + args[2].size() > max_size)
         {
             cerr << "write: error: File to large for inode." << endl;
-        } 
+        }
         else if (!basic_write(desc->second, args[2])) // ONLY reason!
         {
             cerr << "write: error: Insufficient disk space." << endl;
@@ -851,8 +851,7 @@ void myFS::tree(vector<string> args)
 //D: file only import
 void myFS::import(vector<string> args) 
 {
-    ops_exactly(2);
-
+//    ops_exactly(2);
     Descriptor desc;
     fstream in(args[1]);
     if(!in.is_open())

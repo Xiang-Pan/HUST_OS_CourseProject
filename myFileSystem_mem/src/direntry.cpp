@@ -1,3 +1,9 @@
+/* FileName:    direntry.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: direntry
+ */
 #include "../include/direntry.hpp"
 #include <algorithm>
 #include <sstream>

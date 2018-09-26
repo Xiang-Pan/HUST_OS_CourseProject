@@ -19,13 +19,13 @@ MODULE_INFO(retpoline, "Y");
 static const struct modversion_info ____versions[]
 __used
 __attribute__((section("__versions"))) = {
-	{ 0x592d76c8, "module_layout" },
+	{ 0x732e219d, "module_layout" },
 	{ 0x6bc3fbc0, "__unregister_chrdev" },
-	{ 0x9a8c7eb4, "__register_chrdev" },
+	{ 0xe751fc0c, "__register_chrdev" },
 	{ 0x362ef408, "_copy_from_user" },
 	{ 0xb44ad4b3, "_copy_to_user" },
-	{ 0x5bc8e2a7, "module_put" },
-	{ 0x75bfb69b, "try_module_get" },
+	{ 0x4404d9cf, "module_put" },
+	{ 0xa16f74ce, "try_module_get" },
 	{ 0x27e1a049, "printk" },
 	{ 0xbdfb6dbb, "__fentry__" },
 };
@@ -36,4 +36,4 @@ __attribute__((section(".modinfo"))) =
 "depends=";
 
 
-MODULE_INFO(srcversion, "21C4FA017A94D35E22D0E25");
+MODULE_INFO(srcversion, "B52E78D965641829D015D81");

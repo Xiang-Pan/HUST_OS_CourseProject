@@ -1,7 +1,9 @@
-//
-// Created by wings on 8/15/18.
-//
-
+/* FileName:    buffer.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: buffer
+ */
 #include "Buffer.hpp"
 
 // open disk

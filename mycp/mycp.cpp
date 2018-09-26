@@ -1,4 +1,9 @@
-
+/* FileName:    mycp.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: the linux cp of Hover's implementation
+ */
 #include <string.h>
 #include <unistd.h> //unix std API
 #include <stdio.h>

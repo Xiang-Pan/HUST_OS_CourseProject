@@ -1,3 +1,8 @@
+/* Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description:QtTest
+ */
 #ifndef CYCLE_DIALOG_H
 #define CYCLE_DIALOG_H
 

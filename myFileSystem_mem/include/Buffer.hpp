@@ -1,6 +1,9 @@
-//
-// Created by wings on 8/15/18.
-//
+/* FileName:    buffer.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: buffer
+ */
 #ifndef MYFS_BUFFER_H
 #define MYFS_BUFFER_H
 

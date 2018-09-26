@@ -1,3 +1,8 @@
+/* Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description:QtTest
+ */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 

@@ -16,22 +16,48 @@
   <component name="ChangeListManager">
     <list default="true" id="23a6d09f-a2e4-4917-9efa-fdcce96fae33" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../documents/IOT1601_潘翔_操作系统课程设计报告.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/IOT1601_潘翔_操作系统课程设计报告.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/filesystems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/filesystems.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/filesystems.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/filesystems.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/mainwindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/mainwindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/mainwindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/mainwindow.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/myLinuxMonitor.pro.user" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/myLinuxMonitor.pro.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/netinfo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/netinfo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/netinfo.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/netinfo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/processes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/processes.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/processes.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/processes.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/progressbardelegate.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/progressbardelegate.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/progressbardelegate.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/progressbardelegate.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/tablemodel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/tablemodel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/tablemodel.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/tablemodel.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/tableview.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/tableview.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../myLinuxMonitor/tableview.h" beforeDir="false" afterPath="$PROJECT_DIR$/../myLinuxMonitor/tableview.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/.myDevDriver.ko.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/.myDevDriver.ko.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/.myDevDriver.mod.o.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/.myDevDriver.mod.o.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/.myDevDriver.o.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/.myDevDriver.o.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/.tmp_versions/myDevDriver.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/modules.order" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/modules.order" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.c" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.ko" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.ko" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.c" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.o" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.mod.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myDevDriver/myDevDriver.o" beforeDir="false" afterPath="$PROJECT_DIR$/../myDevDriver/myDevDriver.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/feature_tests.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/Buffer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/Buffer.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/direntry.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/direntry.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/inode.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/inode.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/myfs.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/myfs.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/superblock.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/myfs.dir/src/superblock.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake_install.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/disk.img" beforeDir="false" afterPath="$PROJECT_DIR$/disk.img" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myfs" beforeDir="false" afterPath="$PROJECT_DIR$/myfs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myfs.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/myfs.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/myfs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/myfs.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/superblock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/superblock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myFileSystem_mem/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../myFileSystem_mem/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myFileSystem_mem/CMakeFiles/myfs.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../myFileSystem_mem/CMakeFiles/myfs.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myFileSystem_mem/CMakeFiles/myfs.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../myFileSystem_mem/CMakeFiles/myfs.dir/src/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myFileSystem_mem/myfs" beforeDir="false" afterPath="$PROJECT_DIR$/../myFileSystem_mem/myfs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myFileSystem_mem/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myFileSystem_mem/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myFileSystem_mem/src/myfs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../myFileSystem_mem/src/myfs.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -99,19 +125,38 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1626245393">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="cpp" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="ObjectiveC" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/myfs.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7980">
-              <caret line="570" selection-start-line="570" selection-end-line="570" />
+            <state relative-caret-position="262">
+              <caret line="234" column="51" selection-start-line="234" selection-start-column="51" selection-end-line="234" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/myfs.hpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="560">
@@ -138,11 +183,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="135" column="25" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="25" />
+            <state relative-caret-position="73">
+              <caret line="107" column="39" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/inode.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="262">
+              <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -193,7 +247,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_sec_num</find>
       <find>sec_numbers</find>
       <find>ca</find>
       <find>binary</find>
@@ -223,6 +276,7 @@
       <find>cp</find>
       <find>MYFS</find>
       <find>MYFS::CP</find>
+      <find>为</find>
     </findStrings>
     <replaceStrings>
       <replace>block</replace>
@@ -260,10 +314,10 @@
         <option value="$PROJECT_DIR$/src/Buffer.cpp" />
         <option value="$PROJECT_DIR$/src/superblock.cpp" />
         <option value="$PROJECT_DIR$/include/superblock.hpp" />
-        <option value="$PROJECT_DIR$/src/myfs.cpp" />
         <option value="$PROJECT_DIR$/include/Buffer.hpp" />
         <option value="$PROJECT_DIR$/include/inode.hpp" />
         <option value="$PROJECT_DIR$/include/myfs.hpp" />
+        <option value="$PROJECT_DIR$/src/myfs.cpp" />
       </list>
     </option>
   </component>
@@ -285,6 +339,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -306,12 +361,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../myFileSystem_mem" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
@@ -381,11 +435,12 @@
       <workItem from="1536665004967" duration="5931000" />
       <workItem from="1536711098609" duration="3293000" />
       <workItem from="1536733852916" duration="87000" />
+      <workItem from="1537987360118" duration="639000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86647000" />
+    <option name="totallyTimeSpent" value="87286000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -399,7 +454,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1020" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27700534" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2802139" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -520,46 +575,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/inode.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="28" selection-start-line="28" selection-end-line="28" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/myfs.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7980">
-          <caret line="570" selection-start-line="570" selection-end-line="570" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/superblock.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="51" selection-start-line="51" selection-end-line="51" />
-          <folding>
-            <element signature="e#42#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="135" column="25" selection-start-line="135" selection-start-column="21" selection-end-line="135" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -605,6 +626,40 @@
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/superblock.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="e#42#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/inode.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="48" column="9" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/superblock.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="107" column="39" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/myfs.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="234" column="51" selection-start-line="234" selection-start-column="51" selection-end-line="234" selection-end-column="51" />
         </state>
       </provider>
     </entry>

@@ -1,4 +1,4 @@
-# Install script for directory: /home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem
+# Install script for directory: /home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/wings/OneDrive/Labs/OSCourseDesign/myFileSystem/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

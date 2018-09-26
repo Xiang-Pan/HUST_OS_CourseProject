@@ -1,4 +1,4 @@
-/* FileName:mainwindow.h
+/* FileName:mainwindow.cpp
  * Author:Hover
  * E-Mail:hover@hust.edu.cn
  * GitHub:HoverWings

@@ -1,6 +1,9 @@
-//
-// Created by wings on 9/3/18.
-//
+/* FileName:    MACRO.H
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: MACRO
+ */
 
 #ifndef MYFS_MACRO_H
 #define MYFS_MACRO_H

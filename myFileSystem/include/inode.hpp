@@ -1,4 +1,9 @@
-
+/* FileName:    inode.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: inode
+ */
 #ifndef INODE_H
 #define INODE_H
 #include "myfs_macro.h"

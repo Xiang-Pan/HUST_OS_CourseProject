@@ -1,3 +1,8 @@
+/* Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description:QtTest
+ */
 #include "cycle_dialog.h"
 #include "ui_cycle_dialog.h"
 

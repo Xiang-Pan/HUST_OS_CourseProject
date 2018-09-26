@@ -1,3 +1,9 @@
+/* FileName:    myfs.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: myfs operation
+ */
 #include "myfs_macro.h"
 #include "superblock.hpp"
 #include "inode.hpp"
@@ -17,8 +23,8 @@ public:
     myFS();
 
     void vim(vector<string> args);
-//    void open(vector<string> args);
-//    void read(vector<string> args);
+   void open(vector<string> args);
+   void read(vector<string> args);
 //    void write(vector<string> args);
 //    void seek(vector<string> args);
 //    void close(vector<string> args);

@@ -1,3 +1,9 @@
+/* FileName:    myfs.hpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: myfs
+ */
 #ifndef _MYFS_H_
 #define _MYFS_H_
 
@@ -105,23 +111,23 @@ class myFS
     void FS_export(vector<string> args);
 
 
-//    friend class boost::serialization::access;
-//	template<class Archive>
-//	void save(Archive & ar, const unsigned int version) const
-//	{
-//        ar &filename;
-//        ar &blocks_num;
-//        ar &block_size;
-//        ar &direct_blocks;
-//	}
-//	template<class Archive>
-//	void load(Archive & ar, const unsigned int version)
-//	{
-//		ar &filename;
-//        ar &blocks_num;
-//        ar &block_size;
-//        ar &direct_blocks;
-//	}
+   friend class boost::serialization::access;
+	template<class Archive>
+	void save(Archive & ar, const unsigned int version) const
+	{
+       ar &filename;
+       ar &blocks_num;
+       ar &block_size;
+       ar &direct_blocks;
+	}
+	template<class Archive>
+	void load(Archive & ar, const unsigned int version)
+	{
+		ar &filename;
+       ar &blocks_num;
+       ar &block_size;
+       ar &direct_blocks;
+	}
 
 };
 

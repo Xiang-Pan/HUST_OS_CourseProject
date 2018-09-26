@@ -1,3 +1,9 @@
+/* FileName:    inode.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: inode
+ */
 #include "inode.hpp"
 
 using namespace std;
