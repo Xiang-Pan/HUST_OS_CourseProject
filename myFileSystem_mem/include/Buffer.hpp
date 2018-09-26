@@ -58,26 +58,16 @@ class Buffer
 {
 public:
     Buffer();
-
     ~Buffer();
-
     bool write_disk(const BufferNode& node);
-
     bool read_disk(int block_num, BufferNode& node);
 
 private:
     fstream disk_file;
-
     bool real_disk_write(const BufferNode& node);
-
     bool real_disk_read(int block_num, BufferNode& node);
-
     int has_block(int block_number);
-
     int is_full();
-
-
-
     vector<BufferNode> cache;
 
 };

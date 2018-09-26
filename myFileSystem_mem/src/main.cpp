@@ -71,26 +71,27 @@ void repl(string filename)
 {
     myFS *fs = new myFS(filename);
     // test
-//    fs->mkdir({"mkdir", "dir-2/dir-b"});
-//    fs->mkdir({"mkdir", "dir-2/dir-b/dir-deep"});
-//    fs->open({"open", "somefile", "w"});
-//    fs->open({"open", "somefile2", "w"});
-//    fs->write({"write", "0", "hi there buddy"});
-//    fs->close({"close", "0"});
-//    fs->open({"open", "somefile", "r"});
-//    fs->seek({"seek", "2", "3"});
-//    fs->read({"read", "2", "5"});
-//    fs->ls({"ls"});
-//    fs->close({"close", "1"});
-//    fs->close({"close", "2"});
-//    fs->cat({"cat", "somefile"});
-//    fs->tree({"tree"});
-//    fs->import({"import", "exampleFile.txt", "ex.txt"});
-//    fs->cat({"cat", "somefile"});
-//    fs->cat({"cat", "ex.txt"});
-//    fs->link({"link", "ex.txt", "/dir-2/dir-b/linked"});
-//    fs->cat({"cat", "/dir-2/dir-b/linked"});
-//    fs->cp({"cp", "ex.txt", "newEx.txt"});
+   fs->mkdir({"mkdir", "bin"});
+   fs->mkdir({"mkdir", "src"});
+   fs->mkdir({"mkdir", "src"});
+   fs->open({"open", "testfile", "w"});
+   fs->open({"open", "somefile1", "w"});
+   fs->write({"write", "0", "hi there buddy"});
+   fs->close({"close", "0"});
+   fs->open({"open", "testfile", "r"});
+   fs->seek({"seek", "2", "3"});
+   fs->read({"read", "2", "5"});
+   fs->ls({"ls"});
+   fs->close({"close", "1"});
+   fs->close({"close", "2"});
+   fs->cat({"cat", "somefile"});
+   fs->tree({"tree"});
+   fs->import({"import", "exampleFile.txt", "ex.txt"});
+   fs->cat({"cat", "somefile"});
+   fs->cat({"cat", "ex.txt"});
+   fs->link({"link", "ex.txt", "/dir-2/dir-b/linked"});
+   fs->cat({"cat", "/dir-2/dir-b/linked"});
+   fs->cp({"cp", "ex.txt", "newEx.txt"});
 
     string cmd;
     vector<string> args;

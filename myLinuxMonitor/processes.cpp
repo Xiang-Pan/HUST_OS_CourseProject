@@ -1,12 +1,19 @@
+/* FileName:    process.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: process module
+ *              get process info and maintain the proc struct
+ */
 #include "processes.h"
 /*
- * us — 用户空间占用CPU的百分比。
- * sy — 内核空间占用CPU的百分比。
- * ni — 改变过优先级的进程占用CPU的百分比
- * id — 空闲CPU百分比
- * wa — IO等待占用CPU的百分比
- * hi — 硬中断（Hardware IRQ）占用CPU的百分比
- * si — 软中断（Software Interrupts）占用CPU的百分比
+ * us — the precentage of time in user space
+ * sy — the precentage of time in kernel space
+ * ni — the precentage of process whose pri were updated
+ * id — the precentage of idle cpu
+ * wa — the precentage of I/O waiting
+ * hi — the precentage of Hardware IRQ
+ * si — the precentage of Software Interrupts
 */
 QVector<QVector<QString>> process_table;
 QVector<QString> process_vec;

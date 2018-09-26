@@ -1,3 +1,9 @@
+/* FileName:    netinfo.h
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: net module
+ */
 #ifndef NETINFO_H
 #define NETINFO_H
 

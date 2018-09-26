@@ -1,0 +1,3 @@
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem_mem/CMakeFiles/rebuild_cache.dir
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem_mem/CMakeFiles/myfs.dir
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem_mem/CMakeFiles/edit_cache.dir

@@ -6,10 +6,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    cyc=new cycle_Dialog(this);
+    cyc=new cycle_Dialog();
     cyc->show();
 
-    add=new add_Dialog(this);
+    add=new add_Dialog();
     add->show();
 
     QTimer *timer=new QTimer(this);

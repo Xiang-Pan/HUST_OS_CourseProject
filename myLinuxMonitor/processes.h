@@ -1,3 +1,10 @@
+/* FileName:    process.h
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: process module
+ *              get process info and maintain the proc struct
+ */
 #ifndef PROCESSES_H
 #define PROCESSES_H
 
@@ -39,7 +46,6 @@ struct cpu_info
     long unsigned utime, ntime, stime, itime;
     long unsigned iowtime, irqtime, sirqtime;
 };
-
 
 #define PROC_NAME_LEN 64
 #define THREAD_NAME_LEN 32

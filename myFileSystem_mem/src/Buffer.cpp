@@ -11,7 +11,9 @@ Buffer::Buffer()
     if(disk_file.is_open())
         cout << "File have opened" << endl;
     else
-        cerr << "FILE NOT OPEN" << endl;
+    {
+        // cerr << "FILE NOT OPEN" << endl;
+    }  
 }
 
 Buffer::~Buffer()

@@ -1,3 +1,9 @@
+/* FileName:filesystems.cpp
+ * Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description:FileSystem Module
+ */
 #include "filesystems.h"
 
 int device_num;
@@ -79,9 +85,7 @@ int mydf()
             blocks_percent_used = 0;
             if (blocks_used + s.f_bavail)
             {
-                blocks_percent_used = (blocks_used * 100ULL
-                        + (blocks_used + s.f_bavail)/2
-                        ) / (blocks_used + s.f_bavail);
+                blocks_percent_used = (blocks_used * 100ULL+ (blocks_used + s.f_bavail)/2) / (blocks_used + s.f_bavail);
             }
             /* GNU coreutils 6.10 skips certain mounts, try to be compatible.  */
             if (strcmp(device, "rootfs") == 0)
@@ -94,16 +98,6 @@ int mydf()
             strcpy(s1, kscale(s.f_blocks, s.f_bsize));
             strcpy(s2, kscale(s.f_blocks - s.f_bfree, s.f_bsize));
             strcpy(s3, kscale(s.f_bavail, s.f_bsize));
-//            printf(" %9s %9s %9s %3u%% %s/n",
-//                    s1,
-//                    s2,
-//                    s3,
-//                    blocks_percent_used, mount_point);
-//            printf(" %9s %9s %9s %3u%% %s/n",
-//                    s1,
-//                    s2,
-//                    s3,
-//                    blocks_percent_used, mount_point);
             device_info[device_num][0]=QString(device);
             device_info[device_num][1]=QString(s1);
             device_info[device_num][2]=QString(s2);

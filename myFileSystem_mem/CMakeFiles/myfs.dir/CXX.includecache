@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem_mem/src/Buffer.cpp
+Buffer.hpp
+/home/wings/OneDrive/Labs/HUST_OS_CourseDesign/myFileSystem_mem/src/Buffer.hpp
+
+include/Buffer.hpp
+cstring
+-
+iostream
+include/iostream
+macro.h
+include/macro.h
+assert.h
+include/assert.h
+iostream
+-
+vector
+-
+
+include/macro.h
+fstream
+-
+stdint.h
+include/stdint.h
+

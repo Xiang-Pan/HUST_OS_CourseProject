@@ -1,3 +1,9 @@
+/* FileName:netinfo.cpp
+ * Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description: net module
+ */
 #include "netinfo.h"
 
 time_t net_previous_timeStamp;

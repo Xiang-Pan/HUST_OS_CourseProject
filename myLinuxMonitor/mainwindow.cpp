@@ -1,3 +1,9 @@
+/* FileName:mainwindow.h
+ * Author:Hover
+ * E-Mail:hover@hust.edu.cn
+ * GitHub:HoverWings
+ * Description: Draw Mainwindow
+ */
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -24,20 +30,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setRescources();
 
-    ui->Process_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);//设置选中模式为选中行
-    ui->Process_tableView->setSelectionMode( QAbstractItemView::SingleSelection);//设置选中单个
+    ui->Process_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);  //single line
+    ui->Process_tableView->setSelectionMode( QAbstractItemView::SingleSelection);//single choose
     ui->Process_tableView->setEditTriggers ( QAbstractItemView::NoEditTriggers );
     QHeaderView *hv = ui->Process_tableView->horizontalHeader();
-    hv->setSortIndicatorShown(true); //显示排序三角
-    hv->sectionsClickable();//设置标题可以被单击
+    hv->setSortIndicatorShown(true); // set sort avaliable
+    hv->sectionsClickable();         // set title clickable
     connect(hv, SIGNAL(sectionClicked(int)), this, SLOT(onHeaderClicked(int)));
 
     fs_view=new TableView(this);
     fs_model=fs_view->tableModel();
     fs_view->setModel(fs_model);
     fs_view->setEditTriggers ( QAbstractItemView::NoEditTriggers );
-    fs_view->setSelectionBehavior(QAbstractItemView::SelectRows);//设置选中模式为选中行
-    fs_view->setSelectionMode(QAbstractItemView::SingleSelection);//设置选中单个
+    fs_view->setSelectionBehavior(QAbstractItemView::SelectRows);   //single line
+    fs_view->setSelectionMode(QAbstractItemView::SingleSelection);  //single choose
     QStringList fs_titleList;
     fs_titleList<<QString("Device")
                 <<QString("Total")
@@ -52,21 +58,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tab_3->setLayout(layout);
     connect(fs_view, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(rowDoubleClicked(const QModelIndex &)));
 
-//    for (QStringList& v : data)
-//    {
-//        int value =v.at(1).toInt();
-//        qDebug() << value;
-//        if (value < 100)
-//        {
-//            value += 2;
-//            qDebug() << value;
-//            v[1] = QString::number(value);
-//            emit fs_model->layoutChanged();
-//        }
-//    }
-
-
-//    QHeaderView *hv = ui->Process_tableView->horizontalHeader();
     max_procs = 0;
     delay = 1;
     iterations = -1;
@@ -92,7 +83,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::rowDoubleClicked(const QModelIndex index)
 {
-//    QModelIndex nowIndex =fs_view->currentIndex();
     QVector<QStringList>& data = fs_model->DataVector();
     if (index.isValid())
     {
@@ -104,7 +94,7 @@ void MainWindow::rowDoubleClicked(const QModelIndex index)
 
 void MainWindow::onHeaderClicked(int colNum)
 {
-    qDebug()<<"colNum"<<colNum;
+//    qDebug()<<"colNum"<<colNum;
     _colNum=colNum;
 }
 
@@ -120,9 +110,6 @@ void MainWindow::show_procs(bool update_process)
     {
             process_model->clear();;
     }
-//    process_vec.clear();
-//    process_title.clear();
-//    process_table.clear();
     int i;
     struct proc_info *old_proc, *proc;
     long unsigned total_delta_time;
@@ -270,8 +257,8 @@ void MainWindow::setProcess(bool update_process)
         ui->Process_tableView->selectRow(focus_index.row());
         //set scroll
         int maxValue = ui->Process_tableView->verticalScrollBar()->maximum();		// 当前SCROLLER最大显示值
-        int pageValue = ((focus_index.row())*maxValue/ui->Process_tableView->model()->rowCount());
-        ui->Process_tableView->verticalScrollBar()->setSliderPosition(pageValue+4);
+        int pageValue = ceil(((focus_index.row())*maxValue/ui->Process_tableView->model()->rowCount()));
+        ui->Process_tableView->verticalScrollBar()->setSliderPosition(pageValue);
     }
 }
 
@@ -719,7 +706,6 @@ void MainWindow::timerEvent(QTimerEvent *event)
     }
     if(event->timerId()==process_timeId)
     {
-        qDebug()<<"asdasd";
         setMem();
         old_procs = new_procs;
         num_old_procs = num_new_procs;
@@ -753,13 +739,13 @@ void MainWindow::setFileSystem(int device_num)
 
         if(device.mid(0,4).compare("/dev")==0)
         {
-            qDebug()<<i
-                    <<device_info[i][0]
-                    <<device_info[i][1]
-                    <<device_info[i][2]
-                    <<device_info[i][3]
-                    <<device_info[i][4].toInt()
-                    <<device_info[i][5];
+//            qDebug()<<i
+//                    <<device_info[i][0]
+//                    <<device_info[i][1]
+//                    <<device_info[i][2]
+//                    <<device_info[i][3]
+//                    <<device_info[i][4].toInt()
+//                    <<device_info[i][5];
             strList<<device_info[i][0]
                     <<device_info[i][1]
                     <<device_info[i][2]
@@ -812,6 +798,7 @@ void MainWindow::on_Process_tableView_clicked(const QModelIndex &index)
 void MainWindow::on_lineEdit_returnPressed()
 {
     QString str=ui->lineEdit->text();
+    qDebug()<<"search!!!!!"<<str;
     if (str.isEmpty())
            return;
     searchModelandItem(str);
@@ -834,6 +821,7 @@ void MainWindow::searchModelandItem(QString ID)
         for (int j = 0; j<column; ++j)
         {
             item_index = model->index(i, j);
+            qDebug()<<"data"<<model->data(item_index);
             item_data=model->data(item_index);
             if (item_data== ID)
             {

@@ -30,7 +30,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideMiddle</enum>
@@ -61,7 +61,7 @@
      <widget class="QPushButton" name="kill_pushButton">
       <property name="geometry">
        <rect>
-        <x>300</x>
+        <x>790</x>
         <y>600</y>
         <width>88</width>
         <height>27</height>
@@ -77,7 +77,7 @@
         <x>30</x>
         <y>50</y>
         <width>851</width>
-        <height>311</height>
+        <height>511</height>
        </rect>
       </property>
      </widget>

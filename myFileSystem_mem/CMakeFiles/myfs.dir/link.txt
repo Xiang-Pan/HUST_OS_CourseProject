@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/myfs.dir/src/Buffer.cpp.o CMakeFiles/myfs.dir/src/direntry.cpp.o CMakeFiles/myfs.dir/src/inode.cpp.o CMakeFiles/myfs.dir/src/main.cpp.o CMakeFiles/myfs.dir/src/myfs.cpp.o CMakeFiles/myfs.dir/src/superblock.cpp.o  -o myfs -lboost_serialization 

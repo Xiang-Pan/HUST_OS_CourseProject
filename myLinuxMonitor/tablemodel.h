@@ -1,3 +1,12 @@
+/* FileName:    tablemodel.h
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: inherit the QItemDelegate and overload partial fun of the module
+ *              to draw the process bar in the QTableView
+ *              setData and maintain the data in this class which is convient for
+ *              update the data and draw processbar dynamically
+ */
 #ifndef TABLEMODEL_H
 #define TABLEMODEL_H
 

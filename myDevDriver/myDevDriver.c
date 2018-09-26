@@ -15,10 +15,7 @@ int my_release(struct inode *inode, struct file *file);
 ssize_t my_read(struct file *file, char __user *user, size_t t, loff_t *f);
 ssize_t my_write(struct file *file, const char __user *user, size_t t, loff_t *f);
 
-char message[MAX_SIZE] = "--------Hover'sDriver---------";
-
-
-
+char message[MAX_SIZE] = "--------Hover'sDriver---------";  // the message buffer for text device
 int devNum;           
 char* devName = "myDrive";
 
@@ -43,8 +40,7 @@ static struct char_device_struct
 */
 
 //D:init module
-//I: 
-//  devNum:0 present dynamic alloc
+//I:devNum:0 present dynamic alloc
 //  devName
 //  fOp_ptr
 //O:init result
@@ -60,11 +56,12 @@ int init_module()
     {
         printk("the myDrive has been registered!\n");
         devNum = ret;
-        printk("<<---the myDrive's number(id): %d\n",ret);
-        printk("<<---create a dev file ,please enter:\n");
-        printk("<<----'mknod /dev/myDrive c %d 0'----\n",devNum);
-        printk("<<---delete device,please enter < rm /dev/%s >",devName);
-        printk("<<---delete module , please enter < rmmode device >");
+        // debug information
+        printk("---the myDrive's number(id): %d\n",ret);
+        printk("create a dev file\n");
+        printk("\t usage: mknod /dev/myDrive c %d 0'----\n",devNum);
+        printk("delete device\n\t usage: rm /dev/%s ",devName);
+        printk("delete module\n\t usage: rmmode device ");
         return 0;
     }
 
@@ -90,7 +87,6 @@ int my_release(struct inode *inode, struct file *file)
 {
     printk("Device released !\n");
     module_put(THIS_MODULE);  //Reference amount minus 1
-
     return 0;
 }
 

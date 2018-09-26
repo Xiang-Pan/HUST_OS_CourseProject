@@ -1,3 +1,12 @@
+/* FileName:    tablemodel.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: inherit the QItemDelegate and overload partial fun of the module
+ *              to draw the process bar in the QTableView
+ *              setData and maintain the data in this class which is convient for
+ *              update the data and draw processbar dynamically
+ */
 #include "tablemodel.h"
 
 TableModel::TableModel(QObject *parent) :
@@ -41,10 +50,8 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
-
     Qt::ItemFlags flag = QAbstractItemModel::flags(index);
-
-    // flag|=Qt::ItemIsEditable // 设置单元格可编辑,此处注释,单元格无法被编辑
+    // flag|=Qt::ItemIsEditable
     return flag;
 }
 

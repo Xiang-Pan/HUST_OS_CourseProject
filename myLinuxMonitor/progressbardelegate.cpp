@@ -1,3 +1,10 @@
+/* FileName:    progressbardelegate.cpp
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description: inherit the QItemDelegate and overload partial fun of the module
+ *              to draw the process bar in the QTableView
+ */
 #include "progressbardelegate.h"
 
 #include <QPainter>

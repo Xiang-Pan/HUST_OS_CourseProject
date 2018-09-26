@@ -1,6 +1,11 @@
+/* FileName:    filesystems.h
+ * Author:      Hover
+ * E-Mail:      hover@hust.edu.cn
+ * GitHub:      HoverWings
+ * Description:FileSystem Module
+ */
 #ifndef FILESYSTEMS_H
 #define FILESYSTEMS_H
-
 
 #include <QString>
 #include <QTimer>

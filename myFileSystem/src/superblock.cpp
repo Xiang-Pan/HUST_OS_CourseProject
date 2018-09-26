@@ -86,7 +86,8 @@ int superblock::get_new_sec()
 }
 
 // 回收i节点
-bool superblock::recv_inode(int inode_num) {
+bool superblock::recv_inode(int inode_num) 
+{
     assert(inode_num >= 0 && inode_num < INODE_NUM);
 
     inode_bitmap[inode_num] = false;

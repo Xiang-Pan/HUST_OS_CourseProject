@@ -37,12 +37,12 @@ class SuperBlock
 
         bool read_from_disk();
 
-        template<class Archive>
-        void serialize(Archive & ar, const unsigned int version)
-        {
-            ar& inode_bitmap;
-            ar& block_bitmap;
-        }
+        // template<class Archive>
+        // void serialize(Archive & ar, const unsigned int version)
+        // {
+        //     ar& inode_bitmap;
+        //     ar& block_bitmap;
+        // }
 };
 
 #endif
